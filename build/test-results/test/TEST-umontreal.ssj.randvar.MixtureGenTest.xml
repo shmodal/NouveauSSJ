@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="umontreal.ssj.randvar.MixtureGenTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2019-05-24T18:04:35" hostname="LAPTOP-I4JFFR1G" time="0.19">
+  <properties/>
+  <testcase name="testMixtureMean" classname="umontreal.ssj.randvar.MixtureGenTest" time="0.128"/>
+  <testcase name="testMixtureMean2" classname="umontreal.ssj.randvar.MixtureGenTest" time="0.06"/>
+  <system-out><![CDATA[Real mean: 7.5 , average found: 7.478457667155239
+Real mean: 12.5 , average found: 12.513173603607518
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

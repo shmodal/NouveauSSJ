@@ -1,0 +1,72 @@
+/**
+ * @package umontreal.ssj.networks
+ *
+ * Tools for Simple Graph Theory and Static Reliability.
+ *
+ * This package provides tools to implement a stochastic non-oriented weighted graph 
+ * and estimate associated rare-event probabilities, such as the probability of failing.
+ * It is very practical for dynamic evaluation of the connectivity, when one needs to add
+ * or delete edges and update connected components.
+ *
+ * It also implements several classic static reliability algorithms, such as PMC, Turnip, and 
+ * their variants (constructive or destructive scheme, shocks and dependence with edges). 
+ *
+ * 
+ *
+ * To solve this type of problem you should first build the graph associated to your problem by using
+ * the class @ref Graph from a text file. For more details check @ref Graph  .
+ *  
+ * There are several data structures useful for solving network problems, most notably the class
+ * @ref Forest which maintains a list of active edges (so as to "add" or "delete" them),
+ * and remembers the trees to which nodes belong.
+ *
+ * Another important feature of this package is the possibility to estimate network reliability 
+ * in the case of dependencies between edges, with shocks striking several edges or nodes
+ * at the same time. Check @ref ShockList for more details. In particular, this is implemented in
+ * @ref ForestDestruct, @ref ForestShocks and @ref ForestAntiShocks.
+ *
+ *
+ * @ref PMC and its variants compute the reliability of the links
+ * by simulating repair times and then only keeping the order (permutation) in which 
+ * the links are repaired. @ref Turnip is an improvement of this
+ * method.
+ * 
+ * 
+ * There are also @ref MonteCarlo and 
+ * @ref MonteCarloShocks, two classes which compute the reliability
+ * with a simple Monte Carlo run. They are here for testing and comparing purposes, as they
+ * do not work with small reliabilities.
+ *
+ * 
+ *
+ * The abstract class @ref MarkovChain, the classes 
+ * @ref ConnectivityState (and its variants 
+ * @ref ConnectivityStateShocks ...) should be modified later.
+ * They implement Markov Chains which remember the current gamma level (used for Generalized  
+ * Splitting) and update the gamma level in the forest.
+ * 
+ * The <tt>NextStep</tt> of the Markov chain (which corresponds to the conditional sampling 
+ * of the links) is implemented in @ref ConnectivityState and 
+ * the similar classes. 
+ * It of course depends on the choice of scheme (constructive, destructive, with shocks or 
+ * anti shocks...).
+ *
+ ## Examples
+ *
+ *  @anchor REF_staticreliability_overview_sec_examples
+ *
+ * The following examples demonstrate how to use this package.
+ *
+ * 
+ * The class @ref umontreal.ssj.network.GraphCreator
+ *   shows a simple implementation of a
+ * @ref umontreal.ssj.network.Graph.
+ * It can create elementary graphs which will enable you to be familiar with the library.
+ *
+ *   <strong>A simple implementation of `Graph`</strong>
+ * 
+ * @anchor REF_staticreliability_overview_lst_Brownian
+ * @include staticreliability/createGraph.java
+ *
+ * 
+ */

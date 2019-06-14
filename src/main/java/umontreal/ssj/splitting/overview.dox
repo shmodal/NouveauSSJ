@@ -1,0 +1,26 @@
+/**
+ * @package umontreal.ssj.splitting
+ *
+ * Splitting algorithms.
+ *  
+ * 
+ * For now, these algorithms can only be applied to networks. They use 
+ * @ref umontreal.ssj.networks.MarkovChain and @ref umontreal.ssj.networks.ConnectivityState, which are
+ * implementations of Markov Chains specific to static network reliability problems.
+ *
+ * @ref GeneralizedSplitting computes the reliability of a network using the
+ * Generalized splitting algorithm introduced in <tt> Static Network Reliability Estimation
+ * Via Generalized Splitting </tt>. One has to use first 
+ * @ref AdamSplitting , which returns the best suited gamma levels 
+ * for GS.
+ * 
+ * 
+ * 
+ *
+ * 
+ *  
+ * 
+ *
+ * 
+ * 
+ */

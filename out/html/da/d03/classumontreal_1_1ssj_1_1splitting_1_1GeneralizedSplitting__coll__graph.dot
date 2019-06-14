@@ -1,0 +1,48 @@
+digraph "GeneralizedSplitting"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="GeneralizedSplitting",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" turn" ,fontname="Helvetica"];
+  Node2 [label="PMC",height=0.2,width=0.4,color="black",URL="$d4/de0/classumontreal_1_1ssj_1_1networks_1_1PMC.html",tooltip="This class implements the Permutation Monte Carlo method to estimate the reliability of a network..."];
+  Node3 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" forest" ,fontname="Helvetica"];
+  Node3 [label="Forest",height=0.2,width=0.4,color="black",URL="$d8/d06/classumontreal_1_1ssj_1_1networks_1_1Forest.html",tooltip="This class implements forest and trees. "];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="Cloneable",height=0.2,width=0.4,color="grey75"];
+  Node5 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" father" ,fontname="Helvetica"];
+  Node5 [label="Graph",height=0.2,width=0.4,color="black",URL="$d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html",tooltip="This class implements a stochastic non-oriented weighted graph (a network). "];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 -> Node5 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" nodes" ,fontname="Helvetica"];
+  Node6 [label="Node",height=0.2,width=0.4,color="black",URL="$dc/dbc/classumontreal_1_1ssj_1_1networks_1_1Node.html",tooltip="This class provides nodes for a graph. "];
+  Node7 -> Node5 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" links" ,fontname="Helvetica"];
+  Node7 [label="Link",height=0.2,width=0.4,color="black",URL="$df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html",tooltip="A Link of a network. "];
+  Node8 -> Node7 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_sam" ,fontname="Helvetica"];
+  Node8 [label="SamplerType",height=0.2,width=0.4,color="black",URL="$db/d5d/enumumontreal_1_1ssj_1_1networks_1_1SamplerType.html"];
+  Node5 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" father" ,fontname="Helvetica"];
+  Node9 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" criticalLink" ,fontname="Helvetica"];
+  Node9 [label="Tally",height=0.2,width=0.4,color="black",URL="$d8/d54/classumontreal_1_1ssj_1_1stat_1_1Tally.html",tooltip="A subclass of StatProbe. "];
+  Node10 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="StatProbe",height=0.2,width=0.4,color="black",URL="$d5/d8e/classumontreal_1_1ssj_1_1stat_1_1StatProbe.html",tooltip="The objects of this class are statistical probes or collectors, which are elementary devices for coll..."];
+  Node11 -> Node10 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" listeners" ,fontname="Helvetica"];
+  Node11 [label="List\< umontreal.ssj.stat.\lObservationListener \>",height=0.2,width=0.4,color="grey75"];
+  Node4 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 -> Node9 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" log" ,fontname="Helvetica"];
+  Node12 [label="Logger",height=0.2,width=0.4,color="grey75"];
+  Node13 -> Node9 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" confidenceInterval" ,fontname="Helvetica"];
+  Node13 [label="Tally.CIType",height=0.2,width=0.4,color="black",URL="$d9/df5/enumumontreal_1_1ssj_1_1stat_1_1Tally_1_1CIType.html"];
+  Node14 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" store" ,fontname="Helvetica"];
+  Node14 [label="TallyStore",height=0.2,width=0.4,color="black",URL="$d8/de5/classumontreal_1_1ssj_1_1stat_1_1TallyStore.html",tooltip="This class is a variant of Tally for which the individual observations are stored in a list implement..."];
+  Node9 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 -> Node14 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" array" ,fontname="Helvetica"];
+  Node15 [label="DoubleArrayList",height=0.2,width=0.4,color="grey75"];
+  Node12 -> Node14 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" log" ,fontname="Helvetica"];
+  Node16 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" hist" ,fontname="Helvetica"];
+  Node16 [label="TallyHistogram",height=0.2,width=0.4,color="black",URL="$de/d2f/classumontreal_1_1ssj_1_1stat_1_1TallyHistogram.html",tooltip="This class extends Tally. "];
+  Node9 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" store0\nstore1\nstore" ,fontname="Helvetica"];
+  Node17 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" edgeTallies" ,fontname="Helvetica"];
+  Node17 [label="ListOfTallies\< TallyStore \>",height=0.2,width=0.4,color="black",URL="$db/d52/classumontreal_1_1ssj_1_1stat_1_1list_1_1ListOfTallies.html"];
+  Node16 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" hist" ,fontname="Helvetica"];
+}

@@ -1,0 +1,36 @@
+digraph "MarkovChainConnectivityState"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node3 [label="MarkovChainConnectivityState",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="MarkovChainWithImportance",height=0.2,width=0.4,color="black",URL="$d7/df3/classumontreal_1_1ssj_1_1networks_1_1MarkovChainWithImportance.html",tooltip="Abstract class, extended by Connectivity State and al. "];
+  Node5 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="Cloneable",height=0.2,width=0.4,color="grey75"];
+  Node6 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" timer" ,fontname="Helvetica"];
+  Node6 [label="Chrono",height=0.2,width=0.4,color="black",URL="$d7/d9f/classumontreal_1_1ssj_1_1util_1_1Chrono.html",tooltip="The Chrono class extends the umontreal.ssj.util.AbstractChrono class and computes the CPU time for th..."];
+  Node7 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="AbstractChrono",height=0.2,width=0.4,color="black",URL="$da/d4c/classumontreal_1_1ssj_1_1util_1_1AbstractChrono.html",tooltip="AbstractChrono is a class that acts as an interface to the system clock and calculates the CPU or sys..."];
+  Node8 -> Node6 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" chrono" ,fontname="Helvetica"];
+  Node8 [label="ThreadCPUTimeChrono",height=0.2,width=0.4,color="black",URL="$d1/d71/classumontreal_1_1ssj_1_1util_1_1ThreadCPUTimeChrono.html",tooltip="Extends the AbstractChrono class to compute the CPU time for a single thread. "];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 -> Node8 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" threadMXBean" ,fontname="Helvetica"];
+  Node9 [label="ThreadMXBean",height=0.2,width=0.4,color="grey75"];
+  Node10 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" streamPermut" ,fontname="Helvetica"];
+  Node10 [label="RandomStream",height=0.2,width=0.4,color="black",URL="$d1/d7c/interfaceumontreal_1_1ssj_1_1rng_1_1RandomStream.html",tooltip="This interface defines the basic structures to handle multiple streams of uniform (pseudo)random numb..."];
+  Node11 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" forest" ,fontname="Helvetica"];
+  Node11 [label="Forest",height=0.2,width=0.4,color="black",URL="$d8/d06/classumontreal_1_1ssj_1_1networks_1_1Forest.html",tooltip="This class implements forest and trees. "];
+  Node5 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 -> Node11 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" father" ,fontname="Helvetica"];
+  Node12 [label="Graph",height=0.2,width=0.4,color="black",URL="$d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html",tooltip="This class implements a stochastic non-oriented weighted graph (a network). "];
+  Node5 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 -> Node12 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" nodes" ,fontname="Helvetica"];
+  Node13 [label="Node",height=0.2,width=0.4,color="black",URL="$dc/dbc/classumontreal_1_1ssj_1_1networks_1_1Node.html",tooltip="This class provides nodes for a graph. "];
+  Node14 -> Node12 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" links" ,fontname="Helvetica"];
+  Node14 [label="Link",height=0.2,width=0.4,color="black",URL="$df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html",tooltip="A Link of a network. "];
+  Node15 -> Node14 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_sam" ,fontname="Helvetica"];
+  Node15 [label="SamplerType",height=0.2,width=0.4,color="black",URL="$db/d5d/enumumontreal_1_1ssj_1_1networks_1_1SamplerType.html"];
+  Node12 -> Node3 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" father" ,fontname="Helvetica"];
+}
