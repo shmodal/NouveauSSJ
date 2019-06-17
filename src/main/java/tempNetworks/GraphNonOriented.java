@@ -1,17 +1,18 @@
-package umontreal.ssj.TempNetworks;
+package tempNetworks;
 
 import java.util.ArrayList;
 
+import graph.Link;
+import graph.Node;
 import umontreal.ssj.util.PrintfFormat;
 
-public class GraphOriented extends GraphBasic{
-
+public class GraphNonOriented extends GraphBasic{
 	
-	public GraphOriented() {
-		numNodes = 0;
-		numLinks = 0;
-		this.links = new ArrayList<LinkBasic>();
-		this.nodes = new ArrayList<NodeBasic>();
+	public GraphNonOriented() {
+		this.numLinks=0;
+		this.numNodes=0;
+		this.links=new ArrayList<LinkBasic>();
+		this.nodes=new ArrayList<NodeBasic>();
 	}
 	
 	   /**
@@ -20,8 +21,9 @@ public class GraphOriented extends GraphBasic{
 	    * @return void
 	    */
 	   public void addNode(NodeBasic n) {
+		   this.numNodes++;
 		   this.nodes.add(n);
-		   this.numNodes++;  
+		   
 	   }
 	   
 	   /**
@@ -33,26 +35,29 @@ public class GraphOriented extends GraphBasic{
 		   this.links.add(l);
 		   this.numLinks++;
 		   int a = l.getSource();
+	       int b = l.getTarget();
 	       this.nodes.get(a).incCounter();
+	       this.nodes.get(b).incCounter();
 	       this.nodes.get(a).addNodeLink(l.getIndice());
-	       
-	   }
-	   
-	   public int getLinkWithSourceAndSinkNodes(int i, int j) {
+	       this.nodes.get(b).addNodeLink(l.getIndice());
+	   }	
+
+	   public int getLinkWithNodes(int i, int j) {
 	      int k = 0;
-	      while (k < this.numLinks) {
+	      while (k < numLinks) {
 	         int a, b;
-	         a = this.links.get(k).getSource();
-	         b = this.links.get(k).getTarget();
-	         if (a == i && b == j) {
+	         a = links.get(k).getSource();
+	         b = links.get(k).getTarget();
+	         if ((a == i && b == j) || (a == j && b == i)) {
 	            break;
 	         }
 	         k++;
 	      }
-	      if (k == this.numLinks)
+	      if (k == numLinks)
 	         return -1;
-	      return this.links.get(k).getIndice();
+	      return links.get(k).getIndice();
 	   }
+	   
 	   
 	   @Override
 	   public String toString() {

@@ -1,4 +1,4 @@
-package umontreal.ssj.TempNetworks;
+package tempNetworks;
 
 import java.io.IOException;
 

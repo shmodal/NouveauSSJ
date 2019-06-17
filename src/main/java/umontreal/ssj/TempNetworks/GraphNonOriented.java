@@ -2,7 +2,16 @@ package umontreal.ssj.TempNetworks;
 
 import java.util.ArrayList;
 
+import umontreal.ssj.util.PrintfFormat;
+
 public class GraphNonOriented extends GraphBasic{
+	
+	public GraphNonOriented() {
+		this.numLinks=0;
+		this.numNodes=0;
+		this.links=new ArrayList<LinkBasic>();
+		this.nodes=new ArrayList<NodeBasic>();
+	}
 	
 	   /**
 	    * Add a node if users want to
@@ -10,8 +19,8 @@ public class GraphNonOriented extends GraphBasic{
 	    * @return void
 	    */
 	   public void addNode(NodeBasic n) {
-		   this.nodes.add(n);
 		   this.numNodes++;
+		   this.nodes.add(n);
 		   
 	   }
 	   
@@ -45,5 +54,37 @@ public class GraphNonOriented extends GraphBasic{
 	      if (k == numLinks)
 	         return -1;
 	      return links.get(k).getIndice();
+	   }
+	   
+	   
+	   @Override
+	   public String toString() {
+	      StringBuffer sb = new StringBuffer(
+	            "================================================= Graph"
+	                  + PrintfFormat.NEWLINE);
+	      for (int i = 0; i < numLinks; i++) {
+	         LinkBasic link = links.get(i);
+	         sb.append("link  " + link.getIndice() + "  connects nodes  "
+	               + link.getSource() + ", " + link.getTarget()
+	               + PrintfFormat.NEWLINE);
+	      }
+	      sb.append(PrintfFormat.NEWLINE + "----------------------------------"
+	                + PrintfFormat.NEWLINE);
+	      
+	      for (int i = 0; i < numNodes; i++) {
+	         NodeBasic node = nodes.get(i);
+	         int r = node.getNodeLinks().size();
+	         sb.append("node  " + node.getNumber());
+	         sb.append("  has " + r + " links: ");
+	         if(r>0) {
+		         for (int j = 0; j < r - 1; j++) {
+		            sb.append(node.getNodeLink(j) + ", ");
+		         }
+		         sb.append(node.getNodeLink(r - 1));
+	         }
+	         sb.append(PrintfFormat.NEWLINE);
+	      }
+	      
+	      return sb.toString();
 	   }
 }

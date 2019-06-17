@@ -1,11 +1,10 @@
-package umontreal.ssj.TempNetworks;
+package tempNetworks;
 
 //import umontreal.ssj.sampling.*;
-import umontreal.ssj.networks.staticreliability.ExponentialSampler;
+import sampling.ExponentialSampler;
 
-
-import umontreal.ssj.networks.staticreliability.SamplerType;
-import umontreal.ssj.networks.staticreliability.UniformSampler;
+import sampling.SamplerType;
+import sampling.UniformSampler;
 import umontreal.ssj.probdist.NormalDist;
 import umontreal.ssj.rng.RandomStream;
 
