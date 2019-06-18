@@ -134,13 +134,19 @@ public class GraphReliability extends GraphNonOriented implements Cloneable {
          nodes.get(a).incCounter();
          nodes.get(b).incCounter();
          prob = Double.parseDouble(ss[pos + 2]);
-         links.add(new LinkCapacity(i, a, b));
+         
+         // VERIFIER
+         //links.add(new LinkWithCapacity(i, a, b));
+         links.add(new LinkReliability(i, a, b));
          links.get(i).setR(prob);
       }
 
       for (int i = 0; i < numNodes; i++) {
-    	  nodes.get(i).setNodeLinks(new int[nodes.get(i).getCounter()]);
-         // for the next step
+    	  //nodes.get(i).setNodeLinks(new int[nodes.get(i).getCounter()]);
+    	  int n = nodes.get(i).getCounter();
+          ArrayList<Integer> myLinks = new ArrayList<Integer>(n);
+    	  nodes.get(i).setNodeLinks(myLinks);
+    	  // for the next step
     	  nodes.get(i).setCounter(0);
       }
 
@@ -187,9 +193,16 @@ public class GraphReliability extends GraphNonOriented implements Cloneable {
     * 
     * @return return a tab of links contains links of the graph
     */
-   public ArrayList<LinkReliability> getLinks() {
-      return links;
+   public ArrayList<LinkBasic> getLinks() {
+      return  links;
    }
+   
+   
+   //public ArrayList<LinkReliability> getLinks() {
+	//      return links;
+	 //  }
+   
+   
 
    // MIS DANS BASIC, A VERIFIER
    
@@ -214,7 +227,7 @@ public class GraphReliability extends GraphNonOriented implements Cloneable {
     * @return return the number of neighbors of i
     */
    public int getNumberOfNeighbors(int i) {
-      return nodes.get(i).getNodeLinks().length;
+      return nodes.get(i).getNodeLinks().size();
    }
 
    //VERIFIER SI OK BASIC
@@ -370,11 +383,11 @@ public class GraphReliability extends GraphNonOriented implements Cloneable {
    public GraphReliability clone() {
       GraphReliability image = null;
 
-      try {
-         image = (GraphReliability) super.clone();
-      } catch (CloneNotSupportedException e) {
-      }
-
+      //try {
+      //   image = (GraphReliability) super.clone();
+      //} catch (CloneNotSupportedException e) {
+      //}
+      image = (GraphReliability) super.clone();
       image.numLinks = numLinks;
       image.numNodes = numNodes;
 
@@ -392,9 +405,11 @@ public class GraphReliability extends GraphNonOriented implements Cloneable {
       image.nodes = new ArrayList<NodeBasic>();
       for (int i = 0; i < numNodes; i++) {
          if (nodes.get(i).getNodeLinks() != null) {
-            int clonemylink[] = new int[nodes.get(i).getNodeLinks().size()];
-            for (int j = 0; j < clonemylink.length; j++) {
-               clonemylink[j] = nodes.get(i).getNodeLink(j);
+            //int clonemylink[] = new int[nodes.get(i).getNodeLinks().size()];
+            int n = nodes.get(i).getNodeLinks().size();
+            ArrayList<Integer> clonemylink = new ArrayList<Integer>();
+            for (int j = 0; j < n; j++) {
+               clonemylink.add(nodes.get(i).getNodeLink(j));
             }
             image.nodes.add( new NodeBasic(0, nodes.get(i).getNumber(), clonemylink));
          } else {

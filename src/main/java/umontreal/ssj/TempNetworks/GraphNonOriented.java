@@ -87,4 +87,10 @@ public class GraphNonOriented extends GraphBasic{
 	      
 	      return sb.toString();
 	   }
+	   
+	   
+	   
+
+	   
+	   
 }

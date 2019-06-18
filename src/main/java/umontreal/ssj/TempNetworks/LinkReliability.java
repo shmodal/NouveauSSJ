@@ -41,6 +41,14 @@ public class LinkReliability extends LinkBasic{
 	
 	// autres constructeurs ?
 	
+	public LinkReliability(int indice, int source, int target) {
+		super(indice, source, target);
+		//this.param = param;
+		this.param = 0.0;
+		this.m_sam = SamplerType.NON_INIT;	
+		}
+	
+	
 	public LinkReliability(int indice, int source, int target,double r) {
 		super(indice, source, target);
 		//this.param = param;

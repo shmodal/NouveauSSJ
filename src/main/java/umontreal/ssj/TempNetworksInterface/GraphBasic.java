@@ -1,17 +1,19 @@
-package umontreal.ssj.TempNetworks;
+package umontreal.ssj.TempNetworksInterface;
 
 
 import java.io.*;
 import java.util.*;
 import umontreal.ssj.util.PrintfFormat;
 import umontreal.ssj.rng.RandomStream;
+import umontreal.ssj.TempNetworks.LinkBasic;
+import umontreal.ssj.TempNetworks.NodeBasic;
 import umontreal.ssj.networks.staticreliability.SamplerType;
 import umontreal.ssj.probdist.*;
 import umontreal.ssj.randvar.*;
 
 
 
-public abstract class GraphBasic implements Cloneable {
+public abstract class GraphBasic implements Cloneable,Graph {
 
 	  /**
 	    * Number of nodes
