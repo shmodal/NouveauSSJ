@@ -147,12 +147,12 @@ public class NodeBasic {
 	 
 	   /**
 	    * Clone the node
-	    * @return To obtain a clone of the graph
+	    * @return To obtain a clone of the node
 	    */
 	   @Override
 	   public NodeBasic clone()
 	   {
-	      NodeBasic image = null;
+	      NodeBasic image = new NodeBasic();
 
 	      try {
 	         image = (NodeBasic) super.clone();

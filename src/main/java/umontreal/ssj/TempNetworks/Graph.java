@@ -1,20 +1,18 @@
-package umontreal.ssj.TempNetworksInterface;
+package umontreal.ssj.TempNetworks;
 
 
 import java.io.*;
 import java.util.*;
 import umontreal.ssj.util.PrintfFormat;
 import umontreal.ssj.rng.RandomStream;
-import umontreal.ssj.TempNetworks.LinkBasic;
-import umontreal.ssj.TempNetworks.NodeBasic;
-import umontreal.ssj.networks.staticreliability.SamplerType;
+import umontreal.ssj.TempNetworks.staticreliability.SamplerType;
 import umontreal.ssj.probdist.*;
 import umontreal.ssj.randvar.*;
 
 
 
-public abstract class GraphBasic implements Cloneable,Graph {
-
+public abstract class Graph<N extends NodeBasic, L extends LinkBasic> implements Cloneable {
+	
 	  /**
 	    * Number of nodes
 	    */
@@ -26,24 +24,37 @@ public abstract class GraphBasic implements Cloneable,Graph {
 	   /**
 	    * All the links of the graph, dynamic structure to add after building
 	    */
-	   protected ArrayList<LinkBasic> links;
+	   protected ArrayList<L> links;
 	   /**
 	    * All the nodes of the graph, dynamic structure to add after building
 	    */
-	   protected ArrayList<NodeBasic> nodes;
+	   protected ArrayList<N> nodes;
+	
+	   
+	   
+		public Graph() {
+			this.numLinks=0;
+			this.numNodes=0;
+			this.links=new ArrayList<L>();
+			this.nodes=new ArrayList<N>();
+		}
+		
+		public Graph(ArrayList<L> links, ArrayList<N> nodes) {
+			this.numLinks=0;
+			this.numNodes=0;
+			this.links=links;
+			this.nodes=nodes;
+		}
 	   
 	   
 	   
+	
 	   /**
 	    * Add a node if users want
 	    * 
 	    * @return void
 	    */
-	   //public void addNode(NodeBasic n) {
-		//   this.nodes.add(n);
-		//   this.numNodes++;
-	   //}
-	   public void addNode(NodeBasic n) {
+	   public void addNode(N n) {
 		   this.nodes.add(n);
 		   this.numNodes++;
 	   }
@@ -53,12 +64,9 @@ public abstract class GraphBasic implements Cloneable,Graph {
 	    * 
 	    * @return void
 	    */
-	   //public void addLink(LinkBasic l) {
-	//	   this.links.add(l);
-	//	   this.numLinks++;
-	//   }
 	   
-	   public abstract void addLink(LinkBasic l);
+	   public abstract void addLink(L l);
+	     
 	   /**
 	    * Get the number of nodes
 	    * 
@@ -75,7 +83,7 @@ public abstract class GraphBasic implements Cloneable,Graph {
 	    *           the number of wanted node
 	    * @return return the i-th node
 	    */
-	   public NodeBasic getNode(int i) {
+	   public N getNode(int i) {
 	      return nodes.get(i);
 	   }
 
@@ -84,7 +92,7 @@ public abstract class GraphBasic implements Cloneable,Graph {
 	    * 
 	    * @return return a tab of nodes contains nodes of the graph
 	    */
-	   public ArrayList<NodeBasic> getNodes() {
+	   public ArrayList<N> getNodes() {
 	      return nodes;
 	   }
 
@@ -104,7 +112,7 @@ public abstract class GraphBasic implements Cloneable,Graph {
 	    *           the number of wanted link
 	    * @return return the i-th link
 	    */
-	   public LinkBasic getLink(int i) {
+	   public L getLink(int i) {
 	      return links.get(i);
 	   }
 
@@ -113,7 +121,7 @@ public abstract class GraphBasic implements Cloneable,Graph {
 	    * 
 	    * @return return a tab of links contains links of the graph
 	    */
-	   public ArrayList<LinkBasic> getLinks() {
+	   public ArrayList<L> getLinks() {
 	      return links;
 	   }
 	   
@@ -128,7 +136,7 @@ public abstract class GraphBasic implements Cloneable,Graph {
 	    *           the number of the given link
 	    * @return return link j connected to node i
 	    */
-	   public LinkBasic getLinkFromNode(int j, int i) {
+	   public L getLinkFromNode(int j, int i) {
 	      return links.get(nodes.get(i).getNodeLink(j));
 	   }
 	   
@@ -153,7 +161,7 @@ public abstract class GraphBasic implements Cloneable,Graph {
 	    * @param i
 	    * @return the neighbor of i
 	    */
-	   public int getNeighborOfNode(LinkBasic link, int i) {
+	   public int getNeighborOfNode(L link, int i) {
 	      if (link.getSource() == i)
 	         return link.getTarget();
 	      return link.getSource();
@@ -161,14 +169,22 @@ public abstract class GraphBasic implements Cloneable,Graph {
 	   
 	   
 	   
-	   // a verifier
 	   
-	   @Override
-	   public GraphBasic clone() {
-	      GraphBasic image = null;
+	   /**
+	    * SHOULDNT BE USED
+	    * 
+	    * 
+	    */
+	   
+	   
+	   // CONSERVE TEMPORAIREMENT
+	   
+	   // CLONE ANCIEN QUI FAIT PLEIN DE TRUCS
+	   public Graph clone() {
+	      Graph image = null;
 
 	      try {
-	         image = (GraphBasic) super.clone();
+	         image = (Graph) super.clone();
 	      } catch (CloneNotSupportedException e) {
 	      }
 
@@ -205,6 +221,10 @@ public abstract class GraphBasic implements Cloneable,Graph {
 	   
 	   
 	   
+
+	   
+	   
+	   
 	
-	
+
 }

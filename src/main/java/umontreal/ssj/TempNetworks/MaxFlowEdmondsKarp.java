@@ -22,7 +22,7 @@ public class MaxFlowEdmondsKarp {
 	/* Max flow established after last invocation of the algorithm. */
 	protected double maxFlowValue = -1;
 	/* Mapping of the flow on each edge. */
-	protected Map<Link, Double> maxFlow = null;
+	protected Map<LinkWithCapacity, Double> maxFlow = null;
 	
 	
 	
@@ -90,12 +90,12 @@ public class MaxFlowEdmondsKarp {
     	int[] pathcap = new int[this.residual.getNumNodes()];
     	pathcap[s] = Integer.MAX_VALUE;
     	// initialize parents to build the paths
-    	LinkCapacity[] parent = new LinkCapacity[this.residual.getNumNodes()];
+    	LinkWithCapacity[] parent = new LinkWithCapacity[this.residual.getNumNodes()];
     	LinkedList<Integer> Queue = new LinkedList<Integer>();
     	Queue.add(s);
     	while (!Queue.isEmpty() && parent[target] == null) {
     		int v = Queue.pop();
-    		LinkCapacity link;
+    		LinkWithCapacity link;
     		int j;
     		for (int i = 0; i < this.residual.getNumberOfNeighbors(v); i++) {
     			// get link i connected to node v
@@ -128,8 +128,8 @@ public class MaxFlowEdmondsKarp {
 		 while(parent[cur] != null) {
 			 parent[cur].setCapacity(parent[cur].getCapacity()-flow);
 		     /*get the opposite link*/
-		     int oppositeIndice = residual.getLinkWithNodes(parent[cur].getTarget(), parent[cur].getSource());
-		     LinkCapacity oppositeLink = residual.getLink(oppositeIndice);
+		     int oppositeIndice = residual.getLinkWithSourceAndSinkNodes(parent[cur].getTarget(), parent[cur].getSource());
+		     LinkWithCapacity oppositeLink = residual.getLink(oppositeIndice);
 			 oppositeLink.setCapacity(oppositeLink.getCapacity()+flow);
 		     cur = parent[cur].getSource();
 		 }

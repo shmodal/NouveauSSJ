@@ -1,6 +1,5 @@
 package umontreal.ssj.TempNetworks;
 
-
 public class LinkWithCapacity extends LinkBasic {
 
 	// capacity: only used in flowProblem 
@@ -73,11 +72,11 @@ public class LinkWithCapacity extends LinkBasic {
 	{
 		LinkWithCapacity image = null;
 		
-		try {
-			image = (LinkWithCapacity) super.clone();
-		} catch (CloneNotSupportedException e) {
+		//try {
+		//	image = (LinkWithCapacity) super.clone();
+		//} catch (CloneNotSupportedException e) {
 			// No deberia suceder
-		}
+		//}
 		image = (LinkWithCapacity) super.clone();
 		image.setIndice(this.getIndice());
 		image.setSource(this.getSource());

@@ -10,7 +10,7 @@ public class testCreateGraph {
 	}
 	
 	private static void princ() throws IOException {
-		GraphNonOriented g=new GraphNonOriented();
+		GraphReliability g=new GraphReliability();
 		g.addNode(new NodeBasic(0));
 		g.addNode(new NodeBasic(1));
 		g.addNode(new NodeBasic(2));
@@ -21,5 +21,6 @@ public class testCreateGraph {
 		g.addLink(new LinkReliability(2,1,3,0.9));
 		g.addLink(new LinkReliability(3,2,3,0.9));
 		System.out.println(g.toString());
+		System.out.println(g.getLink(0).getR());
 	}
 }

@@ -1,18 +1,26 @@
 package umontreal.ssj.TempNetworks;
 
 //import umontreal.ssj.sampling.*;
-import umontreal.ssj.networks.staticreliability.ExponentialSampler;
+import umontreal.ssj.TempNetworks.staticreliability.ExponentialSampler;
 
 
-import umontreal.ssj.networks.staticreliability.SamplerType;
-import umontreal.ssj.networks.staticreliability.UniformSampler;
+import umontreal.ssj.TempNetworks.staticreliability.SamplerType;
+import umontreal.ssj.TempNetworks.staticreliability.UniformSampler;
 import umontreal.ssj.probdist.NormalDist;
 import umontreal.ssj.rng.RandomStream;
 
 
 /**
- * A Link of a network. A link is defined by a length and 2 nodes
+ * 
+ *  A Link of a network. A link is defined by a length and 2 nodes
  * connected by this link.
+ * Old description :
+ * A Link of a network. A link is defined by an id (also stored in the array links in Graph)
+ * and 2 nodes connected by this link. It also maintains the reliability and
+ * the parameter of probability distribution associated with the link.
+ * 
+ * 
+ * 
  * 
  */
 public class LinkReliability extends LinkBasic{
@@ -52,7 +60,7 @@ public class LinkReliability extends LinkBasic{
 	public LinkReliability(int indice, int source, int target,double r) {
 		super(indice, source, target);
 		//this.param = param;
-		this.param = r;
+		this.r = r;
 		this.m_sam = SamplerType.NON_INIT;
 		
 		}
@@ -62,7 +70,7 @@ public class LinkReliability extends LinkBasic{
 	public LinkReliability(int indice, int source, int target,double r, double param) {
 		super(indice, source, target);
 		this.param = param;
-		this.param = r;
+		this.r = r;
 		this.m_sam = SamplerType.NON_INIT;
 		
 		}
@@ -115,17 +123,17 @@ public class LinkReliability extends LinkBasic{
    @Override
    public LinkReliability clone()
    {
-      LinkReliability image = null;
+      LinkReliability image = new LinkReliability(this.indice,this.source,this.target);
 
       //try {
       //   image = (LinkReliability) super.clone();
       //} catch (CloneNotSupportedException e) {
          // No deberia suceder
       //}
-      image = (LinkReliability) super.clone();
-      image.indice = this.indice;
-      image.source = this.source;
-      image.target = this.target;
+      //image = (LinkReliability) super.clone();
+      //image.indice = this.indice;
+      //image.source = this.source;
+      //image.target = this.target;
       image.param = this.param;
       image.r = this.r;
       image.m_sam = this.m_sam;
