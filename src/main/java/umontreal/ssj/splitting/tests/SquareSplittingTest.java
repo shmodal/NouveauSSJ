@@ -2,7 +2,7 @@ package umontreal.ssj.splitting.tests;
 
 import java.io.IOException;
 
-import umontreal.ssj.networks.old.GraphOld;
+
 import umontreal.ssj.networks.staticreliability.GraphWithForest;
 import umontreal.ssj.networks.staticreliability.MarkovChainNetworkReliability;
 import umontreal.ssj.networks.staticreliability.SamplerType;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package umontreal.ssj.splitting.tests;
+package umontreal.ssj.networks.staticreliability;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class TestParams {
       }
    }
 
-   public static void setRelRand(GraphReliability graph) {
+   static void setRelRand(GraphReliability graph) {
       int m = graph.getNumLinks();
       RandomStream stream = new MRG32k3a();
       RandomVariateGen gen = new UniformGen(stream, 1, 4);
@@ -178,7 +178,7 @@ public class TestParams {
       graph.setV0(S);
    }
 
-   public static GraphReliability getGraph(String GraphName) throws IOException {
+   static GraphReliability getGraph(String GraphName) throws IOException {
       String file = getGraphfile(GraphName);
       GraphReliability graph = new GraphReliability(file);
       // monV0 (graph, 10);

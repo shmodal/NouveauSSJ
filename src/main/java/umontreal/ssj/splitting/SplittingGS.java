@@ -5,7 +5,6 @@ package umontreal.ssj.splitting;
 import java.util.LinkedList;
 import java.util.List;
 
-import umontreal.ssj.networks.staticreliability.old.MarkovChainOld;
 //import umontreal.ssj.util.Tools;
 import umontreal.ssj.rng.*;
 import umontreal.ssj.util.Chrono;

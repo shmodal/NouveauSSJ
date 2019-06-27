@@ -1,11 +1,5 @@
 package umontreal.ssj.networks.staticreliability;
 
-import umontreal.ssj.networks.staticreliability.GraphWithForest;
-import umontreal.ssj.networks.staticreliability.SamplerType;
-import umontreal.ssj.networks.staticreliability.ShockList;
-import umontreal.ssj.networks.staticreliability.old.GraphWithForestAntiShocks;
-import umontreal.ssj.networks.staticreliability.old.GraphWithForestShocks;
-
 import umontreal.ssj.rng.*;
 import java.util.*;
 
@@ -14,7 +8,7 @@ import java.util.*;
  * anti-shocks, using the anti-rates mu_j = -ln(1 - exp(-lambda_j)).
  * 
  * @author Richard simard
- * @see MarkovChainNetworkReliabilityShocksOld
+ * @see MarkovChainNetworkReliabilityShocks
  * @since novembre 2013
  */
 public class MarkovChainNetworkReliabilityAntiShocks1 extends MarkovChainNetworkReliabilityShocks 

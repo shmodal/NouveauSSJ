@@ -1,7 +1,7 @@
 package umontreal.ssj.networks.staticreliability;
 
-import umontreal.ssj.networks.old.GraphOld;
-import umontreal.ssj.networks.old.LinkOld;
+import umontreal.ssj.networks.GraphReliability;
+import umontreal.ssj.networks.LinkReliability;
 import umontreal.ssj.networks.staticreliability.GraphWithForest;
 import umontreal.ssj.rng.RandomPermutation;
 import umontreal.ssj.rng.RandomStream;
@@ -18,7 +18,7 @@ import umontreal.ssj.splitting.MarkovChainWithImportance;
 
 public class MarkovChainNetworkReliability extends MarkovChainWithImportance {
 	   protected GraphWithForest forest;
-	   protected GraphOld father; // same father as in forest
+	   protected GraphReliability father; // same father as in forest
 	   protected RandomStream streamPermut; // for random permutations of links
 	   
 	   
@@ -174,7 +174,7 @@ public class MarkovChainNetworkReliability extends MarkovChainWithImportance {
 	    */
 	   protected void conditionalSample(RandomStream stream, int j,double gamma)
 	   {
-	      LinkOld link = father.getLink(j);
+	      LinkReliability link = father.getLink(j);
 	      // Get the 2 nodes of link j
 	      int a = link.getSource();
 	      int b = link.getTarget();

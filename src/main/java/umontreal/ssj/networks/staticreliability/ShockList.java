@@ -3,8 +3,8 @@ package umontreal.ssj.networks.staticreliability;
 import java.io.*;
 import java.util.*;
 import umontreal.ssj.util.PrintfFormat;
-import umontreal.ssj.networks.old.GraphOld;
-import umontreal.ssj.networks.old.LinkOld;
+import umontreal.ssj.networks.GraphReliability;
+import umontreal.ssj.networks.LinkReliability;
 import umontreal.ssj.rng.RandomStream;
 
 
@@ -23,7 +23,7 @@ public class ShockList implements Cloneable {
    private double[] lambda; // rate for each shock
    private int[] count; // counts the number of shocks in which link j appears
    String filename = "";  // file name containing the shocks
-   GraphOld graph;
+   GraphReliability graph;
    // when using anti-shock for connectivity = true; otherwise false.
    private boolean antiConnect = false;
 
@@ -45,7 +45,7 @@ public class ShockList implements Cloneable {
     *           list of shocks
     * @throws IOException
     */
-   public ShockList(GraphOld graph, String filename) throws IOException {
+   public ShockList(GraphReliability graph, String filename) throws IOException {
       this.graph = graph;
       int numLinks = graph.getNumLinks();  // number of links of graph
       count = new int[numLinks];
@@ -140,7 +140,7 @@ public class ShockList implements Cloneable {
     * @param graph base graph
     * @return the shocks list 
     */
-   public static ShockList shocksFromNodesFailure(GraphOld graph) {
+   public static ShockList shocksFromNodesFailure(GraphReliability graph) {
       ShockList maliste = new ShockList();
       maliste.filename = "shocks from nodes failure";
       maliste.graph = graph;
@@ -151,7 +151,7 @@ public class ShockList implements Cloneable {
       int n = numNodes - V0.length;  // number of shocks from nodes failure
       maliste.lambda = new double[n];
       maliste.shocks = new ArrayList<Set<Integer>>(n);
-      LinkOld link;
+      LinkReliability link;
       int s;
       
       for (int i = 0; i < numNodes; ++i) {   // visit all nodes
@@ -194,7 +194,7 @@ public class ShockList implements Cloneable {
     * @param graph base graph
     * @return the shocks list 
     */
-   public static ShockList shocksFromLinksFailure(GraphOld graph) {
+   public static ShockList shocksFromLinksFailure(GraphReliability graph) {
       ShockList maliste = new ShockList();
       maliste.filename = "shocks from links: 1 shock fails 1 link ";
       maliste.graph = graph;

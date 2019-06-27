@@ -1,10 +1,10 @@
 package umontreal.ssj.networks.staticreliability;
 
 
-import umontreal.ssj.networks.old.LinkOld;
-import umontreal.ssj.networks.staticreliability.GraphWithForest;
+
+
+import umontreal.ssj.networks.LinkReliability;
 import umontreal.ssj.networks.staticreliability.SamplerType;
-import umontreal.ssj.networks.staticreliability.old.GraphWithForestDestruct;
 import umontreal.ssj.rng.*;
 
 /**
@@ -97,7 +97,7 @@ public class MarkovChainNetworkReliabilityDestruct extends MarkovChainNetworkRel
    @Override
    protected void conditionalSample(RandomStream stream, int j,double gamma)
    {
-      LinkOld link = father.getLink(j);
+	  LinkReliability link = father.getLink(j);
       // Get the 2 nodes of link j
       int a = link.getSource();
       int b = link.getTarget();

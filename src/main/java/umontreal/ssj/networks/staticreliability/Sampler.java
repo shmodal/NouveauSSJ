@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 package umontreal.ssj.networks.staticreliability;
 import umontreal.ssj.randvar.RandomVariateGen;
 

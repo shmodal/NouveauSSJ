@@ -5,7 +5,6 @@ import umontreal.ssj.rng.*;
 import umontreal.ssj.util.Chrono;
 import umontreal.ssj.util.Tools;
 import umontreal.ssj.networks.*;
-import umontreal.ssj.networks.old.GraphOld;
 import umontreal.ssj.splitting.*;
 import umontreal.ssj.splitting.tests.TestParams;
 import umontreal.ssj.networks.staticreliability.*;
@@ -43,7 +42,7 @@ public class GeneralGStest {
          "====================================================== General GS splitting");
       //System.out.println("Machine = " + Tools.getHostName());
 
-      GraphOld graph = TestParams.getGraph(GraphName);
+      GraphReliability graph = TestParams.getGraph(GraphName);
 
       double unrel = q;
       //double rateN = q;

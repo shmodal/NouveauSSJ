@@ -1,9 +1,5 @@
 package umontreal.ssj.networks.staticreliability;
 
-import umontreal.ssj.networks.staticreliability.GraphWithForest;
-import umontreal.ssj.networks.staticreliability.SamplerType;
-import umontreal.ssj.networks.staticreliability.ShockList;
-import umontreal.ssj.networks.staticreliability.old.GraphWithForestShocks;
 import umontreal.ssj.rng.*;
 import java.util.*;
 
@@ -14,7 +10,7 @@ import java.util.*;
  * the constructive schema without any modification.
  * 
  * @author Richard simard
- * @see MarkovChainNetworkReliabilityDestructOld
+ * @see MarkovChainNetworkReliabilityDestruct
  * @since juillet 2013
  */
 public class MarkovChainNetworkReliabilityShocks extends MarkovChainNetworkReliabilityDestruct

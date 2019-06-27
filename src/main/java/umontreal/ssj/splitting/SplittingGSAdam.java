@@ -1,8 +1,6 @@
 package umontreal.ssj.splitting;
 
 
-import umontreal.ssj.networks.staticreliability.old.MarkovChainOld;
-
 import java.util.*;
 import umontreal.ssj.rng.*;
 

@@ -1,8 +1,6 @@
 package umontreal.ssj.networks.staticreliability;
 
-/**
- * 
- */
+
 import umontreal.ssj.rng.RandomStream;
 import umontreal.ssj.randvar.UniformGen;
 import umontreal.ssj.probdist.UniformDist;

@@ -1,7 +1,9 @@
 package umontreal.ssj.networks.staticreliability;
 
-import umontreal.ssj.networks.old.GraphOld;
-import umontreal.ssj.networks.old.LinkOld;
+import umontreal.ssj.networks.GraphReliability;
+import umontreal.ssj.networks.LinkReliability;
+//import umontreal.ssj.networks.old.GraphOld;
+//import umontreal.ssj.networks.old.LinkOld;
 import umontreal.ssj.util.PrintfFormat;
 import java.util.LinkedList;
 import java.util.Arrays;
@@ -25,7 +27,7 @@ public class GraphWithForest implements Cloneable {
     * initial id of trees
     */
    private static final int ID0 = -1; // initial id of trees
-   protected GraphOld father;
+   protected GraphReliability father;
    /**
     * number of trees in forest
     */
@@ -66,7 +68,7 @@ public class GraphWithForest implements Cloneable {
     * with algorithms using constructive scheme).
     */
    
-   public GraphWithForest(GraphOld father) {
+   public GraphWithForest(GraphReliability father) {
       this.father = father;
       int numberOfNodes = father.getNumNodes();
       int numberOfLinks = father.getNumLinks();
@@ -168,7 +170,7 @@ public class GraphWithForest implements Cloneable {
     * Returns the graph of the forest.
     */
    
-   public GraphOld getFather() {
+   public GraphReliability getFather() {
       return father;
    }
 
@@ -338,7 +340,7 @@ public class GraphWithForest implements Cloneable {
     * @param link link
     * @return node-source id
     */
-   public int insertLink(LinkOld link) {
+   public int insertLink(LinkReliability link) {
       int j = link.getIndice();
       if (!operational[j])
          return -1;
@@ -369,7 +371,7 @@ public class GraphWithForest implements Cloneable {
     * @param link
     */
    
-   public void removeLink(LinkOld link) {
+   public void removeLink(LinkReliability link) {
       int j = link.getIndice();
       if (inForest[j] == 1) {
          // remove link j from forest and rebuild new forest
@@ -421,7 +423,7 @@ public class GraphWithForest implements Cloneable {
 
       while (!Queue.isEmpty()) {
          v = Queue.pop();
-         LinkOld link;
+         LinkReliability link;
          int j;
          for (int i = 0; i < father.getNumberOfNeighbors(v); i++) {
             // get link i connected to node v
@@ -530,7 +532,7 @@ public class GraphWithForest implements Cloneable {
                + PrintfFormat.NEWLINE);
       sb.append(PrintfFormat.NEWLINE);
       for (i = 0; i < inForest.length; i++) {
-         LinkOld link = father.getLink(i);
+         LinkReliability link = father.getLink(i);
          int r = link.getSource();
          int s = link.getTarget();
          sb.append("inForest[" + i + "] = " + inForest[i] + "   (" + r + ", "
