@@ -153,7 +153,7 @@ public abstract class Graph<N extends NodeBasic, L extends LinkBasic> implements
 	   
 	   
 	   // VERIFIER
-	   //Probablemet a mettre pour graphe orienté
+	   //Probablemet a mettre pour graphe non-orienté
 	   /**
 	    * Returns the node connected to node i by Link link
 	    * 
@@ -168,6 +168,16 @@ public abstract class Graph<N extends NodeBasic, L extends LinkBasic> implements
 	   }
 	   
 	   
+	   /**
+	    * Set the i-th link to link given
+	    * 
+	    * @param i
+	    *           the number of wanted link
+	    * @return return the i-th link
+	    */
+	   public void setLink(int i, L link) {
+	      links.set(i,link);
+	   }
 	   
 	   
 	   /**

@@ -2,7 +2,8 @@ package umontreal.ssj.splitting.old;
 
 import java.io.IOException;
 
-import umontreal.ssj.networks.old.GraphCreator;
+
+import umontreal.ssj.networks.*;
 
 
 public class createGraph {

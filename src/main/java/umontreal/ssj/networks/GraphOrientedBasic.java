@@ -14,8 +14,8 @@ public class GraphOrientedBasic extends GraphOriented<NodeBasic,LinkBasic> {
 	}
 	
 	public GraphOrientedBasic(ArrayList<NodeBasic> nodes, ArrayList<LinkBasic> links) {
-		this.numLinks=0;
-		this.numNodes=0;
+		this.numLinks=nodes.size();
+		this.numNodes=links.size();
 		this.links=links;
 		this.nodes=nodes;
 	}

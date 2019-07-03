@@ -41,6 +41,20 @@ Graph<N,L> {
 	      return this.links.get(k).getIndice();
 	   }
 	   
+	   /**
+	    * Returns the node connected to node i by Link link
+	    * 
+	    * @param link
+	    * @param i
+	    * @return the neighbor of i
+	    */
+	   @Override
+	   public int getNeighborOfNode(L link, int i) {
+	      if (link.getSource() == i)
+	         return link.getTarget();
+	      //if the link is not from i to another link, return error value
+	      return -1;
+	   }
 	   
 	   @Override
 	   public String toString() {
