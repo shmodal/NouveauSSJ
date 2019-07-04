@@ -1,6 +1,7 @@
 package umontreal.ssj.networks;
 
 import java.io.BufferedReader;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,10 +9,8 @@ import java.util.ArrayList;
 import java.io.*;
 
 import java.util.LinkedList;
+import java.util.Arrays;
 
-import graph.GraphWithCapacity;
-import graph.LinkWithCapacity;
-import graph.Node;
 import umontreal.ssj.util.PrintfFormat;
 import umontreal.ssj.rng.RandomStream;
 import umontreal.ssj.probdist.*;
@@ -22,11 +21,16 @@ import umontreal.ssj.util.PrintfFormat;
 
 public class GraphWithCapacity extends GraphOriented<NodeBasic,LinkWithCapacity> {
 	
+	int source;
+	int target;
+	
 	public GraphWithCapacity() {
 		this.numLinks=0;
 		this.numNodes=0;
 		this.links=new ArrayList<LinkWithCapacity>();
 		this.nodes=new ArrayList<NodeBasic>();
+		this.source=-1;
+		this.target=-1;
 	}
 	
 	public GraphWithCapacity(ArrayList<NodeBasic> nodes, ArrayList<LinkWithCapacity> links) {
@@ -34,7 +38,28 @@ public class GraphWithCapacity extends GraphOriented<NodeBasic,LinkWithCapacity>
 		this.numNodes=links.size();
 		this.links=links;
 		this.nodes=nodes;
+		this.source=-1;
+		this.target=-1;
 	}
+	
+
+	   /**
+	    * Get the source of the graph
+	    * 
+	    * @param s
+	    */
+	   public int getSource() {
+		   return this.source;
+	   }
+
+	   /**
+	    * Get the target of the graph
+	    * 
+	    * @param t
+	    */
+	   public int getTarget() {
+		  return this.target;
+	   }
 	
 	   @Override
 	   public GraphWithCapacity clone() {
@@ -108,7 +133,26 @@ public class GraphWithCapacity extends GraphOriented<NodeBasic,LinkWithCapacity>
 			   links.get(i).setCapacity(Capacities[i]);
 	   }
 
+	   /**
+	    * Set the source of the graph
+	    * 
+	    * @param s
+	    */
+	   public void setSource(int s) {
+		   this.source=s;
+	   }
+
+	   /**
+	    * Set the target of the graph
+	    * 
+	    * @param t
+	    */
+	   public void setTarget(int t) {
+		   this.target=t;
+	   }
 	
+	   
+	   
 	   /**
 	    * Define graph given a .txt file
 	    * 
@@ -142,7 +186,7 @@ public class GraphWithCapacity extends GraphOriented<NodeBasic,LinkWithCapacity>
 		      links = new ArrayList<LinkWithCapacity>();
 		      nodes = new ArrayList<NodeBasic>();
 		      for (int i = 0; i < numNodes; i++)
-		         nodes.add(new NodeBasic(i));
+		         this.addNode(new NodeBasic(i));
 
 		      int pos = 0;
 
@@ -156,7 +200,7 @@ public class GraphWithCapacity extends GraphOriented<NodeBasic,LinkWithCapacity>
 		         b = Integer.parseInt(ss[pos + 1]);
 		         nodes.get(a).incCounter();
 		         prob = Double.parseDouble(ss[pos + 2]);
-		         links.add(new LinkWithCapacity(i, a, b));
+		         this.addLink(new LinkWithCapacity(i, a, b));
 		      }
 
 		      for (int i = 0; i < numNodes; i++) {
@@ -178,12 +222,9 @@ public class GraphWithCapacity extends GraphOriented<NodeBasic,LinkWithCapacity>
 	    */
       public GraphWithCapacity residual() {
    	      GraphWithCapacity image = null;
-
-   	      try {
-   	         image = (GraphWithCapacity) super.clone();
-   	      } catch (CloneNotSupportedException e) {
-   	      }
    	      
+   	      image = (GraphWithCapacity) super.clone();
+
    	      /*Storing the edges that are not present in both ways : source--»target and target--»source */
    	      LinkedList<Integer> Queue = new LinkedList<Integer>();
    	      for (int i = 0; i < numLinks; i++) {
@@ -192,9 +233,8 @@ public class GraphWithCapacity extends GraphOriented<NodeBasic,LinkWithCapacity>
    		      }
    	      }
    	      
-   	      image.numLinks = numLinks+Queue.size();
-   	      image.numNodes = numNodes;
-
+   	      image.numLinks = 0;
+   	      image.numNodes = 0;
 
    	      // Link
    	      image.links = new ArrayList<LinkWithCapacity>();
@@ -213,7 +253,7 @@ public class GraphWithCapacity extends GraphOriented<NodeBasic,LinkWithCapacity>
    		     counterIndiceLink++;
 
    	      }
-
+   	      
    	      // nodes
    	      /*change this part to add the edge in "connects nodes" (normally not important*/
    	      image.nodes = new ArrayList<NodeBasic>();

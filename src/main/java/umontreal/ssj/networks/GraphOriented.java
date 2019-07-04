@@ -61,6 +61,7 @@ Graph<N,L> {
 	      StringBuffer sb = new StringBuffer(
 	            "================================================= Graph"
 	                  + PrintfFormat.NEWLINE);
+	      
 	      for (int i = 0; i < numLinks; i++) {
 	         L link = links.get(i);
 	         sb.append("link  " + link.getIndice() + "  connects nodes  "

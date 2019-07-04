@@ -1,11 +1,12 @@
 package umontreal.ssj.networks;
 import java.util.*;
 
+
 import java.util.LinkedList;
 import java.util.List;
 
 import umontreal.ssj.util.Tools;
-import umontreal.ssj.networks.flow.GraphWithCapacity;
+import umontreal.ssj.networks.GraphWithCapacity;
 import umontreal.ssj.rng.*;
 
 
@@ -75,11 +76,11 @@ public class MaxFlowEdmondsKarp {
     public int EdmondsKarp() {
         int maxflow = 0;
         int flow;
-        System.out.println(residual.toString());
+        //System.out.println(residual.toString());
         while((flow = flowBFS(source , sink)) != 0) {
             maxflow += flow;
         }
-        System.out.println(residual.toString());
+        //System.out.println(residual.toString());
         return maxflow;
     }
 	  
@@ -122,9 +123,9 @@ public class MaxFlowEdmondsKarp {
 		 int flow = pathcap[target];
 		 // push the flow on the path
 		 int cur = target;
-		 for(int i=1;i<this.residual.getNumNodes();i++ ) {
-			 System.out.println(parent[i].getIndice());
-		 }
+		 //for(int i=1;i<this.residual.getNumNodes();i++ ) {
+		//	 System.out.println(parent[i].getIndice());
+		// }
 		 
 		 while(parent[cur] != null) {
 			 parent[cur].setCapacity(parent[cur].getCapacity()-flow);
