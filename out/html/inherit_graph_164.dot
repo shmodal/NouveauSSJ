@@ -5,7 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="SSJCategorySeriesCollection",height=0.2,width=0.4,color="black",URL="$db/d64/classumontreal_1_1ssj_1_1charts_1_1SSJCategorySeriesCollection.html",tooltip="Stores data used in a CategoryChart. "];
-  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 [label="BoxSeriesCollection",height=0.2,width=0.4,color="black",URL="$df/d86/classumontreal_1_1ssj_1_1charts_1_1BoxSeriesCollection.html",tooltip="This class stores data used in a umontreal.ssj.charts.CategoryChart. "];
+  Node0 [label="RQMCPointSet",height=0.2,width=0.4,color="black",URL="$dd/d7b/classumontreal_1_1ssj_1_1hups_1_1RQMCPointSet.html",tooltip="This class is used for randomized quasi-Monte Carlo (RQMC) simulations , , , . "];
 }

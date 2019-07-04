@@ -5,5 +5,11 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="TandemQueue0",height=0.2,width=0.4,color="black",URL="$d1/dd3/classift6561examples_1_1TandemQueue0.html"];
+  Node0 [label="Search",height=0.2,width=0.4,color="black",URL="$dd/dc8/classumontreal_1_1ssj_1_1latnetbuilder_1_1Search.html",tooltip="Abstract class for the search of highly uniform point sets with LatNet Builder. "];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="DigitalNetSearch",height=0.2,width=0.4,color="black",URL="$d7/dd8/classumontreal_1_1ssj_1_1latnetbuilder_1_1DigitalNetSearch.html",tooltip="Class for the search of good digital nets using LatNet Builder. "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="PolynomialLatticeSearch",height=0.2,width=0.4,color="black",URL="$de/db5/classumontreal_1_1ssj_1_1latnetbuilder_1_1PolynomialLatticeSearch.html",tooltip="Class for the search of good polynomial lattice rules using LatNet Builder. "];
+  Node0 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="OrdinaryLatticeSearch",height=0.2,width=0.4,color="black",URL="$de/d91/classumontreal_1_1ssj_1_1latnetbuilder_1_1OrdinaryLatticeSearch.html",tooltip="Class for the search of good rank-1 ordinary lattice rules using LatNet Builder. "];
 }

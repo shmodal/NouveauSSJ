@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="TestAsianOptionGBMCV",height=0.2,width=0.4,color="black",URL="$d0/d3b/classift6561examples_1_1TestAsianOptionGBMCV.html"];
+  Node0 [label="Sim",height=0.2,width=0.4,color="black",URL="$d2/db4/classumontreal_1_1ssj_1_1simevents_1_1Sim.html",tooltip="This static class contains the executive of a discrete-event simulation. "];
 }

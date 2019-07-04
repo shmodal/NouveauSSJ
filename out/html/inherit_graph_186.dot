@@ -5,11 +5,7 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node116 [label="RuntimeException",height=0.2,width=0.4,color="grey75"];
-  Node116 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node0 [label="UnuranException",height=0.2,width=0.4,color="black",URL="$dc/d96/classumontreal_1_1ssj_1_1randvar_1_1UnuranException.html",tooltip="This type of unchecked exception is thrown when an error occurs inside the UNURAN package..."];
-  Node116 -> Node118 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node118 [label="RandomStreamInstantiation\lException",height=0.2,width=0.4,color="black",URL="$da/d21/classumontreal_1_1ssj_1_1rng_1_1RandomStreamInstantiationException.html",tooltip="This exception is thrown when a random stream factory cannot instantiate a stream on a call to its um..."];
-  Node116 -> Node119 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node119 [label="BitMatrix.IncompatibleDimension\lException",height=0.2,width=0.4,color="black",URL="$d8/d44/classumontreal_1_1ssj_1_1util_1_1BitMatrix_1_1IncompatibleDimensionException.html",tooltip="Runtime exception raised when the dimensions of the BitMatrix are not appropriate for the operation..."];
+  Node0 [label="SSJCategorySeriesCollection",height=0.2,width=0.4,color="black",URL="$db/d64/classumontreal_1_1ssj_1_1charts_1_1SSJCategorySeriesCollection.html",tooltip="Stores data used in a CategoryChart. "];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="BoxSeriesCollection",height=0.2,width=0.4,color="black",URL="$df/d86/classumontreal_1_1ssj_1_1charts_1_1BoxSeriesCollection.html",tooltip="This class stores data used in a umontreal.ssj.charts.CategoryChart. "];
 }

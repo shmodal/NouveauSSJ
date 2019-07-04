@@ -5,7 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="SobolTestFunc",height=0.2,width=0.4,color="black",URL="$d7/dd9/classlatnetbuilder_1_1SobolTestFunc.html"];
-  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 [label="SobolTestFuncRQMC",height=0.2,width=0.4,color="black",URL="$de/da3/classlatnetbuilder_1_1SobolTestFuncRQMC.html"];
+  Node0 [label="RootFinder",height=0.2,width=0.4,color="black",URL="$d0/d35/classumontreal_1_1ssj_1_1util_1_1RootFinder.html",tooltip="This class provides methods to solve non-linear equations. "];
 }

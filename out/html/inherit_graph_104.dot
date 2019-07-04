@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="MonteCarloModelDoubleArray",height=0.2,width=0.4,color="black",URL="$d8/d93/interfaceumontreal_1_1ssj_1_1mcqmctools_1_1MonteCarloModelDoubleArray.html",tooltip="Similar to MonteCarloModelDouble except that the returned performance is an array of real numbers..."];
+  Node0 [label="MatrixOfStatProbes\l\< E extends StatProbe\l \>.ListType",height=0.2,width=0.4,color="black",URL="$dc/d37/enumumontreal_1_1ssj_1_1stat_1_1matrix_1_1MatrixOfStatProbes_1_1ListType.html"];
 }

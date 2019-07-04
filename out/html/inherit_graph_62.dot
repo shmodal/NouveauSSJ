@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="GeneralizedSplitting",height=0.2,width=0.4,color="black",URL="$dc/d78/classumontreal_1_1ssj_1_1splitting_1_1GeneralizedSplitting.html",tooltip="Implements the generalized splitting algorithm. "];
+  Node0 [label="FDensity",height=0.2,width=0.4,color="black",URL="$db/d72/classift6561examples_1_1FDensity.html"];
 }

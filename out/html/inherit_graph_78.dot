@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="KernelDensity",height=0.2,width=0.4,color="black",URL="$d9/dbf/classumontreal_1_1ssj_1_1gof_1_1KernelDensity.html",tooltip="This static class provides methods to compute a kernel density estimator from a set of  individual ob..."];
+  Node0 [label="HilbertCurveMap",height=0.2,width=0.4,color="black",URL="$df/d1c/classumontreal_1_1ssj_1_1util_1_1sort_1_1HilbertCurveMap.html",tooltip="This class implements the mapping of a Hilbert curve in the -dimensional unit hypercube ..."];
 }

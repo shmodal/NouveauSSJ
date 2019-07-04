@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="MultipleDatasetChart",height=0.2,width=0.4,color="black",URL="$d8/db0/classumontreal_1_1ssj_1_1charts_1_1MultipleDatasetChart.html",tooltip="Provides tools to plot many datasets on the same chart. "];
+  Node0 [label="MixtureGenTest",height=0.2,width=0.4,color="black",URL="$d9/d53/classumontreal_1_1ssj_1_1randvar_1_1MixtureGenTest.html",tooltip="Test the class umontreal.ssj.randvar.MixtureGen. "];
 }

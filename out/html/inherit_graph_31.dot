@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="ContinuousState",height=0.2,width=0.4,color="black",URL="$d8/d68/classumontreal_1_1ssj_1_1simevents_1_1ContinuousState.html",tooltip="Represents the portion of the simulator’s state associated with continuous-time simulation. "];
+  Node0 [label="ContinuousState.IntegMethod",height=0.2,width=0.4,color="black",URL="$d1/ddb/enumumontreal_1_1ssj_1_1simevents_1_1ContinuousState_1_1IntegMethod.html"];
 }

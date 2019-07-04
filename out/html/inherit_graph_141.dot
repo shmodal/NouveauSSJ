@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="RedblackTree.Node",height=0.2,width=0.4,color="black",URL="$d7/da5/classumontreal_1_1ssj_1_1simevents_1_1eventlist_1_1RedblackTree_1_1Node.html"];
+  Node0 [label="PMC",height=0.2,width=0.4,color="black",URL="$dc/d8e/classumontreal_1_1ssj_1_1networks_1_1flow_1_1PMC.html",tooltip="This class implements the Permutation Monte Carlo method to estimate the reliability of a network..."];
 }

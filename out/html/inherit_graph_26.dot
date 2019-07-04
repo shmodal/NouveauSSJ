@@ -5,19 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node641 [label="DefaultPointSetIterator",height=0.2,width=0.4,color="grey75"];
-  Node641 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node0 [label="ContainerPointSet.Container\lPointSetIterator",height=0.2,width=0.4,color="black",URL="$de/d61/classumontreal_1_1ssj_1_1hups_1_1ContainerPointSet_1_1ContainerPointSetIterator.html"];
-  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 [label="AntitheticPointSet.Antithetic\lPointSetIterator",height=0.2,width=0.4,color="black",URL="$d0/d46/classumontreal_1_1ssj_1_1hups_1_1AntitheticPointSet_1_1AntitheticPointSetIterator.html"];
-  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="BakerTransformedPointSet.\lBakerTransformedPointSetIterator",height=0.2,width=0.4,color="black",URL="$d1/ddb/classumontreal_1_1ssj_1_1hups_1_1BakerTransformedPointSet_1_1BakerTransformedPointSetIterator.html"];
-  Node0 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node3 [label="RandShiftedMod1PointSet.\lRandShiftedMod1PointSetIterator",height=0.2,width=0.4,color="black",URL="$d9/d15/classumontreal_1_1ssj_1_1hups_1_1RandShiftedMod1PointSet_1_1RandShiftedMod1PointSetIterator.html",tooltip="Only the nextCoordinate method is reimplemented here and it returns the shifted coordinate. "];
-  Node641 -> Node646 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node646 [label="CycleBasedPointSet.Cycle\lBasedPointSetIterator",height=0.2,width=0.4,color="black",URL="$db/d7f/classumontreal_1_1ssj_1_1hups_1_1CycleBasedPointSet_1_1CycleBasedPointSetIterator.html"];
-  Node646 -> Node647 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node647 [label="CycleBasedPointSetBase2.\lCycleBasedPointSetBase2Iterator",height=0.2,width=0.4,color="black",URL="$d6/d8e/classumontreal_1_1ssj_1_1hups_1_1CycleBasedPointSetBase2_1_1CycleBasedPointSetBase2Iterator.html"];
-  Node641 -> Node648 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node648 [label="SubsetOfPointSet.SubsetIterator",height=0.2,width=0.4,color="black",URL="$df/d95/classumontreal_1_1ssj_1_1hups_1_1SubsetOfPointSet_1_1SubsetIterator.html"];
+  Node0 [label="ContDistPlot",height=0.2,width=0.4,color="black",URL="$db/de6/classcharts_1_1ContDistPlot.html"];
 }

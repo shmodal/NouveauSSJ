@@ -16,6 +16,6 @@ var searchData=
   ['delta',['delta',['../d2/dcf/classumontreal_1_1ssj_1_1hups_1_1StratifiedUnitCube.html#a8737dcb577cc5ef8ece7da95503f6d79',1,'umontreal.ssj.hups.StratifiedUnitCube.delta()'],['../d6/d9b/classumontreal_1_1ssj_1_1hups_1_1StratifiedUnitCubeAnti.html#a8737dcb577cc5ef8ece7da95503f6d79',1,'umontreal.ssj.hups.StratifiedUnitCubeAnti.delta()']]],
   ['dim',['dim',['../d8/d10/classumontreal_1_1ssj_1_1hups_1_1PointSet.html#a70b5e28b5bc3d1b63a7435c5fe50b837',1,'umontreal::ssj::hups::PointSet']]],
   ['dimshift',['dimShift',['../d8/d10/classumontreal_1_1ssj_1_1hups_1_1PointSet.html#ab9abc7ab57e7cc9159b68d3763af5642',1,'umontreal::ssj::hups::PointSet']]],
-  ['dist',['dist',['../d1/d75/classumontreal_1_1ssj_1_1networks_1_1PMCShocksPi.html#a2e00d0340a9af6af5c0362a31acbfc1d',1,'umontreal.ssj.networks.PMCShocksPi.dist()'],['../d1/d65/classumontreal_1_1ssj_1_1networks_1_1TurnipPi.html#a2e00d0340a9af6af5c0362a31acbfc1d',1,'umontreal.ssj.networks.TurnipPi.dist()']]],
+  ['dist',['dist',['../d6/d92/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1PMCShocksPi.html#a2e00d0340a9af6af5c0362a31acbfc1d',1,'umontreal.ssj.networks.staticreliability.PMCShocksPi.dist()'],['../de/d71/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1TurnipPi.html#a2e00d0340a9af6af5c0362a31acbfc1d',1,'umontreal.ssj.networks.staticreliability.TurnipPi.dist()']]],
   ['dists',['dists',['../d2/d0b/classumontreal_1_1ssj_1_1randvar_1_1MixtureGen.html#abfebf4f0b1b54fd3e560206f2fcc33cd',1,'umontreal::ssj::randvar::MixtureGen']]]
 ];

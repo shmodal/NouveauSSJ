@@ -5,7 +5,19 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="CategoryChart",height=0.2,width=0.4,color="black",URL="$dd/d1b/classumontreal_1_1ssj_1_1charts_1_1CategoryChart.html",tooltip="This class provides tools to create charts from data in a simple way. "];
-  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 [label="BoxChart",height=0.2,width=0.4,color="black",URL="$d4/d4b/classumontreal_1_1ssj_1_1charts_1_1BoxChart.html",tooltip="This class provides tools to create and manage box-and-whisker plots. "];
+  Node8 [label="Uncmin_methods",height=0.2,width=0.4,color="grey75"];
+  Node8 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="CauchyDist.Optim",height=0.2,width=0.4,color="black",URL="$db/d45/classumontreal_1_1ssj_1_1probdist_1_1CauchyDist_1_1Optim.html"];
+  Node8 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="FatigueLifeDist.Optim",height=0.2,width=0.4,color="black",URL="$d8/d62/classumontreal_1_1ssj_1_1probdist_1_1FatigueLifeDist_1_1Optim.html"];
+  Node8 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="HyperbolicSecantDist.Optim",height=0.2,width=0.4,color="black",URL="$d8/dbc/classumontreal_1_1ssj_1_1probdist_1_1HyperbolicSecantDist_1_1Optim.html"];
+  Node8 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="JohnsonSLDist.Optim",height=0.2,width=0.4,color="black",URL="$d2/dea/classumontreal_1_1ssj_1_1probdist_1_1JohnsonSLDist_1_1Optim.html"];
+  Node8 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node13 [label="LoglogisticDist.Optim",height=0.2,width=0.4,color="black",URL="$d5/da0/classumontreal_1_1ssj_1_1probdist_1_1LoglogisticDist_1_1Optim.html"];
+  Node8 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="Pearson6Dist.Optim",height=0.2,width=0.4,color="black",URL="$d5/d13/classumontreal_1_1ssj_1_1probdist_1_1Pearson6Dist_1_1Optim.html"];
+  Node8 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node15 [label="DirichletDist.Optim",height=0.2,width=0.4,color="black",URL="$d8/d71/classumontreal_1_1ssj_1_1probdistmulti_1_1DirichletDist_1_1Optim.html"];
 }

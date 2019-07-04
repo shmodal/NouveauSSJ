@@ -5,9 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="Continuous",height=0.2,width=0.4,color="black",URL="$df/d80/classumontreal_1_1ssj_1_1simevents_1_1Continuous.html",tooltip="Represents a variable in a continuous-time simulation. "];
-  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 [label="PreyPred.Preds",height=0.2,width=0.4,color="black",URL="$d8/db9/classtutorial_1_1PreyPred_1_1Preds.html"];
-  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="PreyPred.Preys",height=0.2,width=0.4,color="black",URL="$da/de6/classtutorial_1_1PreyPred_1_1Preys.html"];
+  Node0 [label="ContinuousDistChart",height=0.2,width=0.4,color="black",URL="$d6/db7/classumontreal_1_1ssj_1_1charts_1_1ContinuousDistChart.html",tooltip="This class provides tools to plot the density and the cumulative probability of a continuous probabil..."];
 }

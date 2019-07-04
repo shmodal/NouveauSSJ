@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="DiscreteDistIntChart",height=0.2,width=0.4,color="black",URL="$d3/d3f/classumontreal_1_1ssj_1_1charts_1_1DiscreteDistIntChart.html",tooltip="This class provides tools to plot the mass function and the cumulative probability of a discrete prob..."];
+  Node0 [label="DigitalShift",height=0.2,width=0.4,color="black",URL="$da/da7/classift6561examples_1_1DigitalShift.html",tooltip="Reads a set of points, applied a digital random shift to them, then prints the shifted points in a fi..."];
 }

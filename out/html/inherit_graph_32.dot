@@ -5,5 +5,7 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="ContinuousState.IntegMethod",height=0.2,width=0.4,color="black",URL="$d1/ddb/enumumontreal_1_1ssj_1_1simevents_1_1ContinuousState_1_1IntegMethod.html"];
+  Node0 [label="CoordinateSet",height=0.2,width=0.4,color="black",URL="$d8/d61/classumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1CoordinateSet.html",tooltip="Represents a set of coordinates. "];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="CoordinateSetLong",height=0.2,width=0.4,color="black",URL="$d6/d8f/classumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1CoordinateSetLong.html",tooltip="Implementation of CoordinateSet using a long bit-mask internal representation. "];
 }

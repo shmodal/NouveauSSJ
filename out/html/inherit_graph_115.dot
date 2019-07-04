@@ -5,5 +5,11 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="Nonuniform",height=0.2,width=0.4,color="black",URL="$d8/d49/classtutorial_1_1Nonuniform.html"];
+  Node0 [label="MonteCarloModel\< E \>",height=0.2,width=0.4,color="black",URL="$d5/d15/interfaceumontreal_1_1ssj_1_1mcqmctools_1_1MonteCarloModel.html",tooltip="An interface for a simple simulation model for which Monte Carlo (MC) or RQMC experiments are to be p..."];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="AnovaVarianceEstimator",height=0.2,width=0.4,color="black",URL="$d0/d8d/classumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1AnovaVarianceEstimator.html",tooltip="ANOVA variance estimator. "];
+  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="MonteCarloModelRQMC\< E \>",height=0.2,width=0.4,color="black",URL="$dd/de1/interfaceumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1MonteCarloModelRQMC.html",tooltip="An interface for a simple simulation model for which Monte Carlo (MC) or RQMC experiments are to be p..."];
+  Node0 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="PartialVarianceEstimator",height=0.2,width=0.4,color="black",URL="$d8/dc0/classumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1PartialVarianceEstimator.html",tooltip="Partial variance estimator. "];
 }

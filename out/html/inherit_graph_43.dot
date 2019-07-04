@@ -5,5 +5,9 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="DiscrepancyContainer",height=0.2,width=0.4,color="black",URL="$df/de8/classumontreal_1_1ssj_1_1discrepancy_1_1DiscrepancyContainer.html",tooltip="This class is used to compute, store and display discrepancies. "];
+  Node670 [label="DigitalNetBase2Iterator",height=0.2,width=0.4,color="grey75"];
+  Node670 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="DigitalSequenceBase2.Digital\lNetBase2IteratorShiftGenerators",height=0.2,width=0.4,color="black",URL="$db/db4/classumontreal_1_1ssj_1_1hups_1_1DigitalSequenceBase2_1_1DigitalNetBase2IteratorShiftGenerators.html"];
+  Node670 -> Node672 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node672 [label="DigitalSequenceBase2.Digital\lNetBase2IteratorShiftNoGray",height=0.2,width=0.4,color="black",URL="$de/d03/classumontreal_1_1ssj_1_1hups_1_1DigitalSequenceBase2_1_1DigitalNetBase2IteratorShiftNoGray.html"];
 }

@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="TestOptionVGIS",height=0.2,width=0.4,color="black",URL="$db/d6e/classift6561examples_1_1TestOptionVGIS.html"];
+  Node0 [label="Snippet",height=0.2,width=0.4,color="black",URL="$d7/d17/classtutorial_1_1Snippet.html"];
 }

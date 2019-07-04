@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Graph Class Reference</title>
+<title>Graph&lt; N extends NodeBasic, L extends LinkBasic &gt; Class Template Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -70,25 +70,20 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pac-attribs">Package Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="../../db/dcb/classumontreal_1_1ssj_1_1networks_1_1Graph-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">Graph Class Reference</div>  </div>
+<div class="title">Graph&lt; N extends NodeBasic, L extends LinkBasic &gt; Class Template Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>This class implements a stochastic non-oriented weighted graph (a network).  
- <a href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#details">More...</a></p>
 <div class="dynheader">
-Inheritance diagram for Graph:</div>
+Inheritance diagram for Graph&lt; N extends NodeBasic, L extends LinkBasic &gt;:</div>
 <div class="dyncontent">
 <div class="center"><!-- SVG 0 -->
 </div>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for Graph:</div>
+Collaboration diagram for Graph&lt; N extends NodeBasic, L extends LinkBasic &gt;:</div>
 <div class="dyncontent">
 <div class="center"><!-- SVG 1 -->
 </div>
@@ -96,95 +91,48 @@ Collaboration diagram for Graph:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aadc7cc913e0dfb917fd3ff85be2c30f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#aadc7cc913e0dfb917fd3ff85be2c30f0">Graph</a> (String file)  throws IOException </td></tr>
-<tr class="memdesc:aadc7cc913e0dfb917fd3ff85be2c30f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Define graph given a .txt file.  <a href="#aadc7cc913e0dfb917fd3ff85be2c30f0">More...</a><br /></td></tr>
-<tr class="separator:aadc7cc913e0dfb917fd3ff85be2c30f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab62b59ae17c7d4b9aec5fa30f2c43503"><td class="memItemLeft" align="right" valign="top"><a id="ab62b59ae17c7d4b9aec5fa30f2c43503"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Graph</b> (ArrayList&lt; L &gt; <a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a0ac01d0328e7b707a56769ffe998cd9a">links</a>, ArrayList&lt; N &gt; <a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a4e323c24237913d5c0e2c573dfefd5b1">nodes</a>)</td></tr>
+<tr class="separator:ab62b59ae17c7d4b9aec5fa30f2c43503"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c3bc57b8cf1874c0cef665350b34b92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a4c3bc57b8cf1874c0cef665350b34b92">addNode</a> (N n)</td></tr>
+<tr class="memdesc:a4c3bc57b8cf1874c0cef665350b34b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a node if users want.  <a href="#a4c3bc57b8cf1874c0cef665350b34b92">More...</a><br /></td></tr>
+<tr class="separator:a4c3bc57b8cf1874c0cef665350b34b92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39514098f1c4c6965a26a65842936c7a"><td class="memItemLeft" align="right" valign="top">abstract void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a39514098f1c4c6965a26a65842936c7a">addLink</a> (L l)</td></tr>
+<tr class="memdesc:a39514098f1c4c6965a26a65842936c7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a link if users want.  <a href="#a39514098f1c4c6965a26a65842936c7a">More...</a><br /></td></tr>
+<tr class="separator:a39514098f1c4c6965a26a65842936c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52ab76ba6f0a40a06c6fc4043351824e"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a52ab76ba6f0a40a06c6fc4043351824e">getNumNodes</a> ()</td></tr>
 <tr class="memdesc:a52ab76ba6f0a40a06c6fc4043351824e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of nodes.  <a href="#a52ab76ba6f0a40a06c6fc4043351824e">More...</a><br /></td></tr>
 <tr class="separator:a52ab76ba6f0a40a06c6fc4043351824e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a680dcf366cd64c53b249b3bb92366dcf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dbc/classumontreal_1_1ssj_1_1networks_1_1Node.html">Node</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a680dcf366cd64c53b249b3bb92366dcf">getNode</a> (int i)</td></tr>
-<tr class="memdesc:a680dcf366cd64c53b249b3bb92366dcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the i-th node.  <a href="#a680dcf366cd64c53b249b3bb92366dcf">More...</a><br /></td></tr>
-<tr class="separator:a680dcf366cd64c53b249b3bb92366dcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a479442653e7185ca757aede0b4edc699"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/dbc/classumontreal_1_1ssj_1_1networks_1_1Node.html">Node</a> []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a479442653e7185ca757aede0b4edc699">getNodes</a> ()</td></tr>
-<tr class="memdesc:a479442653e7185ca757aede0b4edc699"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get nodes of the graph.  <a href="#a479442653e7185ca757aede0b4edc699">More...</a><br /></td></tr>
-<tr class="separator:a479442653e7185ca757aede0b4edc699"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5dded04d89c7ac8f9e22059f7f3daf6"><td class="memItemLeft" align="right" valign="top">N&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#ab5dded04d89c7ac8f9e22059f7f3daf6">getNode</a> (int i)</td></tr>
+<tr class="memdesc:ab5dded04d89c7ac8f9e22059f7f3daf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the i-th node.  <a href="#ab5dded04d89c7ac8f9e22059f7f3daf6">More...</a><br /></td></tr>
+<tr class="separator:ab5dded04d89c7ac8f9e22059f7f3daf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d50935fff9ce9d7b3fcb56c622505cd"><td class="memItemLeft" align="right" valign="top">ArrayList&lt; N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a3d50935fff9ce9d7b3fcb56c622505cd">getNodes</a> ()</td></tr>
+<tr class="memdesc:a3d50935fff9ce9d7b3fcb56c622505cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get nodes of the graph.  <a href="#a3d50935fff9ce9d7b3fcb56c622505cd">More...</a><br /></td></tr>
+<tr class="separator:a3d50935fff9ce9d7b3fcb56c622505cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeb5300932c7ff5be666b468cfd9f42d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#aeb5300932c7ff5be666b468cfd9f42d4">getNumLinks</a> ()</td></tr>
 <tr class="memdesc:aeb5300932c7ff5be666b468cfd9f42d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the number of links.  <a href="#aeb5300932c7ff5be666b468cfd9f42d4">More...</a><br /></td></tr>
 <tr class="separator:aeb5300932c7ff5be666b468cfd9f42d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a585cc99cac2da12f9427fdefddd3e65a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html">Link</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a585cc99cac2da12f9427fdefddd3e65a">getLink</a> (int i)</td></tr>
-<tr class="memdesc:a585cc99cac2da12f9427fdefddd3e65a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the i-th link.  <a href="#a585cc99cac2da12f9427fdefddd3e65a">More...</a><br /></td></tr>
-<tr class="separator:a585cc99cac2da12f9427fdefddd3e65a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0627980857419df646e109e6705b8541"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html">Link</a> []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a0627980857419df646e109e6705b8541">getLinks</a> ()</td></tr>
-<tr class="memdesc:a0627980857419df646e109e6705b8541"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get links of the graph.  <a href="#a0627980857419df646e109e6705b8541">More...</a><br /></td></tr>
-<tr class="separator:a0627980857419df646e109e6705b8541"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21a91f721da86d6620a79eb45d7e4e5c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html">Link</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a21a91f721da86d6620a79eb45d7e4e5c">getLinkFromNode</a> (int j, int i)</td></tr>
-<tr class="memdesc:a21a91f721da86d6620a79eb45d7e4e5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the j-th <a class="el" href="../../df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html" title="A Link of a network. ">Link</a> connected to <a class="el" href="../../dc/dbc/classumontreal_1_1ssj_1_1networks_1_1Node.html" title="This class provides nodes for a graph. ">Node</a> i.  <a href="#a21a91f721da86d6620a79eb45d7e4e5c">More...</a><br /></td></tr>
-<tr class="separator:a21a91f721da86d6620a79eb45d7e4e5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02257e59a2f85294fb10971863d6d3b1"><td class="memItemLeft" align="right" valign="top">L&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a02257e59a2f85294fb10971863d6d3b1">getLink</a> (int i)</td></tr>
+<tr class="memdesc:a02257e59a2f85294fb10971863d6d3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the i-th link.  <a href="#a02257e59a2f85294fb10971863d6d3b1">More...</a><br /></td></tr>
+<tr class="separator:a02257e59a2f85294fb10971863d6d3b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a567ee597bc7672940de73f39f09831e4"><td class="memItemLeft" align="right" valign="top">ArrayList&lt; L &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a567ee597bc7672940de73f39f09831e4">getLinks</a> ()</td></tr>
+<tr class="memdesc:a567ee597bc7672940de73f39f09831e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get links of the graph.  <a href="#a567ee597bc7672940de73f39f09831e4">More...</a><br /></td></tr>
+<tr class="separator:a567ee597bc7672940de73f39f09831e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af84f15681a1213210f1cfad00741b8a9"><td class="memItemLeft" align="right" valign="top">L&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#af84f15681a1213210f1cfad00741b8a9">getLinkFromNode</a> (int j, int i)</td></tr>
+<tr class="memdesc:af84f15681a1213210f1cfad00741b8a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the j-th Link connected to Node i.  <a href="#af84f15681a1213210f1cfad00741b8a9">More...</a><br /></td></tr>
+<tr class="separator:af84f15681a1213210f1cfad00741b8a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a678a8bbc81d9e7f112f5b92ca857f1d0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a678a8bbc81d9e7f112f5b92ca857f1d0">getNumberOfNeighbors</a> (int i)</td></tr>
 <tr class="memdesc:a678a8bbc81d9e7f112f5b92ca857f1d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the number of neighbors of node i.  <a href="#a678a8bbc81d9e7f112f5b92ca857f1d0">More...</a><br /></td></tr>
 <tr class="separator:a678a8bbc81d9e7f112f5b92ca857f1d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad04d79fa827cec1dd9822ac3d652b599"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#ad04d79fa827cec1dd9822ac3d652b599">getNeighborOfNode</a> (<a class="el" href="../../df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html">Link</a> link, int i)</td></tr>
-<tr class="memdesc:ad04d79fa827cec1dd9822ac3d652b599"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the node connected to node i by <a class="el" href="../../df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html" title="A Link of a network. ">Link</a> link.  <a href="#ad04d79fa827cec1dd9822ac3d652b599">More...</a><br /></td></tr>
-<tr class="separator:ad04d79fa827cec1dd9822ac3d652b599"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bf7ce01b6b87c7759b4b0a68efe5b28"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a7bf7ce01b6b87c7759b4b0a68efe5b28">getLinkWithNodes</a> (int i, int j)</td></tr>
-<tr class="memdesc:a7bf7ce01b6b87c7759b4b0a68efe5b28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the link which connects nodes i and j.  <a href="#a7bf7ce01b6b87c7759b4b0a68efe5b28">More...</a><br /></td></tr>
-<tr class="separator:a7bf7ce01b6b87c7759b4b0a68efe5b28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2833d3b8a1ec126d4cdbbb0e2464049f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a2833d3b8a1ec126d4cdbbb0e2464049f">setReliability</a> (double r)</td></tr>
-<tr class="memdesc:a2833d3b8a1ec126d4cdbbb0e2464049f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the same reliability for all links of the graph.  <a href="#a2833d3b8a1ec126d4cdbbb0e2464049f">More...</a><br /></td></tr>
-<tr class="separator:a2833d3b8a1ec126d4cdbbb0e2464049f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a209b599ce923ca5ae8d66a6d67e36036"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a209b599ce923ca5ae8d66a6d67e36036">setReliability</a> (int i, double r)</td></tr>
-<tr class="memdesc:a209b599ce923ca5ae8d66a6d67e36036"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the reliability r for link i of the graph.  <a href="#a209b599ce923ca5ae8d66a6d67e36036">More...</a><br /></td></tr>
-<tr class="separator:a209b599ce923ca5ae8d66a6d67e36036"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa675ab6e64c9419c4a528e4ae88589fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#aa675ab6e64c9419c4a528e4ae88589fc">setReliability</a> (double[] R)</td></tr>
-<tr class="memdesc:aa675ab6e64c9419c4a528e4ae88589fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the reliability for all links of the graph.  <a href="#aa675ab6e64c9419c4a528e4ae88589fc">More...</a><br /></td></tr>
-<tr class="separator:aa675ab6e64c9419c4a528e4ae88589fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3c17f5eea237af3147846377f4ef874"><td class="memItemLeft" align="right" valign="top">double []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#af3c17f5eea237af3147846377f4ef874">getUnreliability</a> ()</td></tr>
-<tr class="memdesc:af3c17f5eea237af3147846377f4ef874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the <em>unreliability</em> of all the links of the graph.  <a href="#af3c17f5eea237af3147846377f4ef874">More...</a><br /></td></tr>
-<tr class="separator:af3c17f5eea237af3147846377f4ef874"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22289060d7f774444c2fb34531e02dca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a22289060d7f774444c2fb34531e02dca">generate</a> (<a class="el" href="../../de/de0/classumontreal_1_1ssj_1_1randvar_1_1RandomVariateGen.html">RandomVariateGen</a> gen)</td></tr>
-<tr class="memdesc:a22289060d7f774444c2fb34531e02dca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a random length for all links of the graph using <code>gen</code>.  <a href="#a22289060d7f774444c2fb34531e02dca">More...</a><br /></td></tr>
-<tr class="separator:a22289060d7f774444c2fb34531e02dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a090ec90d18c0f0580e6e6ff7ec8d8da4"><td class="memItemLeft" align="right" valign="top"><a id="a090ec90d18c0f0580e6e6ff7ec8d8da4"></a>
-<a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html">Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><b>clone</b> ()</td></tr>
+<tr class="memitem:a8eadd73809654da2f1a1f9355adb6307"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a8eadd73809654da2f1a1f9355adb6307">getNeighborOfNode</a> (L link, int i)</td></tr>
+<tr class="memdesc:a8eadd73809654da2f1a1f9355adb6307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the node connected to node i by Link link.  <a href="#a8eadd73809654da2f1a1f9355adb6307">More...</a><br /></td></tr>
+<tr class="separator:a8eadd73809654da2f1a1f9355adb6307"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a090ec90d18c0f0580e6e6ff7ec8d8da4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html">Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a090ec90d18c0f0580e6e6ff7ec8d8da4">clone</a> ()</td></tr>
+<tr class="memdesc:a090ec90d18c0f0580e6e6ff7ec8d8da4"><td class="mdescLeft">&#160;</td><td class="mdescRight">SHOULDNT BE USED.  <a href="#a090ec90d18c0f0580e6e6ff7ec8d8da4">More...</a><br /></td></tr>
 <tr class="separator:a090ec90d18c0f0580e6e6ff7ec8d8da4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad146fa8579a5f8a876c4688cc5a68520"><td class="memItemLeft" align="right" valign="top"><a id="ad146fa8579a5f8a876c4688cc5a68520"></a>
-String&#160;</td><td class="memItemRight" valign="bottom"><b>toString</b> ()</td></tr>
-<tr class="separator:ad146fa8579a5f8a876c4688cc5a68520"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2450b0525b3734e08dece16694661122"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a2450b0525b3734e08dece16694661122">setSampler</a> (<a class="el" href="../../db/d5d/enumumontreal_1_1ssj_1_1networks_1_1SamplerType.html">SamplerType</a> sam, boolean destructFlag)</td></tr>
-<tr class="memdesc:a2450b0525b3734e08dece16694661122"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choose the sampler used to generate random weights for each link of the graph.  <a href="#a2450b0525b3734e08dece16694661122">More...</a><br /></td></tr>
-<tr class="separator:a2450b0525b3734e08dece16694661122"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fc171300040f22a7a87674ec7094a8f"><td class="memItemLeft" align="right" valign="top">String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a5fc171300040f22a7a87674ec7094a8f">getFileName</a> ()</td></tr>
-<tr class="memdesc:a5fc171300040f22a7a87674ec7094a8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">A graph is usually built by reading its parameters (nodes and edges) from a text file.  <a href="#a5fc171300040f22a7a87674ec7094a8f">More...</a><br /></td></tr>
-<tr class="separator:a5fc171300040f22a7a87674ec7094a8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ee25c76f95a56df576cbfc840bde359"><td class="memItemLeft" align="right" valign="top">int []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a3ee25c76f95a56df576cbfc840bde359">getV0</a> ()</td></tr>
-<tr class="memdesc:a3ee25c76f95a56df576cbfc840bde359"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the subset of the nodes that must be connected to make the network operational.  <a href="#a3ee25c76f95a56df576cbfc840bde359">More...</a><br /></td></tr>
-<tr class="separator:a3ee25c76f95a56df576cbfc840bde359"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35637c872f4c5b6e638f056836261910"><td class="memItemLeft" align="right" valign="top"><a id="a35637c872f4c5b6e638f056836261910"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a35637c872f4c5b6e638f056836261910">setV0</a> (int[] S)</td></tr>
-<tr class="memdesc:a35637c872f4c5b6e638f056836261910"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the subset of the nodes that must be connected to make the network operational to S, which contains the id of the nodes. <br /></td></tr>
-<tr class="separator:a35637c872f4c5b6e638f056836261910"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a389fd660f0cd1a54dcac09e344eb1452"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a389fd660f0cd1a54dcac09e344eb1452">getSource</a> ()</td></tr>
-<tr class="memdesc:a389fd660f0cd1a54dcac09e344eb1452"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the id of the source node.  <a href="#a389fd660f0cd1a54dcac09e344eb1452">More...</a><br /></td></tr>
-<tr class="separator:a389fd660f0cd1a54dcac09e344eb1452"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35a74c0841334d42ee17d95a6cc262a5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a35a74c0841334d42ee17d95a6cc262a5">getTarget</a> ()</td></tr>
-<tr class="memdesc:a35a74c0841334d42ee17d95a6cc262a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the id of the target node.  <a href="#a35a74c0841334d42ee17d95a6cc262a5">More...</a><br /></td></tr>
-<tr class="separator:a35a74c0841334d42ee17d95a6cc262a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pac-attribs"></a>
-Package Attributes</h2></td></tr>
-<tr class="memitem:ae59f2daabb9fbadf96ab4fceb44d6f77"><td class="memItemLeft" align="right" valign="top"><a id="ae59f2daabb9fbadf96ab4fceb44d6f77"></a>
-String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#ae59f2daabb9fbadf96ab4fceb44d6f77">filename</a> = &quot;&quot;</td></tr>
-<tr class="memdesc:ae59f2daabb9fbadf96ab4fceb44d6f77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Name of file containing the parameters of this graph. <br /></td></tr>
-<tr class="separator:ae59f2daabb9fbadf96ab4fceb44d6f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a606b2b2b4c610d4b19e58b23f3ae9b9e"><td class="memItemLeft" align="right" valign="top"><a id="a606b2b2b4c610d4b19e58b23f3ae9b9e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>splitFileName</b> (String file)</td></tr>
-<tr class="separator:a606b2b2b4c610d4b19e58b23f3ae9b9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
 <tr class="memitem:aa253071e8bc5ba6c124e70c2aa373017"><td class="memItemLeft" align="right" valign="top"><a id="aa253071e8bc5ba6c124e70c2aa373017"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#aa253071e8bc5ba6c124e70c2aa373017">numNodes</a></td></tr>
 <tr class="memdesc:aa253071e8bc5ba6c124e70c2aa373017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of nodes. <br /></td></tr>
@@ -193,107 +141,74 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#ab7593022469607fd25e35712c2fa39c6">numLinks</a></td></tr>
 <tr class="memdesc:ab7593022469607fd25e35712c2fa39c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of links. <br /></td></tr>
 <tr class="separator:ab7593022469607fd25e35712c2fa39c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82c7200e946e58b582b199b811dd1d87"><td class="memItemLeft" align="right" valign="top">int []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a82c7200e946e58b582b199b811dd1d87">m_V0</a></td></tr>
-<tr class="memdesc:a82c7200e946e58b582b199b811dd1d87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subset of nodes that must be connected to make the network operational.  <a href="#a82c7200e946e58b582b199b811dd1d87">More...</a><br /></td></tr>
-<tr class="separator:a82c7200e946e58b582b199b811dd1d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae39363f8d07e46e17484afc7418f0c8d"><td class="memItemLeft" align="right" valign="top"><a id="ae39363f8d07e46e17484afc7418f0c8d"></a>
-<a class="el" href="../../df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html">Link</a> []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#ae39363f8d07e46e17484afc7418f0c8d">links</a></td></tr>
-<tr class="memdesc:ae39363f8d07e46e17484afc7418f0c8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">All the links of the graph. <br /></td></tr>
-<tr class="separator:ae39363f8d07e46e17484afc7418f0c8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d99eea71577fa4549c2bd6e32151150"><td class="memItemLeft" align="right" valign="top"><a id="a0d99eea71577fa4549c2bd6e32151150"></a>
-<a class="el" href="../../dc/dbc/classumontreal_1_1ssj_1_1networks_1_1Node.html">Node</a> []&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a0d99eea71577fa4549c2bd6e32151150">nodes</a></td></tr>
-<tr class="memdesc:a0d99eea71577fa4549c2bd6e32151150"><td class="mdescLeft">&#160;</td><td class="mdescRight">All the nodes of the graph. <br /></td></tr>
-<tr class="separator:a0d99eea71577fa4549c2bd6e32151150"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ac01d0328e7b707a56769ffe998cd9a"><td class="memItemLeft" align="right" valign="top"><a id="a0ac01d0328e7b707a56769ffe998cd9a"></a>
+ArrayList&lt; L &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a0ac01d0328e7b707a56769ffe998cd9a">links</a></td></tr>
+<tr class="memdesc:a0ac01d0328e7b707a56769ffe998cd9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">All the links of the graph, dynamic structure to add after building. <br /></td></tr>
+<tr class="separator:a0ac01d0328e7b707a56769ffe998cd9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e323c24237913d5c0e2c573dfefd5b1"><td class="memItemLeft" align="right" valign="top"><a id="a4e323c24237913d5c0e2c573dfefd5b1"></a>
+ArrayList&lt; N &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a4e323c24237913d5c0e2c573dfefd5b1">nodes</a></td></tr>
+<tr class="memdesc:a4e323c24237913d5c0e2c573dfefd5b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">All the nodes of the graph, dynamic structure to add after building. <br /></td></tr>
+<tr class="separator:a4e323c24237913d5c0e2c573dfefd5b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class implements a stochastic non-oriented weighted graph (a network). </p>
-<p><br />
- </p>
-<p><b>Non oriented weighted graph</b><br />
- A <a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html" title="This class implements a stochastic non-oriented weighted graph (a network). ">Graph</a> object is defined by a set of <a class="el" href="../../dc/dbc/classumontreal_1_1ssj_1_1networks_1_1Node.html">Node</a>'s and a set of <a class="el" href="../../df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html">Link</a>'s. We assume that each node is connected with at least one another node, and a link connect only two nodes. Hence, it is a non-oriented graph which connects the source and the target. <br />
-</p>
-<p><b>Construction of a <a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html" title="This class implements a stochastic non-oriented weighted graph (a network). ">Graph</a></b><br />
- We assume a <a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html" title="This class implements a stochastic non-oriented weighted graph (a network). ">Graph</a> is built from a text file which must be as follows:<br />
-</p>
-<p>NumberOfNodes NumberOfLinks SourceNode TargetNode <br />
- NodeI NodeJ Reliability<br />
- ...<br />
- We give an example of a basic network connecting corners of a square <br />
- 4 4 0 2 <br />
- 0 1 0.9 <br />
- 0 3 0.8 <br />
- 1 2 0.6 <br />
- 2 3 0.8 <br />
- </p>
-<p><em> The choice to give the reliability inside the text file is arbitrary. If we assume <a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html" title="This class implements a stochastic non-oriented weighted graph (a network). ">Graph</a> is homogeneous (i.e. each link has the same reliability), we can change the reliability of the network with one of its method. An update should give the possibility of relaxing the homogeneous assumption. </em> </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aadc7cc913e0dfb917fd3ff85be2c30f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadc7cc913e0dfb917fd3ff85be2c30f0">&#9670;&nbsp;</a></span>Graph()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a39514098f1c4c6965a26a65842936c7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39514098f1c4c6965a26a65842936c7a">&#9670;&nbsp;</a></span>addLink()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html">Graph</a> </td>
+          <td class="memname">abstract void addLink </td>
           <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>file</em></td><td>)</td>
-          <td> throws IOException</td>
+          <td class="paramtype">L&#160;</td>
+          <td class="paramname"><em>l</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">abstract</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Define graph given a .txt file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">file</td><td>file name </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname">java.io.IOException</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Add a link if users want. </p>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a22289060d7f774444c2fb34531e02dca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22289060d7f774444c2fb34531e02dca">&#9670;&nbsp;</a></span>generate()</h2>
+<a id="a4c3bc57b8cf1874c0cef665350b34b92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c3bc57b8cf1874c0cef665350b34b92">&#9670;&nbsp;</a></span>addNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void generate </td>
+          <td class="memname">void addNode </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../de/de0/classumontreal_1_1ssj_1_1randvar_1_1RandomVariateGen.html">RandomVariateGen</a>&#160;</td>
-          <td class="paramname"><em>gen</em></td><td>)</td>
+          <td class="paramtype">N&#160;</td>
+          <td class="paramname"><em>n</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Generate a random length for all links of the graph using <code>gen</code>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">gen</td><td>Random number generator </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Add a node if users want. </p>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>
-<a id="a5fc171300040f22a7a87674ec7094a8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5fc171300040f22a7a87674ec7094a8f">&#9670;&nbsp;</a></span>getFileName()</h2>
+<a id="a090ec90d18c0f0580e6e6ff7ec8d8da4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a090ec90d18c0f0580e6e6ff7ec8d8da4">&#9670;&nbsp;</a></span>clone()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">String getFileName </td>
+          <td class="memname"><a class="el" href="../../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html">Graph</a> clone </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -301,20 +216,18 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
       </table>
 </div><div class="memdoc">
 
-<p>A graph is usually built by reading its parameters (nodes and edges) from a text file. </p>
-<p>Returns the name of that input file.</p>
-<dl class="section return"><dt>Returns</dt><dd>the file name of the graph </dd></dl>
+<p>SHOULDNT BE USED. </p>
 
 </div>
 </div>
-<a id="a585cc99cac2da12f9427fdefddd3e65a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a585cc99cac2da12f9427fdefddd3e65a">&#9670;&nbsp;</a></span>getLink()</h2>
+<a id="a02257e59a2f85294fb10971863d6d3b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02257e59a2f85294fb10971863d6d3b1">&#9670;&nbsp;</a></span>getLink()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html">Link</a> getLink </td>
+          <td class="memname">L getLink </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>i</em></td><td>)</td>
@@ -334,14 +247,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a21a91f721da86d6620a79eb45d7e4e5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21a91f721da86d6620a79eb45d7e4e5c">&#9670;&nbsp;</a></span>getLinkFromNode()</h2>
+<a id="af84f15681a1213210f1cfad00741b8a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af84f15681a1213210f1cfad00741b8a9">&#9670;&nbsp;</a></span>getLinkFromNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html">Link</a> getLinkFromNode </td>
+          <td class="memname">L getLinkFromNode </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>j</em>, </td>
@@ -360,7 +273,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
       </table>
 </div><div class="memdoc">
 
-<p>Return the j-th <a class="el" href="../../df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html" title="A Link of a network. ">Link</a> connected to <a class="el" href="../../dc/dbc/classumontreal_1_1ssj_1_1networks_1_1Node.html" title="This class provides nodes for a graph. ">Node</a> i. </p>
+<p>Return the j-th Link connected to Node i. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">i</td><td>the number of the given node </td></tr>
@@ -372,14 +285,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a0627980857419df646e109e6705b8541"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0627980857419df646e109e6705b8541">&#9670;&nbsp;</a></span>getLinks()</h2>
+<a id="a567ee597bc7672940de73f39f09831e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a567ee597bc7672940de73f39f09831e4">&#9670;&nbsp;</a></span>getLinks()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html">Link</a> [] getLinks </td>
+          <td class="memname">ArrayList&lt;L&gt; getLinks </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -392,46 +305,8 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a7bf7ce01b6b87c7759b4b0a68efe5b28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bf7ce01b6b87c7759b4b0a68efe5b28">&#9670;&nbsp;</a></span>getLinkWithNodes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int getLinkWithNodes </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>i</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>j</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Return the link which connects nodes i and j. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">i</td><td></td></tr>
-    <tr><td class="paramname">j</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>To obtain the number of link with endpoints i and j </dd></dl>
-
-</div>
-</div>
-<a id="ad04d79fa827cec1dd9822ac3d652b599"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad04d79fa827cec1dd9822ac3d652b599">&#9670;&nbsp;</a></span>getNeighborOfNode()</h2>
+<a id="a8eadd73809654da2f1a1f9355adb6307"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8eadd73809654da2f1a1f9355adb6307">&#9670;&nbsp;</a></span>getNeighborOfNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -439,7 +314,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
         <tr>
           <td class="memname">int getNeighborOfNode </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="../../df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html">Link</a>&#160;</td>
+          <td class="paramtype">L&#160;</td>
           <td class="paramname"><em>link</em>, </td>
         </tr>
         <tr>
@@ -456,7 +331,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
       </table>
 </div><div class="memdoc">
 
-<p>Returns the node connected to node i by <a class="el" href="../../df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html" title="A Link of a network. ">Link</a> link. </p>
+<p>Returns the node connected to node i by Link link. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">link</td><td></td></tr>
@@ -468,14 +343,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a680dcf366cd64c53b249b3bb92366dcf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a680dcf366cd64c53b249b3bb92366dcf">&#9670;&nbsp;</a></span>getNode()</h2>
+<a id="ab5dded04d89c7ac8f9e22059f7f3daf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5dded04d89c7ac8f9e22059f7f3daf6">&#9670;&nbsp;</a></span>getNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../dc/dbc/classumontreal_1_1ssj_1_1networks_1_1Node.html">Node</a> getNode </td>
+          <td class="memname">N getNode </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>i</em></td><td>)</td>
@@ -495,14 +370,14 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 </div>
 </div>
-<a id="a479442653e7185ca757aede0b4edc699"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a479442653e7185ca757aede0b4edc699">&#9670;&nbsp;</a></span>getNodes()</h2>
+<a id="a3d50935fff9ce9d7b3fcb56c622505cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d50935fff9ce9d7b3fcb56c622505cd">&#9670;&nbsp;</a></span>getNodes()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../dc/dbc/classumontreal_1_1ssj_1_1networks_1_1Node.html">Node</a> [] getNodes </td>
+          <td class="memname">ArrayList&lt;N&gt; getNodes </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -579,241 +454,6 @@ int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../..
 
 <p>Get the number of nodes. </p>
 <dl class="section return"><dt>Returns</dt><dd>return the number of nodes </dd></dl>
-
-</div>
-</div>
-<a id="a389fd660f0cd1a54dcac09e344eb1452"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a389fd660f0cd1a54dcac09e344eb1452">&#9670;&nbsp;</a></span>getSource()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int getSource </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the id of the source node. </p>
-<dl class="section return"><dt>Returns</dt><dd>source node </dd></dl>
-
-</div>
-</div>
-<a id="a35a74c0841334d42ee17d95a6cc262a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a35a74c0841334d42ee17d95a6cc262a5">&#9670;&nbsp;</a></span>getTarget()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int getTarget </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the id of the target node. </p>
-<dl class="section return"><dt>Returns</dt><dd>target node </dd></dl>
-
-</div>
-</div>
-<a id="af3c17f5eea237af3147846377f4ef874"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af3c17f5eea237af3147846377f4ef874">&#9670;&nbsp;</a></span>getUnreliability()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double [] getUnreliability </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Gets the <em>unreliability</em> of all the links of the graph. </p>
-<dl class="section return"><dt>Returns</dt><dd>unreliabilities </dd></dl>
-
-</div>
-</div>
-<a id="a3ee25c76f95a56df576cbfc840bde359"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ee25c76f95a56df576cbfc840bde359">&#9670;&nbsp;</a></span>getV0()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int [] getV0 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the subset of the nodes that must be connected to make the network operational. </p>
-<p>Most often, it contains only 2 nodes: the source and the target. In the extreme case, it may contain all the nodes of the network.</p>
-<dl class="section return"><dt>Returns</dt><dd>the subset of nodes V0 </dd></dl>
-
-</div>
-</div>
-<a id="a2833d3b8a1ec126d4cdbbb0e2464049f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2833d3b8a1ec126d4cdbbb0e2464049f">&#9670;&nbsp;</a></span>setReliability() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void setReliability </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>r</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the same reliability for all links of the graph. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">r</td><td>reliability </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a209b599ce923ca5ae8d66a6d67e36036"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a209b599ce923ca5ae8d66a6d67e36036">&#9670;&nbsp;</a></span>setReliability() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void setReliability </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>i</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>r</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the reliability r for link i of the graph. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">i</td><td>link </td></tr>
-    <tr><td class="paramname">r</td><td>reliability </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="aa675ab6e64c9419c4a528e4ae88589fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa675ab6e64c9419c4a528e4ae88589fc">&#9670;&nbsp;</a></span>setReliability() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void setReliability </td>
-          <td>(</td>
-          <td class="paramtype">double []&#160;</td>
-          <td class="paramname"><em>R</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the reliability for all links of the graph. </p>
-<p>R must have the same number of elements as the number of links.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">R</td><td>reliabilities </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a2450b0525b3734e08dece16694661122"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2450b0525b3734e08dece16694661122">&#9670;&nbsp;</a></span>setSampler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void setSampler </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="../../db/d5d/enumumontreal_1_1ssj_1_1networks_1_1SamplerType.html">SamplerType</a>&#160;</td>
-          <td class="paramname"><em>sam</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">boolean&#160;</td>
-          <td class="paramname"><em>destructFlag</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Choose the sampler used to generate random weights for each link of the graph. </p>
-<p>If <code>destructFlag</code> is true, the destructive schema is used; if <code>destructFlag</code> is false, the constructive schema is used.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sam</td><td>which kind of random sampler is used </td></tr>
-    <tr><td class="paramname">destructFlag</td><td>true for the destructive schema </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a82c7200e946e58b582b199b811dd1d87"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82c7200e946e58b582b199b811dd1d87">&#9670;&nbsp;</a></span>m_V0</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int [] m_V0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Subset of nodes that must be connected to make the network operational. </p>
-<p>Very often, it contains only 2 nodes: the source and the target. In the extreme case, it may contain all the nodes of the network. </p>
 
 </div>
 </div>

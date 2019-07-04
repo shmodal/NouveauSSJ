@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="RadicalInverse",height=0.2,width=0.4,color="black",URL="$dd/d7f/classumontreal_1_1ssj_1_1hups_1_1RadicalInverse.html",tooltip="This class implements basic methods for working with radical inverses of integers in an arbitrary bas..."];
+  Node0 [label="Num",height=0.2,width=0.4,color="black",URL="$de/d3c/classumontreal_1_1ssj_1_1util_1_1Num.html",tooltip="This class provides a few constants and some methods to compute numerical quantities such as factoria..."];
 }

@@ -21,7 +21,7 @@ var searchData=
   ['exponentialdistfrommean',['ExponentialDistFromMean',['../d2/dee/classumontreal_1_1ssj_1_1probdist_1_1ExponentialDistFromMean.html',1,'umontreal::ssj::probdist']]],
   ['exponentialgen',['ExponentialGen',['../d4/d9c/classumontreal_1_1ssj_1_1randvar_1_1ExponentialGen.html',1,'umontreal::ssj::randvar']]],
   ['exponentialinversefromdensitygen',['ExponentialInverseFromDensityGen',['../d3/dbd/classumontreal_1_1ssj_1_1randvar_1_1ExponentialInverseFromDensityGen.html',1,'umontreal::ssj::randvar']]],
-  ['exponentialsampler',['ExponentialSampler',['../d5/dbd/classumontreal_1_1ssj_1_1networks_1_1ExponentialSampler.html',1,'umontreal::ssj::networks']]],
+  ['exponentialsampler',['ExponentialSampler',['../d1/d91/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1ExponentialSampler.html',1,'umontreal::ssj::networks::staticreliability']]],
   ['extremevaluedist',['ExtremeValueDist',['../d2/dfd/classumontreal_1_1ssj_1_1probdist_1_1ExtremeValueDist.html',1,'umontreal::ssj::probdist']]],
   ['extremevaluegen',['ExtremeValueGen',['../dd/dfd/classumontreal_1_1ssj_1_1randvar_1_1ExtremeValueGen.html',1,'umontreal::ssj::randvar']]]
 ];

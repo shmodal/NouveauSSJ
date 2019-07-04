@@ -5,11 +5,11 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node766 [label="Iterator",height=0.2,width=0.4,color="grey75"];
-  Node766 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node0 [label="ListWithStat\< E \>.Iterator\lWithStat",height=0.2,width=0.4,color="black",URL="$dc/dde/classumontreal_1_1ssj_1_1simevents_1_1ListWithStat_1_1IteratorWithStat.html"];
-  Node766 -> Node768 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node768 [label="MatrixOfStatProbes\l\< E extends StatProbe\l \>.MyIterator",height=0.2,width=0.4,color="black",URL="$dc/d1b/classumontreal_1_1ssj_1_1stat_1_1matrix_1_1MatrixOfStatProbes_1_1MyIterator.html"];
-  Node766 -> Node769 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node769 [label="TransformingList\< OE,\l IE \>.MyIterator",height=0.2,width=0.4,color="black",URL="$d0/ddc/classumontreal_1_1ssj_1_1util_1_1TransformingList_1_1MyIterator.html"];
+  Node0 [label="LinkBasic",height=0.2,width=0.4,color="black",URL="$dc/d5d/classumontreal_1_1ssj_1_1networks_1_1LinkBasic.html"];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="LinkFlow",height=0.2,width=0.4,color="black",URL="$dc/dd6/classumontreal_1_1ssj_1_1networks_1_1flow_1_1LinkFlow.html",tooltip="A Link of a network. "];
+  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="LinkReliability",height=0.2,width=0.4,color="black",URL="$d0/d55/classumontreal_1_1ssj_1_1networks_1_1LinkReliability.html",tooltip="A Link of a network. "];
+  Node0 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="LinkWithCapacity",height=0.2,width=0.4,color="black",URL="$d5/d4e/classumontreal_1_1ssj_1_1networks_1_1LinkWithCapacity.html"];
 }

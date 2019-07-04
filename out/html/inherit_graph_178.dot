@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="TestAsianVGRQMC2017",height=0.2,width=0.4,color="black",URL="$d9/dc2/classift6561examples_1_1TestAsianVGRQMC2017.html"];
+  Node0 [label="Simulator",height=0.2,width=0.4,color="black",URL="$d0/df5/classumontreal_1_1ssj_1_1simevents_1_1Simulator.html",tooltip="Represents the executive of a discrete-event simulator. "];
 }

@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="MatrixOfStatProbes\l\< E extends StatProbe\l \>.ListType",height=0.2,width=0.4,color="black",URL="$dc/d37/enumumontreal_1_1ssj_1_1stat_1_1matrix_1_1MatrixOfStatProbes_1_1ListType.html"];
+  Node0 [label="ListOfTallies\< TallyStore \>",height=0.2,width=0.4,color="black",URL="$db/d52/classumontreal_1_1ssj_1_1stat_1_1list_1_1ListOfTallies.html"];
 }

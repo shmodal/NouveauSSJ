@@ -5,5 +5,9 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="RandomPermutation",height=0.2,width=0.4,color="black",URL="$d2/d4d/classumontreal_1_1ssj_1_1rng_1_1RandomPermutation.html",tooltip="Provides methods to randomly shuffle arrays or lists using a random stream. "];
+  Node0 [label="ObservationListener",height=0.2,width=0.4,color="black",URL="$d9/d7b/interfaceumontreal_1_1ssj_1_1stat_1_1ObservationListener.html",tooltip="Represents an object that can listen to observations broadcast by statistical probes. "];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="QueueObs.LargeWaitsCollector",height=0.2,width=0.4,color="black",URL="$d4/d4d/classtutorial_1_1QueueObs_1_1LargeWaitsCollector.html"];
+  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="QueueObs.ObservationTrace",height=0.2,width=0.4,color="black",URL="$da/dbf/classtutorial_1_1QueueObs_1_1ObservationTrace.html"];
 }

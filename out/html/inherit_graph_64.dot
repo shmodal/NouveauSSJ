@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="GofFormat",height=0.2,width=0.4,color="black",URL="$db/d01/classumontreal_1_1ssj_1_1gof_1_1GofFormat.html",tooltip="This class contains methods used to format results of GOF test statistics, or to apply a series of te..."];
+  Node0 [label="FunctionOfMultipleMeansTally.\lCIType",height=0.2,width=0.4,color="black",URL="$d7/d0f/enumumontreal_1_1ssj_1_1stat_1_1FunctionOfMultipleMeansTally_1_1CIType.html"];
 }

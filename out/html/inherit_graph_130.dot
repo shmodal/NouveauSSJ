@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="QueueEv.Customer",height=0.2,width=0.4,color="black",URL="$df/d61/classtutorial_1_1QueueEv_1_1Customer.html"];
+  Node0 [label="Nonuniform",height=0.2,width=0.4,color="black",URL="$d8/d49/classtutorial_1_1Nonuniform.html"];
 }

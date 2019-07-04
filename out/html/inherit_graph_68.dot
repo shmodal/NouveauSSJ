@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="Hedge",height=0.2,width=0.4,color="black",URL="$d5/d8d/classift6561examples_1_1Hedge.html"];
+  Node0 [label="GofStat",height=0.2,width=0.4,color="black",URL="$db/d27/classumontreal_1_1ssj_1_1gof_1_1GofStat.html",tooltip="This class provides methods to compute several types of EDF goodness-of-fit test statistics and to ap..."];
 }

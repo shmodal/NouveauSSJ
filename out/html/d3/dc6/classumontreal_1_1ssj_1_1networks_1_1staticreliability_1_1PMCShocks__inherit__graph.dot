@@ -1,0 +1,22 @@
+digraph "PMCShocks"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node0 [label="PMCShocks",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node1 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="PMC",height=0.2,width=0.4,color="black",URL="$dc/db6/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1PMC.html",tooltip="This class implements the Permutation Monte Carlo method to estimate the reliability of a network..."];
+  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="PMCAntiShocks",height=0.2,width=0.4,color="black",URL="$d0/ded/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1PMCAntiShocks.html",tooltip="This class implements the PMC algorithm with anti-shocks to estimate the unreliability of a network..."];
+  Node0 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="PMCShocksPi",height=0.2,width=0.4,color="black",URL="$d6/d92/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1PMCShocksPi.html",tooltip="This class implements the Permutation Monte Carlo method with shocks to estimate the unreliability of..."];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="TurnipShocksPi",height=0.2,width=0.4,color="black",URL="$d8/d04/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1TurnipShocksPi.html",tooltip="This class implements the adapted turnip method with shocks to estimate the unreliability of a networ..."];
+  Node0 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="TurnipShocks",height=0.2,width=0.4,color="black",URL="$df/d3b/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1TurnipShocks.html",tooltip="This class implements the adapted turnip algorithm with shocks to estimate the unreliability of a net..."];
+  Node0 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="TurnipShocksAntiScan",height=0.2,width=0.4,color="black",URL="$d0/d0c/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1TurnipShocksAntiScan.html",tooltip="This class implements the turnip algorithm with reverse scan to estimate the unreliability of a netwo..."];
+  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="TurnipAntiShocks",height=0.2,width=0.4,color="black",URL="$db/d3d/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1TurnipAntiShocks.html",tooltip="This class implements the adapted turnip algorithm with anti-shocks to estimate the unreliability of ..."];
+}

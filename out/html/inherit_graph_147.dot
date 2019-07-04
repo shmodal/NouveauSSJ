@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="RQMCPointSet",height=0.2,width=0.4,color="black",URL="$dd/d7b/classumontreal_1_1ssj_1_1hups_1_1RQMCPointSet.html",tooltip="This class is used for randomized quasi-Monte Carlo (RQMC) simulations , , , . "];
+  Node0 [label="QueueEv.Customer",height=0.2,width=0.4,color="black",URL="$df/d61/classtutorial_1_1QueueEv_1_1Customer.html"];
 }

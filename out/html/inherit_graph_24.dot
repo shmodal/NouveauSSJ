@@ -5,7 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="Collision",height=0.2,width=0.4,color="black",URL="$d8/d0a/classift6561examples_1_1Collision.html"];
-  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 [label="CollisionPoisson",height=0.2,width=0.4,color="black",URL="$df/d39/classift6561examples_1_1CollisionPoisson.html"];
+  Node0 [label="CompareOutputs",height=0.2,width=0.4,color="black",URL="$df/df7/classtutorial_1_1CompareOutputs.html"];
 }

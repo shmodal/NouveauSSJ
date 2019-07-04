@@ -5,5 +5,7 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="ArithmeticMod",height=0.2,width=0.4,color="black",URL="$d2/d1c/classumontreal_1_1ssj_1_1util_1_1ArithmeticMod.html",tooltip="This class provides facilities to compute multiplications of scalars, of vectors and of matrices modu..."];
+  Node0 [label="ArrayOfComparableChains\l\< T extends MarkovChainComparable \>",height=0.2,width=0.4,color="black",URL="$d9/d37/classumontreal_1_1ssj_1_1markovchainrqmc_1_1ArrayOfComparableChains.html",tooltip="This class provides tools to simulate an array of MarkovChainComparable objects with the array-RQMC m..."];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="ArrayOfDoubleChains",height=0.2,width=0.4,color="black",URL="$db/dab/classumontreal_1_1ssj_1_1markovchainrqmc_1_1ArrayOfDoubleChains.html",tooltip="Similar to ArrayOfComparableChains, except that instead of working with  clones of a MarkovChain..."];
 }

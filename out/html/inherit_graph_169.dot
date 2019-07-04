@@ -5,5 +5,21 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="Systeme",height=0.2,width=0.4,color="black",URL="$d9/dac/classumontreal_1_1ssj_1_1util_1_1Systeme.html",tooltip="This class provides a few tools related to the system or the computer. "];
+  Node525 [label="Integrator",height=0.2,width=0.4,color="black",URL="$d9/d36/interfaceumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1Integrator.html"];
+  Node525 -> Node526 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node526 [label="RandomIntegrator",height=0.2,width=0.4,color="black",URL="$d6/dc9/interfaceumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1RandomIntegrator.html"];
+  Node526 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="MonteCarloIntegrator",height=0.2,width=0.4,color="black",URL="$dd/dbb/classumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1MonteCarloIntegrator.html"];
+  Node526 -> Node527 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node527 [label="Replicator",height=0.2,width=0.4,color="black",URL="$d4/d3f/classumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1Replicator.html",tooltip="Replicator class. "];
+  Node0 [label="Sampler",height=0.2,width=0.4,color="black",URL="$d2/d10/interfaceumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1Sampler.html"];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="QMCSampler",height=0.2,width=0.4,color="black",URL="$dd/d8b/classumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1QMCSampler.html",tooltip="QMC sampler. "];
+  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="RandomSampler",height=0.2,width=0.4,color="black",URL="$dc/dcd/interfaceumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1RandomSampler.html"];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="MonteCarloSampler",height=0.2,width=0.4,color="black",URL="$d9/de2/classumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1MonteCarloSampler.html",tooltip="Monte Carlo sampler. "];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="RQMCSampler",height=0.2,width=0.4,color="black",URL="$da/d27/classumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1RQMCSampler.html",tooltip="QMC sampler. "];
 }

@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="ListOfTallies\< PartialVariance \>",height=0.2,width=0.4,color="black",URL="$db/d52/classumontreal_1_1ssj_1_1stat_1_1list_1_1ListOfTallies.html"];
+  Node0 [label="JDBCManager",height=0.2,width=0.4,color="black",URL="$d8/d4c/classumontreal_1_1ssj_1_1util_1_1JDBCManager.html",tooltip="This class provides some facilities to connect to a SQL database and to retrieve data stored in it..."];
 }

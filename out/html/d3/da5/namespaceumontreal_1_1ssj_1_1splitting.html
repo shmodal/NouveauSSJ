@@ -80,23 +80,22 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d49/classumontreal_1_1ssj_1_1splitting_1_1AdamSplitting.html">AdamSplitting</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class implements the ADAM (ADAptative Multilevel splitting) algorithm.  <a href="../../d3/d49/classumontreal_1_1ssj_1_1splitting_1_1AdamSplitting.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d5a/classumontreal_1_1ssj_1_1splitting_1_1GeneralGStest.html">GeneralGStest</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d84/classumontreal_1_1ssj_1_1splitting_1_1AdamSplittingBotev.html">AdamSplittingBotev</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This class implements the ADAM (ADAptative Multilevel splitting) algorithm.  <a href="../../df/d84/classumontreal_1_1ssj_1_1splitting_1_1AdamSplittingBotev.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d2e/classumontreal_1_1ssj_1_1splitting_1_1MarkovChainSquareSplitting.html">MarkovChainSquareSplitting</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d78/classumontreal_1_1ssj_1_1splitting_1_1GeneralizedSplitting.html">GeneralizedSplitting</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements the generalized splitting algorithm.  <a href="../../dc/d78/classumontreal_1_1ssj_1_1splitting_1_1GeneralizedSplitting.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d09/classumontreal_1_1ssj_1_1splitting_1_1MarkovChainWithImportance.html">MarkovChainWithImportance</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subclass of MarkovChain (class in <a class="el" href="../../de/dc4/namespaceumontreal_1_1ssj_1_1markovchainrqmc.html" title="Tools to simulate Markov chains with the Array-RQMC method. ">umontreal.ssj.markovchainrqmc</a>) Abstract class, extended for example by MarkovChainNetworkReliability and al.  <a href="../../d1/d09/classumontreal_1_1ssj_1_1splitting_1_1MarkovChainWithImportance.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/de5/classumontreal_1_1ssj_1_1splitting_1_1GeneralizedSplittingBotev.html">GeneralizedSplittingBotev</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implements the generalized splitting algorithm.  <a href="../../d9/de5/classumontreal_1_1ssj_1_1splitting_1_1GeneralizedSplittingBotev.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d79/classumontreal_1_1ssj_1_1splitting_1_1SplittingGS.html">SplittingGS</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d6/d52/classumontreal_1_1ssj_1_1splitting_1_1SplittingGSAdam.html">SplittingGSAdam</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Splitting algorithms. </p>
-<p>For now, these algorithms can only be applied to networks. They use <a class="el" href="../../d7/d8c/classumontreal_1_1ssj_1_1networks_1_1MarkovChain.html">umontreal.ssj.networks.MarkovChain</a> and <a class="el" href="../../d6/dd7/classumontreal_1_1ssj_1_1networks_1_1ConnectivityState.html">umontreal.ssj.networks.ConnectivityState</a>, which are implementations of Markov Chains specific to static network reliability problems.</p>
-<p><a class="el" href="../../dc/d78/classumontreal_1_1ssj_1_1splitting_1_1GeneralizedSplitting.html">GeneralizedSplitting</a> computes the reliability of a network using the Generalized splitting algorithm introduced in <code> Static Network Reliability Estimation Via Generalized Splitting </code>. One has to use first <a class="el" href="../../d3/d49/classumontreal_1_1ssj_1_1splitting_1_1AdamSplitting.html">AdamSplitting</a> , which returns the best suited gamma levels for GS. </p>
+<p>For now, these algorithms can only be applied to networks. They use umontreal.ssj.networks.MarkovChain and umontreal.ssj.networks.ConnectivityState, which are implementations of Markov Chains specific to static network reliability problems.</p>
+<p>GeneralizedSplitting computes the reliability of a network using the Generalized splitting algorithm introduced in <code> Static Network Reliability Estimation Via Generalized Splitting </code>. One has to use first AdamSplitting , which returns the best suited gamma levels for GS. </p>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

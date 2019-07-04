@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="AdamSplitting",height=0.2,width=0.4,color="black",URL="$d3/d49/classumontreal_1_1ssj_1_1splitting_1_1AdamSplitting.html",tooltip="This class implements the ADAM (ADAptative Multilevel splitting) algorithm. "];
+  Node0 [label="AdamSplittingOld",height=0.2,width=0.4,color="black",URL="$df/d5b/classumontreal_1_1ssj_1_1splitting_1_1old_1_1AdamSplittingOld.html",tooltip="This class implements the ADAM (ADAptative Multilevel splitting) algorithm. "];
 }

@@ -1,12 +1,11 @@
 var searchData=
 [
-  ['m',['m',['../d1/d65/classumontreal_1_1ssj_1_1networks_1_1TurnipPi.html#a742204794ea328ba293fe59cec79b990',1,'umontreal::ssj::networks::TurnipPi']]],
-  ['m_5fell',['m_ell',['../d4/de0/classumontreal_1_1ssj_1_1networks_1_1PMC.html#ab948741b08ea298d632b8189b24946df',1,'umontreal::ssj::networks::PMC']]],
-  ['m_5festimate',['m_estimate',['../dc/d78/classumontreal_1_1ssj_1_1splitting_1_1GeneralizedSplitting.html#aa4b57edb6932852271dc9f151d10af31',1,'umontreal::ssj::splitting::GeneralizedSplitting']]],
-  ['m_5fgamma',['m_Gamma',['../d3/d49/classumontreal_1_1ssj_1_1splitting_1_1AdamSplitting.html#ac1ea2e4d9bf571a00af54d6da6528e92',1,'umontreal::ssj::splitting::AdamSplitting']]],
-  ['m_5fsam',['m_sam',['../df/d9c/classumontreal_1_1ssj_1_1networks_1_1Link.html#a81a89454ec9d27a870e67a0d17418363',1,'umontreal::ssj::networks::Link']]],
-  ['m_5fv0',['m_V0',['../d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html#a82c7200e946e58b582b199b811dd1d87',1,'umontreal::ssj::networks::Graph']]],
-  ['m_5fvariance',['m_variance',['../d4/de0/classumontreal_1_1ssj_1_1networks_1_1PMC.html#a50cee7888a2f3fce6a6bd4cc08df8537',1,'umontreal::ssj::networks::PMC']]],
+  ['m',['m',['../de/d71/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1TurnipPi.html#a742204794ea328ba293fe59cec79b990',1,'umontreal::ssj::networks::staticreliability::TurnipPi']]],
+  ['m_5fell',['m_ell',['../dc/db6/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1PMC.html#ab948741b08ea298d632b8189b24946df',1,'umontreal::ssj::networks::staticreliability::PMC']]],
+  ['m_5festimate',['m_estimate',['../da/dc1/classumontreal_1_1ssj_1_1splitting_1_1old_1_1GeneralizedSplittingOld.html#aa4b57edb6932852271dc9f151d10af31',1,'umontreal.ssj.splitting.old.GeneralizedSplittingOld.m_estimate()'],['../d1/d79/classumontreal_1_1ssj_1_1splitting_1_1SplittingGS.html#aa4b57edb6932852271dc9f151d10af31',1,'umontreal.ssj.splitting.SplittingGS.m_estimate()']]],
+  ['m_5fgamma',['m_Gamma',['../df/d5b/classumontreal_1_1ssj_1_1splitting_1_1old_1_1AdamSplittingOld.html#ac1ea2e4d9bf571a00af54d6da6528e92',1,'umontreal.ssj.splitting.old.AdamSplittingOld.m_Gamma()'],['../d6/d52/classumontreal_1_1ssj_1_1splitting_1_1SplittingGSAdam.html#ac1ea2e4d9bf571a00af54d6da6528e92',1,'umontreal.ssj.splitting.SplittingGSAdam.m_Gamma()']]],
+  ['m_5fv0',['m_V0',['../d5/d7c/classtempNetworks_1_1GraphReliability.html#a82c7200e946e58b582b199b811dd1d87',1,'tempNetworks.GraphReliability.m_V0()'],['../d6/dc1/classumontreal_1_1ssj_1_1networks_1_1flow_1_1Graph.html#a82c7200e946e58b582b199b811dd1d87',1,'umontreal.ssj.networks.flow.Graph.m_V0()'],['../d6/d99/classumontreal_1_1ssj_1_1networks_1_1GraphReliability.html#a82c7200e946e58b582b199b811dd1d87',1,'umontreal.ssj.networks.GraphReliability.m_V0()']]],
+  ['m_5fvariance',['m_variance',['../dc/db6/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1PMC.html#a50cee7888a2f3fce6a6bd4cc08df8537',1,'umontreal::ssj::networks::staticreliability::PMC']]],
   ['mathematica',['MATHEMATICA',['../db/d01/classumontreal_1_1ssj_1_1gof_1_1GofFormat.html#ae8a1ccf120f950ebfba1cb2fb0c13e75',1,'umontreal.ssj.gof.GofFormat.MATHEMATICA()'],['../d3/d5e/classumontreal_1_1ssj_1_1util_1_1TableFormat.html#ae8a1ccf120f950ebfba1cb2fb0c13e75',1,'umontreal.ssj.util.TableFormat.MATHEMATICA()']]],
   ['matlab',['MATLAB',['../d3/d5e/classumontreal_1_1ssj_1_1util_1_1TableFormat.html#a8dc8b323b7d379175d2cc1c648975e84',1,'umontreal::ssj::util::TableFormat']]],
   ['maxbits',['MAXBITS',['../d8/d10/classumontreal_1_1ssj_1_1hups_1_1PointSet.html#af6c2a53b146205dc04710d8ffa0f3605',1,'umontreal::ssj::hups::PointSet']]],

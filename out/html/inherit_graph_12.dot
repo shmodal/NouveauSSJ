@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="BinaryTree.Entry",height=0.2,width=0.4,color="black",URL="$df/dff/classumontreal_1_1ssj_1_1simevents_1_1eventlist_1_1BinaryTree_1_1Entry.html",tooltip="Classe interne representant les noeuds de l&#39;arbre. "];
+  Node0 [label="BoxTest",height=0.2,width=0.4,color="black",URL="$db/d11/classcharts_1_1BoxTest.html"];
 }

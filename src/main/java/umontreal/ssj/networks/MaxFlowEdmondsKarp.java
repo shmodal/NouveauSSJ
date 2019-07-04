@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import umontreal.ssj.util.Tools;
+import umontreal.ssj.networks.flow.GraphWithCapacity;
 import umontreal.ssj.rng.*;
 
 

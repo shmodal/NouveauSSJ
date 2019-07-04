@@ -5,11 +5,19 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node463 [label="Lmder_fcn",height=0.2,width=0.4,color="grey75"];
-  Node463 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node0 [label="BetaDist.Optim",height=0.2,width=0.4,color="black",URL="$d4/dac/classumontreal_1_1ssj_1_1probdist_1_1BetaDist_1_1Optim.html"];
-  Node463 -> Node465 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node465 [label="FrechetDist.Optim",height=0.2,width=0.4,color="black",URL="$dd/d61/classumontreal_1_1ssj_1_1probdist_1_1FrechetDist_1_1Optim.html"];
-  Node463 -> Node466 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node466 [label="LogisticDist.Optim",height=0.2,width=0.4,color="black",URL="$d0/d27/classumontreal_1_1ssj_1_1probdist_1_1LogisticDist_1_1Optim.html"];
+  Node802 [label="ListIterator",height=0.2,width=0.4,color="grey75"];
+  Node802 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="BinaryTree.BTItr",height=0.2,width=0.4,color="black",URL="$d2/d72/classumontreal_1_1ssj_1_1simevents_1_1eventlist_1_1BinaryTree_1_1BTItr.html"];
+  Node802 -> Node804 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node804 [label="DoublyLinked.DLItr",height=0.2,width=0.4,color="black",URL="$d5/de3/classumontreal_1_1ssj_1_1simevents_1_1eventlist_1_1DoublyLinked_1_1DLItr.html"];
+  Node802 -> Node805 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node805 [label="Henriksen.HItr",height=0.2,width=0.4,color="black",URL="$d1/d4a/classumontreal_1_1ssj_1_1simevents_1_1eventlist_1_1Henriksen_1_1HItr.html"];
+  Node802 -> Node806 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node806 [label="RedblackTree.RBItr",height=0.2,width=0.4,color="black",URL="$df/de5/classumontreal_1_1ssj_1_1simevents_1_1eventlist_1_1RedblackTree_1_1RBItr.html"];
+  Node802 -> Node807 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node807 [label="SplayTree.SPItr",height=0.2,width=0.4,color="black",URL="$dc/d1c/classumontreal_1_1ssj_1_1simevents_1_1eventlist_1_1SplayTree_1_1SPItr.html"];
+  Node802 -> Node808 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node808 [label="ListWithStat\< E \>.ListIterator\lWithStat",height=0.2,width=0.4,color="black",URL="$d9/d05/classumontreal_1_1ssj_1_1simevents_1_1ListWithStat_1_1ListIteratorWithStat.html"];
+  Node802 -> Node809 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node809 [label="TransformingList\< OE,\l IE \>.MyListIterator",height=0.2,width=0.4,color="black",URL="$da/d0c/classumontreal_1_1ssj_1_1util_1_1TransformingList_1_1MyListIterator.html"];
 }

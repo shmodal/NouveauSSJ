@@ -1,0 +1,17 @@
+digraph "Forest"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node2 [label="Forest",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Cloneable",height=0.2,width=0.4,color="grey75"];
+  Node4 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" father" ,fontname="Helvetica"];
+  Node4 [label="Graph",height=0.2,width=0.4,color="black",URL="$d6/dc1/classumontreal_1_1ssj_1_1networks_1_1flow_1_1Graph.html",tooltip="This class implements a stochastic non-oriented weighted graph (a network). "];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" links" ,fontname="Helvetica"];
+  Node5 [label="Link",height=0.2,width=0.4,color="grey75"];
+  Node6 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" nodes" ,fontname="Helvetica"];
+  Node6 [label="Node",height=0.2,width=0.4,color="grey75"];
+}

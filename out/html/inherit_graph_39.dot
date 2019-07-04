@@ -5,15 +5,13 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node771 [label="Comparator",height=0.2,width=0.4,color="grey75"];
-  Node771 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node0 [label="DigitalNetFromFile.NetComparator",height=0.2,width=0.4,color="black",URL="$d7/dd4/classumontreal_1_1ssj_1_1hups_1_1DigitalNetFromFile_1_1NetComparator.html"];
-  Node771 -> Node773 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node773 [label="RedblackTree.EventComparator",height=0.2,width=0.4,color="black",URL="$db/d87/classumontreal_1_1ssj_1_1simevents_1_1eventlist_1_1RedblackTree_1_1EventComparator.html"];
-  Node771 -> Node774 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node774 [label="DoubleArrayComparator",height=0.2,width=0.4,color="black",URL="$d5/d47/classumontreal_1_1ssj_1_1util_1_1sort_1_1DoubleArrayComparator.html",tooltip="This provides an implementation of Comparator in which arrays of double in  dimensions are compared b..."];
-  Node771 -> Node775 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node775 [label="HilbertCurveSort.LongIndex\lComparator2",height=0.2,width=0.4,color="black",URL="$d3/db5/classumontreal_1_1ssj_1_1util_1_1sort_1_1HilbertCurveSort_1_1LongIndexComparator2.html",tooltip="The comparator class used by sortIndexOfLong2. "];
-  Node771 -> Node776 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node776 [label="MultiDimComparator\l\< T extends MultiDimComparable\l\<? super T \>",height=0.2,width=0.4,color="black",URL="$d6/db8/classumontreal_1_1ssj_1_1util_1_1sort_1_1MultiDimComparator.html",tooltip="This class is useful if one wishes to perform an ordinary one-dimensional sort on MultiDimComparable<..."];
+  Node0 [label="DataWriter",height=0.2,width=0.4,color="black",URL="$db/df2/interfaceumontreal_1_1ssj_1_1util_1_1io_1_1DataWriter.html",tooltip="Data writer interface. "];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="AbstractDataWriter",height=0.2,width=0.4,color="black",URL="$dc/da4/classumontreal_1_1ssj_1_1util_1_1io_1_1AbstractDataWriter.html",tooltip="This abstract class implements shared functionality for data writers. "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="BinaryDataWriter",height=0.2,width=0.4,color="black",URL="$d9/dc0/classumontreal_1_1ssj_1_1util_1_1io_1_1BinaryDataWriter.html",tooltip="Binary data writer. "];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="CachedDataWriter",height=0.2,width=0.4,color="black",URL="$d3/d2e/classumontreal_1_1ssj_1_1util_1_1io_1_1CachedDataWriter.html",tooltip="This abstract class implements shared functionality for data writers that store all fields in memory ..."];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="TextDataWriter",height=0.2,width=0.4,color="black",URL="$dd/daf/classumontreal_1_1ssj_1_1util_1_1io_1_1TextDataWriter.html",tooltip="Text data writer. "];
 }

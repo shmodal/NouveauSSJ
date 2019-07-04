@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="RandUnuran",height=0.2,width=0.4,color="black",URL="$de/d15/classumontreal_1_1ssj_1_1randvar_1_1RandUnuran.html",tooltip="This internal class provides the access point to the C package UNURAN. "];
+  Node0 [label="PlotFormat",height=0.2,width=0.4,color="black",URL="$df/de4/classumontreal_1_1ssj_1_1charts_1_1PlotFormat.html",tooltip="Provide tools to import and export data set tables to and from Gnuplot, MATLAB and Mathematica compat..."];
 }

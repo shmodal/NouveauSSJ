@@ -5,5 +5,11 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="BankEv",height=0.2,width=0.4,color="black",URL="$db/d70/classtutorial_1_1BankEv.html"];
+  Node484 [label="Lmder_fcn",height=0.2,width=0.4,color="grey75"];
+  Node484 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="BetaDist.Optim",height=0.2,width=0.4,color="black",URL="$d4/dac/classumontreal_1_1ssj_1_1probdist_1_1BetaDist_1_1Optim.html"];
+  Node484 -> Node486 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node486 [label="FrechetDist.Optim",height=0.2,width=0.4,color="black",URL="$dd/d61/classumontreal_1_1ssj_1_1probdist_1_1FrechetDist_1_1Optim.html"];
+  Node484 -> Node487 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node487 [label="LogisticDist.Optim",height=0.2,width=0.4,color="black",URL="$d0/d27/classumontreal_1_1ssj_1_1probdist_1_1LogisticDist_1_1Optim.html"];
 }

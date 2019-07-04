@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="ISChart1",height=0.2,width=0.4,color="black",URL="$d3/dd7/classift6561examples_1_1ISChart1.html"];
+  Node0 [label="Hedge",height=0.2,width=0.4,color="black",URL="$d5/d8d/classift6561examples_1_1Hedge.html"];
 }

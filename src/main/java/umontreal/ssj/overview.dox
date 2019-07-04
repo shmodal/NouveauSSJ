@@ -181,10 +181,14 @@
  *  @ref umontreal.ssj.networks
  *  provides graph data structures suited to rare-event probabilities estimation,
  *  with the possibility of adding dependencies between edges/nodes,
+ *
+ *
+ *
+ *  @ref umontreal.ssj.networks.flow
+ *
+ *  @ref umontreal.ssj.networks.staticreliability
  *  implementation of classic static reliability algorithms(Permutation Monte Carlo, Turnip)  
  *  and their variants, and various useful tools (samplers, Markov Chains)
- *  
- * 
  *  **General utilities:**
  *
  *  @ref umontreal.ssj.util 

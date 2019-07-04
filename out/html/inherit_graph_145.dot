@@ -5,5 +5,9 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="RootFinder",height=0.2,width=0.4,color="black",URL="$d0/d35/classumontreal_1_1ssj_1_1util_1_1RootFinder.html",tooltip="This class provides methods to solve non-linear equations. "];
+  Node786 [label="Appendable",height=0.2,width=0.4,color="grey75"];
+  Node786 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node0 [label="PrintfFormat",height=0.2,width=0.4,color="black",URL="$da/d2e/classumontreal_1_1ssj_1_1util_1_1PrintfFormat.html",tooltip="This class acts like a StringBuffer which defines new types of append methods. "];
+  Node767 [label="CharSequence",height=0.2,width=0.4,color="grey75"];
+  Node767 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
 }

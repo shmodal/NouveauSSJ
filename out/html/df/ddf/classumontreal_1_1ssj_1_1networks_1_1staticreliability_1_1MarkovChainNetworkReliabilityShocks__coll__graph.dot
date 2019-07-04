@@ -1,0 +1,46 @@
+digraph "MarkovChainNetworkReliabilityShocks"
+{
+ // INTERACTIVE_SVG=YES
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node7 [label="MarkovChainNetworkReliability\lShocks",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node8 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="MarkovChainNetworkReliability\lDestruct",height=0.2,width=0.4,color="black",URL="$d9/def/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1MarkovChainNetworkReliabilityDestruct.html",tooltip="Implements one step of the Markov chain for the destructive schema. "];
+  Node9 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="MarkovChainNetworkReliability",height=0.2,width=0.4,color="black",URL="$dd/d62/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1MarkovChainNetworkReliability.html",tooltip="Extends the class MarkovChainWithImportance. "];
+  Node10 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="MarkovChainWithImportance",height=0.2,width=0.4,color="black",URL="$d1/d09/classumontreal_1_1ssj_1_1splitting_1_1MarkovChainWithImportance.html",tooltip="Subclass of MarkovChain (class in umontreal.ssj.markovchainrqmc) Abstract class, extended for example..."];
+  Node11 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="MarkovChain",height=0.2,width=0.4,color="black",URL="$d1/df2/classumontreal_1_1ssj_1_1markovchainrqmc_1_1MarkovChain.html",tooltip="This class defines a generic Markov chain and provides basic tools to simulate it for a given number ..."];
+  Node12 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="Cloneable",height=0.2,width=0.4,color="grey75"];
+  Node13 -> Node11 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" timer" ,fontname="Helvetica"];
+  Node13 [label="Chrono",height=0.2,width=0.4,color="black",URL="$d7/d9f/classumontreal_1_1ssj_1_1util_1_1Chrono.html",tooltip="The Chrono class extends the umontreal.ssj.util.AbstractChrono class and computes the CPU time for th..."];
+  Node14 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node14 [label="AbstractChrono",height=0.2,width=0.4,color="black",URL="$da/d4c/classumontreal_1_1ssj_1_1util_1_1AbstractChrono.html",tooltip="AbstractChrono is a class that acts as an interface to the system clock and calculates the CPU or sys..."];
+  Node15 -> Node13 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" chrono" ,fontname="Helvetica"];
+  Node15 [label="ThreadCPUTimeChrono",height=0.2,width=0.4,color="black",URL="$d1/d71/classumontreal_1_1ssj_1_1util_1_1ThreadCPUTimeChrono.html",tooltip="Extends the AbstractChrono class to compute the CPU time for a single thread. "];
+  Node14 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node16 -> Node15 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" threadMXBean" ,fontname="Helvetica"];
+  Node16 [label="ThreadMXBean",height=0.2,width=0.4,color="grey75"];
+  Node12 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node17 -> Node9 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" forest" ,fontname="Helvetica"];
+  Node17 [label="GraphWithForest",height=0.2,width=0.4,color="black",URL="$d9/dde/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1GraphWithForest.html",tooltip="This class implements forest and trees. "];
+  Node12 -> Node17 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node18 -> Node17 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" father" ,fontname="Helvetica"];
+  Node18 [label="GraphReliability",height=0.2,width=0.4,color="black",URL="$d6/d99/classumontreal_1_1ssj_1_1networks_1_1GraphReliability.html",tooltip="This class implements a stochastic non-oriented weighted graph (a network). "];
+  Node19 -> Node18 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node19 [label="GraphNonOriented\< NodeBasic,\l LinkReliability \>",height=0.2,width=0.4,color="black",URL="$de/d62/classumontreal_1_1ssj_1_1networks_1_1GraphNonOriented.html"];
+  Node18 -> Node9 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" father" ,fontname="Helvetica"];
+  Node20 -> Node9 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" streamPermut" ,fontname="Helvetica"];
+  Node20 [label="RandomStream",height=0.2,width=0.4,color="black",URL="$d1/d7c/interfaceumontreal_1_1ssj_1_1rng_1_1RandomStream.html",tooltip="This interface defines the basic structures to handle multiple streams of uniform (pseudo)random numb..."];
+  Node12 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node21 -> Node7 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" shocks" ,fontname="Helvetica"];
+  Node21 [label="ShockList",height=0.2,width=0.4,color="black",URL="$d2/d1e/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1ShockList.html",tooltip="This class implements lists of shocks which make sets of links in a graph fail simultaneously. "];
+  Node12 -> Node21 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node22 -> Node21 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" shocks" ,fontname="Helvetica"];
+  Node22 [label="List\< Set\< Integer \> \>",height=0.2,width=0.4,color="grey75"];
+  Node18 -> Node21 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" graph" ,fontname="Helvetica"];
+}

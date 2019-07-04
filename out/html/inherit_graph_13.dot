@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="BoxTest",height=0.2,width=0.4,color="black",URL="$db/d11/classcharts_1_1BoxTest.html"];
+  Node0 [label="BrownianTest",height=0.2,width=0.4,color="black",URL="$d3/d87/classmarkovchainrqmc_1_1BrownianTest.html"];
 }

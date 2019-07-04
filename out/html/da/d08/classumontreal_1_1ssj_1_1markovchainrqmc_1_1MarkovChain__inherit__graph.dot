@@ -13,4 +13,16 @@ digraph "MarkovChain"
   Node3 [label="Brownian",height=0.2,width=0.4,color="black",URL="$da/d99/classmarkovchainrqmc_1_1Brownian.html"];
   Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
   Node4 [label="MarkovChainDouble",height=0.2,width=0.4,color="black",URL="$d9/d9b/classumontreal_1_1ssj_1_1markovchainrqmc_1_1MarkovChainDouble.html",tooltip="A special kind of Markov chain whose state space is a subset of the real numbers. ..."];
+  Node0 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="MarkovChainWithImportance",height=0.2,width=0.4,color="black",URL="$d1/d09/classumontreal_1_1ssj_1_1splitting_1_1MarkovChainWithImportance.html",tooltip="Subclass of MarkovChain (class in umontreal.ssj.markovchainrqmc) Abstract class, extended for example..."];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="MarkovChainNetworkReliability",height=0.2,width=0.4,color="black",URL="$dd/d62/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1MarkovChainNetworkReliability.html",tooltip="Extends the class MarkovChainWithImportance. "];
+  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="MarkovChainNetworkReliability\lDestruct",height=0.2,width=0.4,color="black",URL="$d9/def/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1MarkovChainNetworkReliabilityDestruct.html",tooltip="Implements one step of the Markov chain for the destructive schema. "];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="MarkovChainNetworkReliability\lShocks",height=0.2,width=0.4,color="black",URL="$d3/d7c/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1MarkovChainNetworkReliabilityShocks.html",tooltip="Implements one step of the Markov chain for the destructive schema with shocks. "];
+  Node8 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="MarkovChainNetworkReliability\lAntiShocks1",height=0.2,width=0.4,color="black",URL="$d5/d91/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1MarkovChainNetworkReliabilityAntiShocks1.html",tooltip="Implements one step of the Markov chain for the schema with anti-shocks, using the anti-rates mu_j = ..."];
+  Node5 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="MarkovChainSquareSplitting",height=0.2,width=0.4,color="black",URL="$d3/d2e/classumontreal_1_1ssj_1_1splitting_1_1MarkovChainSquareSplitting.html"];
 }

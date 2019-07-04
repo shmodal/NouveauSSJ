@@ -5,5 +5,15 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="PgfDataTable",height=0.2,width=0.4,color="black",URL="$d7/d53/classumontreal_1_1ssj_1_1stat_1_1PgfDataTable.html",tooltip="Represents a data table which has a name, a number of observations (rows), a number of fields (column..."];
+  Node0 [label="MultiDimSortComparable\< T \>",height=0.2,width=0.4,color="black",URL="$de/d89/interfaceumontreal_1_1ssj_1_1util_1_1sort_1_1MultiDimSortComparable.html"];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="BatchSort\< T extends\l MultiDimComparable\<\l? super T \>",height=0.2,width=0.4,color="black",URL="$d8/dfa/classumontreal_1_1ssj_1_1util_1_1sort_1_1BatchSort.html",tooltip="This class implements a MultiDimSortComparable that performs a batch sort on multivariate arrays..."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="BatchSortPow2",height=0.2,width=0.4,color="black",URL="$dd/d29/classumontreal_1_1ssj_1_1util_1_1sort_1_1BatchSortPow2.html",tooltip="This is a subclass of BatchSort for which the batch numbers  are always powers of 2..."];
+  Node0 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="HilbertCurveBatchSort\l\< T extends MultiDimComparable\l\<? super T \>",height=0.2,width=0.4,color="black",URL="$d1/df6/classumontreal_1_1ssj_1_1util_1_1sort_1_1HilbertCurveBatchSort.html",tooltip="This sort is similar to BatchSortPow2, except that after applying the batch sort, the objects are giv..."];
+  Node0 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="OneDimSort\< T extends\l MultiDimComparable\<\l? super T \>",height=0.2,width=0.4,color="black",URL="$d4/d45/classumontreal_1_1ssj_1_1util_1_1sort_1_1OneDimSort.html",tooltip="This class implements a MultiDimSortComparable that simply sorts the objects according to a given sor..."];
+  Node0 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="SplitSort\< T extends\l MultiDimComparable\<\l? super T \>",height=0.2,width=0.4,color="black",URL="$dd/d30/classumontreal_1_1ssj_1_1util_1_1sort_1_1SplitSort.html",tooltip="Implements a MultiDimSortComparable that performs a split sort on a MultiDimComparable<T> array based..."];
 }

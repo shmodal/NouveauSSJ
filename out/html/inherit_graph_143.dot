@@ -5,5 +5,17 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="Rijndael_Algorithm",height=0.2,width=0.4,color="black",URL="$d7/dcb/classumontreal_1_1ssj_1_1rng_1_1Rijndael__Algorithm.html",tooltip="Rijndael –pronounced Reindaal– is a variable block-size (128-, 192- and 256-bit), variable key-size (128-, 192- and 256-bit) symmetric cipher. "];
+  Node0 [label="PointSetRandomization",height=0.2,width=0.4,color="black",URL="$d7/d98/interfaceumontreal_1_1ssj_1_1hups_1_1PointSetRandomization.html",tooltip="This interface is for a randomization that can be used to randomize a umontreal.ssj.hups.PointSet. "];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="EmptyRandomization",height=0.2,width=0.4,color="black",URL="$d8/de8/classumontreal_1_1ssj_1_1hups_1_1EmptyRandomization.html",tooltip="This class implements an empty umontreal.ssj.hups.PointSetRandomization. "];
+  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="NestedUniformScrambling",height=0.2,width=0.4,color="black",URL="$d4/d42/classumontreal_1_1ssj_1_1hups_1_1NestedUniformScrambling.html",tooltip="This class implements a PointSetRandomization that performs Owen&#39;s nested uniform scrambling ..."];
+  Node0 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="RandomShift",height=0.2,width=0.4,color="black",URL="$dc/db7/classumontreal_1_1ssj_1_1hups_1_1RandomShift.html",tooltip="This class implements a umontreal.ssj.hups.PointSetRandomization. "];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="LMScrambleShift",height=0.2,width=0.4,color="black",URL="$d0/d27/classumontreal_1_1ssj_1_1hups_1_1LMScrambleShift.html",tooltip="This class implements a umontreal.ssj.hups.PointSetRandomization that performs a left matrix scrambli..."];
+  Node3 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="SMScrambleShift",height=0.2,width=0.4,color="black",URL="$d6/d9e/classumontreal_1_1ssj_1_1hups_1_1SMScrambleShift.html",tooltip="This class implements a umontreal.ssj.hups.PointSetRandomization that performs a striped matrix scram..."];
+  Node0 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="RandomStart",height=0.2,width=0.4,color="black",URL="$d6/d23/classumontreal_1_1ssj_1_1hups_1_1RandomStart.html",tooltip="This class implements a umontreal.ssj.hups.PointSetRandomization that randomizes a sequence simply by..."];
 }

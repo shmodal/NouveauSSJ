@@ -5,7 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="RandomStreamFactory",height=0.2,width=0.4,color="black",URL="$d9/d89/interfaceumontreal_1_1ssj_1_1rng_1_1RandomStreamFactory.html",tooltip="Represents a random stream factory capable of constructing instances of a given type of random stream..."];
-  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 [label="BasicRandomStreamFactory",height=0.2,width=0.4,color="black",URL="$d1/d3b/classumontreal_1_1ssj_1_1rng_1_1BasicRandomStreamFactory.html",tooltip="Represents a basic random stream factory that can constructs new instances of a given RandomStream im..."];
+  Node0 [label="oldsplittest",height=0.2,width=0.4,color="black",URL="$d0/d28/classumontreal_1_1ssj_1_1splitting_1_1old_1_1oldsplittest.html"];
 }

@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="MeanVarExperiment",height=0.2,width=0.4,color="black",URL="$d9/d56/classumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1MeanVarExperiment.html"];
+  Node0 [label="ListOfTallies\< umontreal.ssj.stat.\lTally \>",height=0.2,width=0.4,color="black",URL="$db/d52/classumontreal_1_1ssj_1_1stat_1_1list_1_1ListOfTallies.html"];
 }

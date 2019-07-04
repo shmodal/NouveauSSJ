@@ -5,9 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="SimExp",height=0.2,width=0.4,color="black",URL="$de/dba/classumontreal_1_1ssj_1_1simexp_1_1SimExp.html",tooltip="Represents a framework for performing experiments using simulation. "];
-  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 [label="BatchMeansSim",height=0.2,width=0.4,color="black",URL="$d0/dd8/classumontreal_1_1ssj_1_1simexp_1_1BatchMeansSim.html",tooltip="Performs a simulation experiment on an infinite horizon, for estimating steady-state performance meas..."];
-  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="RepSim",height=0.2,width=0.4,color="black",URL="$de/d64/classumontreal_1_1ssj_1_1simexp_1_1RepSim.html",tooltip="Performs a simulation experiment on a finite horizon, using a certain number of independent runs or r..."];
+  Node0 [label="Report",height=0.2,width=0.4,color="black",URL="$db/d22/classumontreal_1_1ssj_1_1mcqmctools_1_1anova_1_1Report.html"];
 }

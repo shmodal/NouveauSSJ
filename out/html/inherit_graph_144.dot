@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="Rijndael_Properties",height=0.2,width=0.4,color="black",URL="$d4/d7a/classumontreal_1_1ssj_1_1rng_1_1Rijndael__Properties.html",tooltip="This class acts as a central repository for an algorithm specific properties. "];
+  Node0 [label="PreyPred",height=0.2,width=0.4,color="black",URL="$d7/df3/classtutorial_1_1PreyPred.html"];
 }

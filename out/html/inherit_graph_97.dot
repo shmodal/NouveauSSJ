@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="Misc",height=0.2,width=0.4,color="black",URL="$de/df5/classumontreal_1_1ssj_1_1util_1_1Misc.html",tooltip="This class provides miscellaneous functions that are hard to classify. "];
+  Node0 [label="ListOfTalliesWithCovariance\< E \>",height=0.2,width=0.4,color="black",URL="$dd/d72/classumontreal_1_1ssj_1_1stat_1_1list_1_1ListOfTalliesWithCovariance.html"];
 }

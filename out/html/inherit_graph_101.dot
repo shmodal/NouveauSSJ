@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="MonteCarloModel\< double[]\>",height=0.2,width=0.4,color="black",URL="$d5/d15/interfaceumontreal_1_1ssj_1_1mcqmctools_1_1MonteCarloModel.html"];
+  Node0 [label="MathFunctionUtil",height=0.2,width=0.4,color="black",URL="$d2/dc6/classumontreal_1_1ssj_1_1functions_1_1MathFunctionUtil.html",tooltip="Provides utility methods for computing derivatives and integrals of functions. "];
 }

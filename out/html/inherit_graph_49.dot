@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="DMatrix",height=0.2,width=0.4,color="black",URL="$d5/d52/classumontreal_1_1ssj_1_1util_1_1DMatrix.html",tooltip="This class implements a few methods for matrix calculations with double numbers. "];
+  Node0 [label="DistIntTest",height=0.2,width=0.4,color="black",URL="$d6/d16/classcharts_1_1DistIntTest.html"];
 }

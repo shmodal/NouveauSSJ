@@ -5,5 +5,11 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="HilbertCurveMap",height=0.2,width=0.4,color="black",URL="$df/d1c/classumontreal_1_1ssj_1_1util_1_1sort_1_1HilbertCurveMap.html",tooltip="This class implements the mapping of a Hilbert curve in the -dimensional unit hypercube ..."];
+  Node0 [label="Graph\< N, L \>",height=0.2,width=0.4,color="black",URL="$d4/d6e/classumontreal_1_1ssj_1_1networks_1_1Graph.html"];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="GraphNonOriented\< N\l extends NodeBasic,\l L extends LinkBasic \>",height=0.2,width=0.4,color="black",URL="$de/d62/classumontreal_1_1ssj_1_1networks_1_1GraphNonOriented.html"];
+  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="GraphOriented\< N extends\l NodeBasic, L extends LinkBasic \>",height=0.2,width=0.4,color="black",URL="$dc/dde/classumontreal_1_1ssj_1_1networks_1_1GraphOriented.html"];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="GraphWithCapacity",height=0.2,width=0.4,color="black",URL="$d5/d01/classumontreal_1_1ssj_1_1networks_1_1flow_1_1GraphWithCapacity.html"];
 }

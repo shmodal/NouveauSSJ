@@ -5,13 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="DensityEstimator",height=0.2,width=0.4,color="black",URL="$d3/dd1/classumontreal_1_1ssj_1_1stat_1_1density_1_1DensityEstimator.html",tooltip="This abstract class represents a univariate density estimator (DE). "];
-  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node1 [label="DEHistogram",height=0.2,width=0.4,color="black",URL="$dd/d7e/classumontreal_1_1ssj_1_1stat_1_1density_1_1DEHistogram.html",tooltip="Histogram density estimator for a univariate density. "];
-  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="DEKernelDensity",height=0.2,width=0.4,color="black",URL="$dd/d82/classumontreal_1_1ssj_1_1stat_1_1density_1_1DEKernelDensity.html",tooltip="This class provides methods to construct a kernel density estimator (KDE) for univariate densities fr..."];
-  Node0 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node3 [label="DensityDerivativeEstimator",height=0.2,width=0.4,color="black",URL="$d4/d95/classumontreal_1_1ssj_1_1stat_1_1density_1_1DensityDerivativeEstimator.html",tooltip="This class implements a density derivative estimator (DDE) based on a kernel density estimator (KDE) ..."];
-  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node4 [label="DEDerivativeGaussian",height=0.2,width=0.4,color="black",URL="$d0/d6b/classumontreal_1_1ssj_1_1stat_1_1density_1_1DEDerivativeGaussian.html",tooltip="This class implements a density derivative estimator (DDE) with a Gaussian ( i.e., standard normal) kernel function. "];
+  Node0 [label="DataField",height=0.2,width=0.4,color="black",URL="$d3/daf/classumontreal_1_1ssj_1_1util_1_1io_1_1DataField.html",tooltip="This class represents a data field from a file read by an instance of a class implementing DataReader..."];
 }

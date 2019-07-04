@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="HistogramChartToLatex",height=0.2,width=0.4,color="black",URL="$d8/d3f/classumontreal_1_1ssj_1_1stat_1_1HistogramChartToLatex.html"];
+  Node0 [label="GraphCreator",height=0.2,width=0.4,color="black",URL="$d9/d00/classtempNetworks_1_1GraphCreator.html",tooltip="This class creates the specification to completely define graphs of different kinds according to our ..."];
 }

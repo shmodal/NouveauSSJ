@@ -5,5 +5,11 @@ digraph "Graphical Class Hierarchy"
   edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
   node [fontname="Helvetica",fontsize="10",shape=record];
   rankdir="LR";
-  Node0 [label="TableFormat",height=0.2,width=0.4,color="black",URL="$d3/d5e/classumontreal_1_1ssj_1_1util_1_1TableFormat.html",tooltip="This class provides methods to format arrays and matrices into String s in different styles..."];
+  Node0 [label="Sampler",height=0.2,width=0.4,color="black",URL="$d8/d64/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1Sampler.html",tooltip="Subclasses of Sampler generates random samples for the length of an edge of a graph: the length repre..."];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="ExponentialSampler",height=0.2,width=0.4,color="black",URL="$d1/d91/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1ExponentialSampler.html",tooltip="This class generates random samples for the length of an edge of a graph: the length represents time ..."];
+  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="NormalSampler",height=0.2,width=0.4,color="black",URL="$d6/de3/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1NormalSampler.html",tooltip="This class generates random samples for the length of an edge of a graph: the length represents time ..."];
+  Node0 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="UniformSampler",height=0.2,width=0.4,color="black",URL="$d2/d77/classumontreal_1_1ssj_1_1networks_1_1staticreliability_1_1UniformSampler.html",tooltip="This class generates random samples for the length of an edge of a graph: the length represents time ..."];
 }
