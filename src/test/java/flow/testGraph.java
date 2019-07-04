@@ -16,13 +16,14 @@ public class testGraph {
 	      g.addNode(new NodeBasic(5));
 	      
 	      g.addLink(new LinkWithCapacity(0,0,1,10));
-	      g.addLink(new LinkWithCapacity(1,0,2,8));
-	      g.addLink(new LinkWithCapacity(2,1,3,8));
-	      g.addLink(new LinkWithCapacity(3,1,2,2));
-	      g.addLink(new LinkWithCapacity(4,2,4,7));
+	      g.addLink(new LinkWithCapacity(1,0,2,10));
+	      g.addLink(new LinkWithCapacity(2,1,3,4));
+	      g.addLink(new LinkWithCapacity(3,2,4,9));
+	      g.addLink(new LinkWithCapacity(4,1,4,8));
 	      g.addLink(new LinkWithCapacity(5,3,5,10));
 	      g.addLink(new LinkWithCapacity(6,4,5,10));
-	      g.addLink(new LinkWithCapacity(7,2,3,6));
+	      g.addLink(new LinkWithCapacity(7,4,3,6));
+	      g.addLink(new LinkWithCapacity(8,1,2,2));
 	      
 	      g.setSource(0);
 	      g.setTarget(5);

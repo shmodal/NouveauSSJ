@@ -123,9 +123,6 @@ public class MaxFlowEdmondsKarp {
 		 int flow = pathcap[target];
 		 // push the flow on the path
 		 int cur = target;
-		 //for(int i=1;i<this.residual.getNumNodes();i++ ) {
-		//	 System.out.println(parent[i].getIndice());
-		// }
 		 
 		 while(parent[cur] != null) {
 			 parent[cur].setCapacity(parent[cur].getCapacity()-flow);
