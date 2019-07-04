@@ -319,8 +319,11 @@ public class Graph implements Cloneable{
 	    *           Capacity
 	    */
 	   public void setCapacity(int capacity) {
-		   for (int i = 0; i < this.numLinks; i++)
+		   
+		   for (int i = 0; i < this.numLinks; i++) {
 			   links[i].setCapacity(capacity);
+			   
+	   }
 	   }
 
 	   /**
@@ -332,7 +335,9 @@ public class Graph implements Cloneable{
 	    *           Capacity
 	    */
 	   public void setCapacity(int i, int capacity) {
+		   System.out.println("MAj cap i");
 		   links[i].setCapacity(capacity);
+		   System.out.println("Arete" + i + ": " + links[i].getCapacity());
 	   }
 
 	   /**
@@ -343,8 +348,11 @@ public class Graph implements Cloneable{
 	    *           Capacities
 	    */
 	   public void setCapacity(int[] Capacities) {
-		   for (int i = 0; i < numLinks; i++)
+		   System.out.println("Capacités");
+		   for (int i = 0; i < numLinks; i++) {
 			   links[i].setCapacity(Capacities[i]);
+		   	System.out.println("Arete" + i + ": " + links[i].getCapacity());
+		   	}
 	   }
 
 	   /**

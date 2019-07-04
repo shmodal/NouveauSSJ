@@ -1,4 +1,4 @@
-package umontreal.ssj.networks.flow.old;
+package umontreal.ssj.networks.flow.nouv;
 import java.util.*;
 
 import java.util.LinkedList;
@@ -12,9 +12,9 @@ import umontreal.ssj.rng.*;
 
 public class MaxFlowEdmondsKarp {
 	
-	protected Graph network;
+	protected GraphFlow network;
 	/*network's residual graph*/
-	protected Graph residual;
+	protected GraphFlow residual;
 	/*If link j is operational, then operational[j] = true; otherwise false.*/
 	protected boolean[] operational;
 	/* Source used during the last invocation of this algorithm */
@@ -27,7 +27,7 @@ public class MaxFlowEdmondsKarp {
 	
 	
 	
-    public MaxFlowEdmondsKarp(Graph network){
+    public MaxFlowEdmondsKarp(GraphFlow network){
     	this.network=network;
     	this.residual=network.residual();
     	this.source=network.getSource();
@@ -90,13 +90,13 @@ public class MaxFlowEdmondsKarp {
     	int[] pathcap = new int[this.residual.getNumNodes()];
     	pathcap[s] = Integer.MAX_VALUE;
     	// initialize parents to build the paths
-    	LinkWithCapacity[] parent = new LinkWithCapacity[this.residual.getNumNodes()];
+    	LinkFlow[] parent = new LinkFlow[this.residual.getNumNodes()];
     	LinkedList<Integer> Queue = new LinkedList<Integer>();
     	Queue.add(s);
     	while (!Queue.isEmpty() && parent[target] == null) {
     		
     		int v = Queue.pop();
-    		LinkWithCapacity link;
+    		LinkFlow link;
     		int j;
     		for (int i = 0; i < this.residual.getNumberOfNeighbors(v); i++) {
     			// get link i connected to node v
@@ -131,7 +131,7 @@ public class MaxFlowEdmondsKarp {
 			 parent[cur].setCapacity(parent[cur].getCapacity()-flow);
 		     /*get the opposite link*/
 		     int oppositeIndice = residual.getLinkWithSourceAndSinkNodes(parent[cur].getTarget(), parent[cur].getSource());
-		     LinkWithCapacity oppositeLink = residual.getLink(oppositeIndice);
+		     LinkFlow oppositeLink = residual.getLink(oppositeIndice);
 			 oppositeLink.setCapacity(oppositeLink.getCapacity()+flow);
 		     cur = parent[cur].getSource();
 		 }

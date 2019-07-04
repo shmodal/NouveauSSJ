@@ -1,9 +1,10 @@
-package umontreal.ssj.networks.flow.old;
+package umontreal.ssj.networks.flow.nouv;
 
 import java.io.IOException;
 
 
 import umontreal.ssj.rng.LFSR113;
+
 import umontreal.ssj.rng.*;
 import umontreal.ssj.rng.RandomStream;
 
@@ -21,12 +22,13 @@ public class PMCFlowtest {
 
 	
 	 private static void proc(String GraphName) throws IOException {
-		      boolean shockFlag = false; // with shocks if true
-		      shockFlag = true;   //doesnt work without shocks
-		      //shockFlag = false;
+
 
 		      String filename = TestParams.getGraphfile(GraphName); 
-		      Graph graph = new Graph(filename);
+		      System.out.println("Peut etre");
+		      GraphFlow graph = new GraphFlow(filename);
+		      System.out.println("Oui");
+		      //Graph graph = new Graph(filename);
 		      
 		      int m = graph.getNumLinks();
 		      int[] tab = new int[m];
@@ -38,14 +40,11 @@ public class PMCFlowtest {
 		      RandomStream stream = new LFSR113();
 		      //RandomStream stream = new F2NL607();
 		      
-		      //double prob = p.testRun2(stream, 10, false, tab, 0.6, 0.0001);
-		      //System.out.println(prob);
+		      double prob = p.testRun(stream, 10, false, tab, 0.6, 0.0001);
+		      System.out.println("Proba" + prob);
 		      
 		      
-		      //p.run(1000, stream, 10, false, tab, 0.6, 0.0001);
-		      double prob = p.testRun2(stream, 10, false, tab, 0.6, 0.0001);
-		      System.out.println(prob);
-		      
+		      //p.run(5, stream, 10, false, tab, 0.6, 0.0001);
 }
 	 
 	 

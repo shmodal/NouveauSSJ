@@ -1,6 +1,5 @@
 package umontreal.ssj.networks.flow.old;
 
-
 import umontreal.ssj.probdist.ExponentialDist;
 import umontreal.ssj.probdist.NormalDist;
 import umontreal.ssj.rng.RandomStream;
@@ -477,9 +476,14 @@ public class LinkWithCapacity
 	   // LISTE L, NOT DONE YET
 	   //double[] tabY = sampleY(lambdaValues, stream);
 	   S_jump = new int[tabY.length];
+	   
+	   // LE PREMIER JUMP EXISTE ?
+	   S_jump[tabY.length-1] = 1;
+	   
 	   double [] tabLambT = new double[lambdaValues.length];
 	   System.arraycopy(lambdaValues, 0, tabLambT, 0, lambdaValues.length);
-	   int nJumps = 0;
+	   //int nJumps = 0;
+	   int nJumps = 1;
 	   //System.out.println("b" + b);
 	   //System.out.println(lambdaValues.length);
 	   int min = b-1;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package umontreal.ssj.networks.flow.old;
+package umontreal.ssj.networks.flow.nouv;
 
 /**
  * @author simardr

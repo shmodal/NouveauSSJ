@@ -1,4 +1,4 @@
-package umontreal.ssj.networks.flow.old;
+package umontreal.ssj.networks.flow.nouv;
 
 
 import umontreal.ssj.rng.*;
@@ -30,7 +30,7 @@ public class PMC {
 
 
    //protected Forest forest;
-   protected Graph father; // same father as in forest
+   protected GraphFlow father; // same father as in forest
    private int hekind; // HypoExponentialDist flag; see setHypoExpKind
    protected double[] Lam; // compound Lambda's
    Tally criticalLink; // critical link
@@ -42,9 +42,9 @@ public class PMC {
    public HashMap <Double,int[]> permutation;
 
    
-   public PMC(Graph graph) {
+   public PMC(GraphFlow graph) {
       father = graph;
-      father.setSampler(SamplerType.EXPONENTIAL, false);
+      //father.setSampler(SamplerType.EXPONENTIAL, false);
       criticalLink = new Tally();
       //storeFlag = false;
       //histFlag = false;
@@ -68,41 +68,11 @@ public class PMC {
 	   initProbabilityValues(rho,epsilon);
    }
    
+
+   
+   
+   
    protected double testRun(RandomStream stream,int demand,boolean flag, int[] tableauB,double rho,double epsilon) {
-	   initCapaProbaB(tableauB,rho,epsilon); //initialise bi, ci,k et ri,k
-	   trimCapacities(demand);
-	   drawY(stream); // initialise les lambda et tire les Yi, pour toutes les arêtes i
-	   initJumpAndIndexes();//initialise le tableau S, les lambdatilde
-	   double [] valuesY = Y_values();  // j'ai les Y triés, et les hash maps comme il faut
-	   int K = valuesY.length;
-	   initLamb(K);
-	   int j = 0;
-	   int[] X = buildX();
-	   while (maxFlow(X) < demand && j <Lam.length) {
-		   j++;
-		   double y = valuesY[j]; // Y(pi(j))
-		   int [] indices = permutation.get(y);
-		   int i = indices[0];
-		   int k = indices[1];
-		   LinkWithCapacity EdgeI = father.getLink(i);
-		   int s = EdgeI.getJump(k);
-		   if (s==1) {
-			   double l = EdgeI.getLambdaTilde(k);
-			   Lam[j] = Lam[j-1] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
-			   // pour que Lam[j] toujours défini
-			   father.setJump(i, k, 0);
-			   X[i] = EdgeI.getCapacity(k); // vérifier pour l'indice
-			   //Filter()
-		   }  
-	   }
-	   criticalLink.add(j);
-	   double ell = computeBarF(Lam,j);
-	   return ell;
-   }
-   
-   
-   
-   protected double testRun2(RandomStream stream,int demand,boolean flag, int[] tableauB,double rho,double epsilon) {
 	   initCapaProbaB(tableauB,rho,epsilon); //initialise bi, c_{i,k} et r_{i,k}
 	   trimCapacities(demand);
 	   
@@ -114,7 +84,7 @@ public class PMC {
 	   drawY(stream); // initialise les lambda et tire les Yi, pour toutes les arêtes i
 	   initJumpAndIndexes();//initialise le tableau S, les lambdatilde
 	   double [] valuesY = Y_values();  // j'ai les Y triés, et les hash maps comme il faut
-	   
+	   //System.out.println("Valeurs de Y triées");
 	   //printTab(valuesY);
 	   
 	   //System.out.println(valuesY.length);
@@ -126,27 +96,35 @@ public class PMC {
 	   father.setCapacity(X);
 	   MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(father);
 	   int maxFlow = Ek.EdmondsKarp();
-	   //System.out.println("K" +K);
-	   while (maxFlow < demand && j <Lam.length-1) {
-		   //System.out.println(" j avant : " + j);
+	   
+	   
+	   while (maxFlow < demand && j <Lam.length-1 && j<3) {
+		   System.out.println(" j avant : " + j);
 		   j++;
-		   //System.out.println(" j après : " + j);
+		   System.out.println(" j après : " + j);
 		   double y = valuesY[j]; // Y(pi(j))
+		   System.out.println("Valeur de Ypi(J)"+ y);
 		   int [] indices = permutation.get(y);
+		   System.out.println("Indices récupérés");
 		   int i = indices[0];
 		   int k = indices[1];
-		   LinkWithCapacity EdgeI = father.getLink(i);
+		   System.out.println("i " + i +"k: " +k);
+		   LinkFlow EdgeI = father.getLink(i);
 		   int s = EdgeI.getJump(k);
 		   if (s==1) {
+			   System.out.println("Jump détecté");
 			   double l = EdgeI.getLambdaTilde(k);
 			   Lam[j] = Lam[j-1] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
 			   // pour que Lam[j] toujours défini
 			   father.setJump(i, k, 0);
+			   System.out.println("MAJ d'une capacité");
 			   father.setCapacity(i, EdgeI.getCapacity(k));
 			   //X[i] = EdgeI.getCapacity(k); // vérifier pour l'indice
 			   //Filter()
 			   Ek= new MaxFlowEdmondsKarp(father);
+			   System.out.println("calcul maxFlow");
 			   maxFlow = Ek.EdmondsKarp();
+			   System.out.println("MaxFLow : " + maxFlow);
 		   }
 		   
 		   
@@ -161,7 +139,7 @@ public class PMC {
 	      timer.init();
 	      Tally values = new Tally(); // unreliability estimates
 	      for (int j = 0; j < n; j++) {
-	         double x = testRun2(stream,demand,flag,tableauB,rho,epsilon);
+	         double x = testRun(stream,demand,flag,tableauB,rho,epsilon);
 	         if (storeFlag)
 	            store.add(x);
 	         if (histFlag)
@@ -196,18 +174,15 @@ public class PMC {
 	      return relerr;
 	   }
    
-   
-   
-   
-   
-   
-   // Temporaire
-   private int maxFlow(int [] X) {
-	   return 0;
-   }
-   
+      
    
    private void printTab(double[] t) {
+	   int m = t.length;
+	   for (int i =0;i<m;i++) {
+		   System.out.println(t[i]);
+	   }
+   }
+   private void printTab(int[] t) {
 	   int m = t.length;
 	   for (int i =0;i<m;i++) {
 		   System.out.println(t[i]);
@@ -222,7 +197,7 @@ public class PMC {
 	   int m = father.getNumLinks();
 	   int[] X = new int[m];
 	   for (int i=0;i<m;i++) {
-		   LinkWithCapacity EdgeI = father.getLink(i);
+		   LinkFlow EdgeI = father.getLink(i);
 		   X[i] = EdgeI.getMinCapacity();
 		   //int[] capa = EdgeI.getCapacityValues();
 		   //X[i] = capa[0];
@@ -297,7 +272,7 @@ public class PMC {
 	   int m = father.getNumLinks();
 	   double l = 0.0;
 	   for (int i=0;i<m;i++) {
-		   LinkWithCapacity EdgeI = father.getLink(i);
+		   LinkFlow EdgeI = father.getLink(i);
 		   l += EdgeI.sommeLambda;
 	   }
 	   Lambda[0] = l;
@@ -311,8 +286,8 @@ public class PMC {
 		   father.initLinkLambda(i);
 		   //System.out.println(father.getLambdaValues(i).length);
 		   double [] lamb = father.getLambdaValues(i);
-		   //if (i==2) {System.out.println("Tab Lambda");
-			//   printTab(lamb);}
+		   //if (i==0) {System.out.println("Tab Lambda");
+		//	   printTab(lamb);}
 		   //System.out.println("Bjr");
 		   double [] ValuesY = new double[lamb.length];
 		   //System.out.println(ValuesY.length);
@@ -322,8 +297,8 @@ public class PMC {
 			   ValuesY[j] = ExponentialDist.inverseF(lambda, stream.nextDouble());
 		   }
 		   father.setValuesY(ValuesY, i);
-		   //if (i==1) {System.out.println("Tab des Y");
-			//   printTab(ValuesY);}
+		   //if (i==0) {System.out.println("Tab des Y");
+		//	   printTab(ValuesY);}
 	   }
    }
    
@@ -379,7 +354,7 @@ public class PMC {
 	   double [] valuesY = new double[taille];
 	   int compteur = 0;
 	   for (int i = 0;i<m;i++) {
-		   LinkWithCapacity edgeI = father.getLink(i);
+		   LinkFlow edgeI = father.getLink(i);
 		   int n = edgeI.getJumpLength(); // Inutile ?
 		   for (int k=0;k<n;k++) {
 			   int s = edgeI.getJump(k);
@@ -486,38 +461,6 @@ public class PMC {
     */
    public boolean isAntiScan () {
       return antiScanFlag;
-   }
-
-
-
-   /**
-    * Computes rates such that Lam(E_i) = sum lambda(link) over links that are
-    * (see eq. 16.5 in Botev handbook paper).
-    *
-    * @param link
-    *           link numbers sorted according to weights
-    * @param b
-    *           critical link rank at which network becomes operational
-    * @return the rates
-    */
-   private double[] computeRates(int[] link, int b) {
-      int m = link.length;
-      double x = 0;
-      int r; // link number
-      for (int j = b; j < m; j++) {
-         // Sum lambda for links with weight > weight of link[b]
-         r = link[j];
-         // assume Exponential sampler: param = lambda
-         x += father.getLink(r).getParam();  // A MODIFIER le GET PARAM recupere reliabilty
-      }
-
-      Lam[b] = x;
-      // now the links with small weights
-      for (int j = b - 1; j >= 0; j--) {
-         r = link[j];
-         Lam[j] = Lam[j + 1] + father.getLink(r).getParam();  // A MODIFIER Le getPARAM recupere
-      }
-      return Lam;
    }
 
 

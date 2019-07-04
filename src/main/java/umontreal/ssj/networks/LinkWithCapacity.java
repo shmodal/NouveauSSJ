@@ -3,7 +3,7 @@ package umontreal.ssj.networks;
 public class LinkWithCapacity extends LinkBasic {
 
 	// capacity: only used in flowProblem 
-	private int capacity;
+	protected int capacity;
 	
 	/**
 	 * (Previous)Partially Full constructor

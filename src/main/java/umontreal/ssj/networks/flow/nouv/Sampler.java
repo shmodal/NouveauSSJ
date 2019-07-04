@@ -1,7 +1,7 @@
 /**
  * 
  */
-package umontreal.ssj.networks.flow.old;
+package umontreal.ssj.networks.flow.nouv;
 import umontreal.ssj.randvar.RandomVariateGen;
 
 
