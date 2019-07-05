@@ -16,7 +16,6 @@ import java.util.Arrays;
  * that initially, all links are failed and then add working links until the
  * network becomes operational, i.e., the subset of nodes V0 becomes connected.
  *
- * @author Richard simard
  * @since 2011
  */
 public class PMC {
@@ -29,7 +28,6 @@ public class PMC {
 	private boolean histFlag; // true: store values for each run in bin counters
 
 
-   //protected Forest forest;
    protected GraphFlow father; // same father as in forest
    private int hekind; // HypoExponentialDist flag; see setHypoExpKind
    protected double[] Lam; // compound Lambda's
@@ -48,8 +46,6 @@ public class PMC {
       criticalLink = new Tally();
       //storeFlag = false;
       //histFlag = false;
-      int m = father.getNumLinks();
-      //Lam = new double[m + 1];  on s'en servira pas
       hekind = 1;
       antiScanFlag = false;
       shockFlag = false;
@@ -77,6 +73,9 @@ public class PMC {
 	   trimCapacities(demand);
 	   
 	   // verif
+	   //System.out.println("les capas de 0");
+	   //printTab(father.getCapacityValues(0));
+	   
 	   //System.out.println(father.getCapacityValues(0).length);
 	   //System.out.println(father.getProbabilityValues(0)[0]);
 	   //System.out.println(father.getProbabilityValues(0)[1]);
@@ -98,33 +97,44 @@ public class PMC {
 	   int maxFlow = Ek.EdmondsKarp();
 	   
 	   
-	   while (maxFlow < demand && j <Lam.length-1 && j<3) {
-		   System.out.println(" j avant : " + j);
+	   while (maxFlow < demand && j <Lam.length-1) {
+		   //System.out.println(" j avant : " + j);
 		   j++;
-		   System.out.println(" j après : " + j);
+		   //System.out.println(" j après : " + j);
 		   double y = valuesY[j]; // Y(pi(j))
-		   System.out.println("Valeur de Ypi(J)"+ y);
+		   //System.out.println("Valeur de Ypi(J)"+ y);
 		   int [] indices = permutation.get(y);
-		   System.out.println("Indices récupérés");
+		   //System.out.println("Indices récupérés");
 		   int i = indices[0];
 		   int k = indices[1];
-		   System.out.println("i " + i +"k: " +k);
+		   //System.out.println("i " + i +"k: " +k);
 		   LinkFlow EdgeI = father.getLink(i);
 		   int s = EdgeI.getJump(k);
 		   if (s==1) {
-			   System.out.println("Jump détecté");
+			   //System.out.println("Jump détecté");
 			   double l = EdgeI.getLambdaTilde(k);
 			   Lam[j] = Lam[j-1] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
 			   // pour que Lam[j] toujours défini
 			   father.setJump(i, k, 0);
-			   System.out.println("MAJ d'une capacité");
-			   father.setCapacity(i, EdgeI.getCapacity(k));
+			   //System.out.println("MAJ d'une capacité");
+			   //System.out.println("Tableau Capa de l'arete " + i);
+			   //printTab(EdgeI.getCapacityValues());
+			   
+			   // Oui, probleme d'indices. il ne met jamais la capacité 8 alors qu'il devrait la mettre tout le temps.
+			   // Si , k : k entre 0 et bi-1. Mais k de l'algo, entre 1 et bi
+			   
+			   father.setCapacity(i, EdgeI.getCapacity(k+1));
+			   //System.out.println("Capa indice k " +EdgeI.getCapacity(k));
+			   //System.out.println("Capa indice k+1 " +EdgeI.getCapacity(k+1));
+
+			   //father.setCapacity(i, EdgeI.getCapacity(k+1));
+			   
 			   //X[i] = EdgeI.getCapacity(k); // vérifier pour l'indice
 			   //Filter()
 			   Ek= new MaxFlowEdmondsKarp(father);
-			   System.out.println("calcul maxFlow");
+			   //System.out.println("calcul maxFlow");
 			   maxFlow = Ek.EdmondsKarp();
-			   System.out.println("MaxFLow : " + maxFlow);
+			   //System.out.println("MaxFLow : " + maxFlow);
 		   }
 		   
 		   
@@ -173,7 +183,6 @@ public class PMC {
 	      System.out.printf("CPU time:   %.1f  sec%n%n%n", cro);
 	      return relerr;
 	   }
-   
       
    
    private void printTab(double[] t) {
@@ -219,6 +228,7 @@ public class PMC {
 	   int numberOfLinks = father.getNumLinks();
 	   for (int i = 0; i< numberOfLinks; i++) {
 		   father.setB(i,tableauB[i]);
+		   //System.out.println("Bi = " + father.getB(i));
 	   } 
    }
    
@@ -229,10 +239,12 @@ public class PMC {
 	   for (int i = 0; i< numberOfLinks; i++) {
 		   int b = father.getB(i);
 		   int [] tabCapa = new int[b+1];
-		   for (int j=0;j<b;j++) {
+		   for (int j=0;j<b+1;j++) {
 			   tabCapa[j] = j;
 		   }
 		   father.setCapacityValues(i, tabCapa);
+		 //System.out.println("TabCapa = ");
+		 // printTab(father.getCapacityValues(i));
 	   }   
    }
    
@@ -287,7 +299,7 @@ public class PMC {
 		   //System.out.println(father.getLambdaValues(i).length);
 		   double [] lamb = father.getLambdaValues(i);
 		   //if (i==0) {System.out.println("Tab Lambda");
-		//	   printTab(lamb);}
+			//   printTab(lamb);}
 		   //System.out.println("Bjr");
 		   double [] ValuesY = new double[lamb.length];
 		   //System.out.println(ValuesY.length);
@@ -314,7 +326,7 @@ public class PMC {
 	   for (int i=0;i<m;i++) {
 		   int b = father.getB(i);
 		   int [] tab = father.getCapacityValues(i);
-		   tab[b] = Math.max(demand,tab[b]);
+		   tab[b] = Math.min(demand,tab[b]);
 		   father.setCapacityValues(tab);
 	   }
    }

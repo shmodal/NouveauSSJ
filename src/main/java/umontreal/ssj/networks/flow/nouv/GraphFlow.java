@@ -133,7 +133,12 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	    *           Capacity
 	    */
 	   public void setCapacity(int i, int capacity) {
+		   
 		   links.get(i).setCapacity(capacity);
+		   //System.out.println("Maj cap de " +i +"  devient : " +links.get(i).getCapacity());
+		   //System.out.println(links.get(i).getCapacity());
+		   
+		   
 	   }
 
 	   /**

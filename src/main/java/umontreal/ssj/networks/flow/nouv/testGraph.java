@@ -2,6 +2,8 @@ package umontreal.ssj.networks.flow.nouv;
 
 import java.io.IOException;
 import umontreal.ssj.networks.*;
+import umontreal.ssj.rng.LFSR113;
+import umontreal.ssj.rng.RandomStream;
 
 public class testGraph {
 
@@ -27,11 +29,50 @@ public class testGraph {
 	      g.setSource(0);
 	      g.setTarget(5);
 	      
-	      System.out.println(g.toString());
-	      MaxFlowEdmondsKarp EK=new MaxFlowEdmondsKarp(g);
+	      //System.out.println(g.toString());
+	      //MaxFlowEdmondsKarp EK=new MaxFlowEdmondsKarp(g);
 	      //EK.EdmondsKarp();
 	      //System.out.println(EK.maxFlowValue);
 	      //System.out.println(g.residual().toString());
-	      System.out.println(EK.EdmondsKarp());
+	      //System.out.println(EK.EdmondsKarp());
+	      
+	      //String filename = TestParams.getGraphfile("1-diamond"); 
+	      //System.out.println("Peut etre");
+	      //GraphFlow graph = new GraphFlow(filename);
+	      
+	      
+	      
+	      int m = g.getNumLinks();
+	      int[] tab = new int[m];
+	      for (int i = 0; i<m;i++) {
+	    	  tab[i] = 8;
+	      }
+	      
+	      PMC p = new PMC(g);
+	      RandomStream stream = new LFSR113();
+	      //RandomStream stream = new F2NL607();
+	      
+	      double prob = p.testRun(stream, 1000000, false, tab, 0.6, 0.0001);
+	      System.out.println("Proba" + prob);
+	      
+	      
+	      printTab(g.getLink(0).getCapacityValues());
 	   }
+	  
+	  
+	  
+	   private static void printTab(double[] t) {
+		   int m = t.length;
+		   for (int i =0;i<m;i++) {
+			   System.out.println(t[i]);
+		   }
+	   }
+	   private static void printTab(int[] t) {
+		   int m = t.length;
+		   for (int i =0;i<m;i++) {
+			   System.out.println(t[i]);
+		   }
+	   }
+	  
+	  
 }
