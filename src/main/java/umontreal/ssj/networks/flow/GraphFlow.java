@@ -1,4 +1,4 @@
-package umontreal.ssj.networks.flow.nouv;
+package umontreal.ssj.networks.flow;
 
 import java.io.BufferedReader;
 
@@ -25,17 +25,22 @@ import umontreal.ssj.util.PrintfFormat;
 
 public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	
-	int source; // source of flow
-	int target; // target of flow
 	
-    
+    /**
+     * Source of flow
+     */
+	int source; 
+    /**
+     * Target of flow
+     */
+	int target;
+	
     /**
      * Name of file containing the parameters of this graph
      */
     String filename = "";
 	
-	
-	
+
 	
 	public GraphFlow() {
 		this.numLinks=0;
@@ -55,8 +60,7 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 		this.target=-1;
 	}
 	
-		
-	
+
 
 	   /**
 	    * Get the source of the graph
@@ -112,12 +116,11 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	      return image;
 	   }
 	
-	
 	   /**
 	    * Sets the same Capacity for all links of the graph.
 	    * 
-	    * @param r
-	    *           Capacity
+	    * @param capacity
+	    *           
 	    */
 	   public void setCapacity(int capacity) {
 		   for (int i = 0; i < this.numLinks; i++)
@@ -127,26 +130,22 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	   /**
 	    * Sets the Capacity r for link i of the graph.
 	    * 
-	    * @param i
-	    *           link
-	    * @param r
-	    *           Capacity
+	    * @param i link
+	    *           
+	    * @param capacity
+	    *           
 	    */
 	   public void setCapacity(int i, int capacity) {
-		   
 		   links.get(i).setCapacity(capacity);
 		   //System.out.println("Maj cap de " +i +"  devient : " +links.get(i).getCapacity());
-		   //System.out.println(links.get(i).getCapacity());
-		   
-		   
+		   //System.out.println(links.get(i).getCapacity());   
 	   }
 
 	   /**
 	    * Sets the Capacities for all links of the graph. Capacity must have the same
 	    * number of elements as the number of links.
 	    * 
-	    * @param R
-	    *           Capacities
+	    *           
 	    */
 	   public void setCapacity(int[] Capacities) {
 		   for (int i = 0; i < numLinks; i++)
@@ -304,14 +303,14 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	         return file.substring(1 + t, s);
 	   }
 
-	   
-	   
-	   
+
 	   
 	   public void initLinkLambda(int i) {
+		   //System.out.println("Init lambda arête " +i);
 		   links.get(i).initLambda();
 	   }
 	   public void initJumpAndIndexes(int i) {
+		   //System.out.println("Init jump arête " +i);
 		   links.get(i).initJumpAndIndexes();
 	   }
 	   
@@ -369,7 +368,16 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	   // New
 	   
 	   public void setProbabilityValues(int i, double[] tab) {
-		   links.get(i).setProbabilityValues(tab);
+		   double [] copy = new double[tab.length];
+		   System.arraycopy(tab, 0, copy, 0, tab.length);
+		   links.get(i).setProbabilityValues(copy);
+		   
+		   //double [] lamb = new double[probabilityValues.length -1];
+		   //System.arraycopy(probabilityValues, 0, lamb, 0, lamb.length);
+		   
+		   
+		   
+		   //links.get(i).setProbabilityValues(tab);
 	   }
 	   
 	   // Memes capacites, NEW

@@ -1,4 +1,4 @@
-package umontreal.ssj.networks.flow.nouv;
+package umontreal.ssj.networks.flow;
 import java.util.*;
 
 import java.util.LinkedList;

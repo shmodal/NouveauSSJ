@@ -1,4 +1,4 @@
-package umontreal.ssj.networks.flow.nouv;
+package umontreal.ssj.networks.flow;
 
 import java.io.IOException;
 
@@ -40,7 +40,7 @@ public class PMCFlowtest {
 		      RandomStream stream = new LFSR113();
 		      //RandomStream stream = new F2NL607();
 		      
-		      double prob = p.testRun(stream, 10, false, tab, 0.6, 0.0001);
+		      double prob = p.doOneRun(stream, 10, false, tab, 0.6, 0.0001);
 		      System.out.println("Proba" + prob);
 		      
 		      

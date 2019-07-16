@@ -8,13 +8,14 @@ import umontreal.ssj.util.*;
 import java.util.HashMap;
 import java.util.Arrays;
 
+
+
 /**
  * This class implements the Permutation Monte Carlo method to estimate the
  * reliability of a network. It uses the constructive schema, i.e., it assumes
  * that initially, all links are failed and then add working links until the
  * network becomes operational, i.e., the subset of nodes V0 becomes connected.
  *
- * @author Richard simard
  * @since 2011
  */
 public class PMC {
@@ -27,8 +28,7 @@ public class PMC {
 	private boolean histFlag; // true: store values for each run in bin counters
 
 
-   protected Forest forest;
-   protected GraphWithCapacity father; // same father as in forest
+   protected GraphFlow father; // same father as in forest
    private int hekind; // HypoExponentialDist flag; see setHypoExpKind
    protected double[] Lam; // compound Lambda's
    Tally criticalLink; // critical link
@@ -36,19 +36,15 @@ public class PMC {
    protected boolean antiScanFlag;  // true for reverse scan, false otherwise
    protected boolean shockFlag;
    
-   public int[] tabS ;  // tableau S pour les termes Y(Pi(j)), initialisé à 1
    public HashMap <Double,int[]> permutation;
 
    
-   public PMC(GraphWithCapacity graph, Forest forest) {
+   public PMC(GraphFlow graph) {
       father = graph;
-      this.forest = forest;
       //father.setSampler(SamplerType.EXPONENTIAL, false);
       criticalLink = new Tally();
       //storeFlag = false;
       //histFlag = false;
-      int m = father.getNumLinks();
-      //Lam = new double[m + 1];  on s'en servira pas
       hekind = 1;
       antiScanFlag = false;
       shockFlag = false;
@@ -58,60 +54,208 @@ public class PMC {
    /////////////////////NEW
    
    
+   // Initailisation des capacites et probas de façon spécifique(celle de l'article)
+   // on peut vouloir donner des capacités et probas différentes, il faudra modifier
+   
    public void initCapaProbaB(int[] tableauB, double rho, double epsilon) {
 	   initB(tableauB);
 	   initCapacityValues();
 	   initProbabilityValues(rho,epsilon);
    }
    
-   protected double testRun(RandomStream stream,int demand,boolean flag, int[] tableauB,double rho,double epsilon) {
-	   initCapaProbaB(tableauB,rho,epsilon); //initialise bi, ci,k et ri,k
+
+   
+   
+   
+   protected double doOneRun(RandomStream stream,int demand,boolean flag) {
+	   //initCapaProbaB(tableauB,rho,epsilon); //initialise bi, c_{i,k} et r_{i,k}
 	   trimCapacities(demand);
-	   drawY(stream); // initialise les lambda
+	   
+	   // verif
+	   //System.out.println("les capas de 0");
+	   //printTab(father.getCapacityValues(0));
+	   
+	   
+	   drawY(stream); // initialise les lambda et tire les Yi, pour toutes les arêtes i
 	   initJumpAndIndexes();//initialise le tableau S, les lambdatilde
 	   double [] valuesY = Y_values();  // j'ai les Y triés, et les hash maps comme il faut
+	   //System.out.println("Valeurs de Y triées");
+	   //printTab(valuesY);
+	   
+	   
 	   int K = valuesY.length;
-	   initLamb(K);
+	   // LE tableau LAM est de taille : 1(le lambda 1 initial) + le nombre de sauts
+	   
+	   initLamb(K+1);
+	   //System.out.println("Tableau des Lam initial");
+	   //System.out.println();
+	   //printTab(Lam);
+	   //System.out.println();
+	   
 	   int j = 0;
 	   int[] X = buildX();
-	   while (maxFlow(X) < demand) {
-		   j++;
+	   father.setCapacity(X);
+	   MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(father);
+	   int maxFlow = Ek.EdmondsKarp();
+	   
+	   //System.out.println();
+	   //System.out.println("maxFlow initial" +maxFlow );
+	   
+	   
+	   // JE PENSE ERREUR / IL FAUT PAS INCREMENTER J AU DEBUT
+	   // ARTICLE, S(PI(1), Y PI(1)  ca fait ingorer le 1er terme du tableau Y a chaque fois,
+	   // il manque un jump
+	   
+	   while (maxFlow < demand && j <Lam.length-1) {
+		   
+		   
+		   //System.out.println(" j avant : " + j);
+		   //j++;
+		   //System.out.println(" j après : " + j);
 		   double y = valuesY[j]; // Y(pi(j))
+		   //System.out.println();
+		   //System.out.println("Valeur de Ypi(J)"+ y);
 		   int [] indices = permutation.get(y);
+		   //System.out.println();
+		   //System.out.println("Indices récupérés");
 		   int i = indices[0];
 		   int k = indices[1];
+		   //System.out.println("i : " + i + "   k : " +k);
 		   LinkFlow EdgeI = father.getLink(i);
 		   int s = EdgeI.getJump(k);
 		   if (s==1) {
+			   //System.out.println();
+			   //System.out.println("Jump détecté");
 			   double l = EdgeI.getLambdaTilde(k);
+			   
+			   
+			   // ANCIEN pour j++ qui est au debut de l'algo
+			   //Lam[j] = Lam[j-1] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
+			   
+			   
+			   
 			   Lam[j+1] = Lam[j] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
+			   //System.out.println(Lam[j]);
 			   // pour que Lam[j] toujours défini
 			   father.setJump(i, k, 0);
-			   X[i] = EdgeI.getCapacity(k); // vérifier pour l'indice
-			   //Filter()
-		   } 
-		   criticalLink.add(j);  
+			   //System.out.println();
+			   //System.out.println("MAJ d'une capacité");
+			   //System.out.println("Ancienne capacité de l'arete " + i);
+			   //System.out.println();
+			   //System.out.println(father.getLink(i).getCapacity());
+			   //printTab(EdgeI.getCapacityValues());
+			   
+			   // Oui, probleme d'indices. il ne met jamais la capacité 8 alors qu'il devrait la mettre tout le temps.
+			   // Si , k : k entre 0 et bi-1. Mais k de l'algo, entre 1 et bi
+			   
+			   //father.setCapacity(i, EdgeI.getCapacity(k+1));
+			   father.setCapacity(i, EdgeI.getCapacity(k+1));
+			  // System.out.println();
+			  // System.out.println("Capa indice k " +EdgeI.getCapacity(k));
+			   //System.out.println("Capa indice k+1 " +EdgeI.getCapacity(k+1));
+			   
+			   //System.out.println("Nouvellecapacité de l'arete " + i);
+			   //System.out.println();
+			   //System.out.println(father.getLink(i).getCapacity());
 
+			   //father.setCapacity(i, EdgeI.getCapacity(k+1));
+			   
+			   //X[i] = EdgeI.getCapacity(k); // vérifier pour l'indice
+			   //Filter()
+			   Ek= new MaxFlowEdmondsKarp(father);
+			  // System.out.println("calcul maxFlow");
+			   maxFlow = Ek.EdmondsKarp();
+			  // System.out.println("MaxFLow : " + maxFlow);
+		   }
+		   
+	   j++;	   
 	   }
+	   criticalLink.add(j);
+	   //System.out.println("Tableau des grands Lambda ");
+	   //printTab(Lam);
+	   //System.out.println();
+	   
 	   double ell = computeBarF(Lam,j);
+	   //System.out.println("ell" + ell);
+	   
 	   return ell;
    }
    
+   public double run(int n, RandomStream stream,int demand,boolean flag) {
+	      Chrono timer = new Chrono();
+	      timer.init();
+	      Tally values = new Tally(); // unreliability estimates
+	      for (int j = 0; j < n; j++) {
+	         double x = doOneRun(stream,demand,flag);
+	         if (storeFlag)
+	            store.add(x);
+	         if (histFlag)
+	            hist.add(Math.log10(x));
+	         values.add(x);
+	      }
+
+	      m_ell = values.average();
+	      m_variance = values.variance();
+	      double sig = Math.sqrt(m_variance);
+	      double relvar = m_variance / (m_ell * m_ell); // relative variance
+	      double relerr = sig / (m_ell * Math.sqrt(n)); // relative error
+	      System.out.printf("barW_n      = %g%n", m_ell);
+	      System.out.printf("S_n         = %g%n", sig);
+	      System.out.printf("var = S_n^2 = %g%n", m_variance);
+	      System.out.printf("var/n       = %g%n", m_variance / n);
+	      System.out.printf("rel var(W)  = %g%n%n", relvar);
+	      System.out.println(values.formatCINormal(0.95, 4));
+	      System.out.printf("rel err(barW_n) = %g%n", relerr);
+
+	      double cro = timer.getSeconds();
+	      double tem = cro * m_variance / n;
+	      System.out.printf("time*var/n      = %g%n", tem);
+	      System.out.printf("time*var/(n*barW_n^2) = %g%n%n", tem
+	            / (m_ell * m_ell));
+	      if (shockFlag)
+	         System.out.printf("rank crit. shock = %g%n", criticalLink.average());
+	      else
+	         System.out.printf("rank crit. link = %g%n", criticalLink.average());
+	      printHypoExpFlag();
+	      System.out.printf("CPU time:   %.1f  sec%n%n%n", cro);
+	      return relerr;
+	   }
+      
    
-   // Temporaire
-   private int maxFlow(int [] X) {
-	   return 0;
+   private void printTab(double[] t) {
+	   int m = t.length;
+	   for (int i =0;i<m;i++) {
+		   System.out.println(t[i]);
+	   }
    }
+   private void printTab(int[] t) {
+	   int m = t.length;
+	   for (int i =0;i<m;i++) {
+		   System.out.println(t[i]);
+	   }
+   }
+   
+   
+   // Pour le moment, ED Karps construit un graphe à chaque itération
+   //dans le futur, modifier EK pour juste prendre en compte un vecteur de capcités ?
    
    public int[] buildX() {
 	   int m = father.getNumLinks();
 	   int[] X = new int[m];
 	   for (int i=0;i<m;i++) {
-		   Link EdgeI = father.getLink(i);
-		   int[] capa = EdgeI.getCapacityValues();
-		   X[i] = capa[0];
+		   LinkFlow EdgeI = father.getLink(i);
+		   X[i] = EdgeI.getMinCapacity();
+		   //int[] capa = EdgeI.getCapacityValues();
+		   //X[i] = capa[0];
 	   }
 	   return X;
+   }
+   
+   public void setGraphCapa (int [] X) {
+	   int m= father.getNumLinks();
+	   for (int i = 0;i<m;i++) {
+		   father.setCapacityValues(X);
+	   }
    }
    
    
@@ -121,19 +265,28 @@ public class PMC {
 	   int numberOfLinks = father.getNumLinks();
 	   for (int i = 0; i< numberOfLinks; i++) {
 		   father.setB(i,tableauB[i]);
+		   //System.out.println("Bi = " + father.getB(i));
 	   } 
    }
+   
+   // init les capacités pour chaque lien, avec pour capacité 0... (Bi-1)
+   
    public void initCapacityValues() {
 	   int numberOfLinks = father.getNumLinks();
 	   for (int i = 0; i< numberOfLinks; i++) {
 		   int b = father.getB(i);
 		   int [] tabCapa = new int[b+1];
-		   for (int j=0;j<b;j++) {
+		   for (int j=0;j<b+1;j++) {
 			   tabCapa[j] = j;
 		   }
 		   father.setCapacityValues(i, tabCapa);
+		 //System.out.println("TabCapa = ");
+		 // printTab(father.getCapacityValues(i));
 	   }   
    }
+   
+   
+   // init les probas comme l'a fait rohan shah
    
    public void initProbabilityValues(double rho, double epsilon) {
 	   int numberOfLinks = father.getNumLinks();
@@ -160,14 +313,15 @@ public class PMC {
     * @param stream
     */
    
-
+   // Attention, il faut verifie rplus tard que toutes les valeurs de Lamb sont initialisées 
+   // à un moment(dans l'étape finale du pseudo code)
    
    public void initLamb(int k) {
 	   double[] Lambda = new double[k];
 	   int m = father.getNumLinks();
 	   double l = 0.0;
 	   for (int i=0;i<m;i++) {
-		   Link EdgeI = father.getLink(i);
+		   LinkFlow EdgeI = father.getLink(i);
 		   l += EdgeI.sommeLambda;
 	   }
 	   Lambda[0] = l;
@@ -177,14 +331,25 @@ public class PMC {
    public void drawY(RandomStream stream) {
 	   int m = father.getNumLinks();
 	   for (int i=0;i<m;i++) {
+		   //System.out.println("Arête " + i);
 		   father.initLinkLambda(i);
+		   //System.out.println(father.getLambdaValues(i).length);
 		   double [] lamb = father.getLambdaValues(i);
+		   //if (i==0) {System.out.println("Tab Lambda");
+			//   printTab(lamb);}
+		   //System.out.println("Bjr");
 		   double [] ValuesY = new double[lamb.length];
-		   for (int j=0;i< ValuesY.length;j++) {
+		   //System.out.println(ValuesY.length);
+		   for (int j=0;j< ValuesY.length;j++) {
+			   //System.out.println("j");
 			   double lambda = lamb[j];
 			   ValuesY[j] = ExponentialDist.inverseF(lambda, stream.nextDouble());
 		   }
 		   father.setValuesY(ValuesY, i);
+		   //System.out.println("Tab des Y, arete " + i);
+		   //printTab(ValuesY);
+		   //if (i==0) {System.out.println("Tab des Y");
+		//	   printTab(ValuesY);}
 	   }
    }
    
@@ -200,7 +365,7 @@ public class PMC {
 	   for (int i=0;i<m;i++) {
 		   int b = father.getB(i);
 		   int [] tab = father.getCapacityValues(i);
-		   tab[b] = Math.max(demand,tab[b]);
+		   tab[b] = Math.min(demand,tab[b]);
 		   father.setCapacityValues(tab);
 	   }
    }
@@ -234,27 +399,31 @@ public class PMC {
 	   permutation = new HashMap <Double,int[]>();
 	   int m = father.getNumLinks();
 	   for (int i=0;i<m;i++) {
+		   //System.out.println(father.getLink(i).numberJumps);
 		   taille += father.getLink(i).numberJumps; // inialisation deja faite non ?
 	   }
 	   double [] valuesY = new double[taille];
 	   int compteur = 0;
 	   for (int i = 0;i<m;i++) {
-		   Link edgeI = father.getLink(i);
-		   int n = edgeI.getJumpLength();
+		   LinkFlow edgeI = father.getLink(i);
+		   int n = edgeI.getJumpLength(); // Inutile ?
 		   for (int k=0;k<n;k++) {
 			   int s = edgeI.getJump(k);
 			   if (s ==1) {  //saut activé
-				   double [] tabY = edgeI.getValuesY();
-				   valuesY[compteur] = tabY[k];
-				   compteur ++;
+				   //double [] tabY = edgeI.getValuesY(); // Inefficace, prendre juste la valeur Yi,k
+				   double val = edgeI.getY(k);
+				   valuesY[compteur] = val;
+				   compteur++;
 				   int [] t = new int[2];
 				   t[0] = i;
 				   t[1] = k;
 				   //t[2] = -1; //to be set
-				   permutation.put(tabY[k],t);
+				   permutation.put(val,t);
 			   }
 		   }
 	   }
+	   //System.out.println("Valeur Y en 0" + valuesY[0]);
+	   //System.out.println(valuesY[1]);
 	   Arrays.sort(valuesY);
 	   return valuesY;
 	   //for (int j=0;j<valuesY.length;j++) {
@@ -275,21 +444,6 @@ public class PMC {
 
    
 
-   protected double doOneRun(RandomStream stream) {
-      // Draw independent repair times
-      drawRepairTimes(stream);  // ca modifie dans weight
-      int m = father.getNumLinks();
-      double[] A = new double[m];
-      double[] res = forest.getRepairTime(A);  // REFLECHIR ET MODIFIER
-      // get repair time peut poser probleme, parce que il se contente de find link à partir 
-      // des weights. Or ici on travaille avec des weights finis
-      int b = (int) (res[1]); // sorted rank of critical link
-      criticalLink.add(b + 1); // critical shock; b counts from 0 in program
-      int[] L = forest.findLinkIndices(A);
-      Lam = computeRates(L, b);
-      double ell = computeBarF(Lam, b + 1);
-      return ell;
-   }
 
 
    /**
@@ -362,55 +516,6 @@ public class PMC {
 
 
    /**
-    * Draw repair times (or links weight) from the exponential distribution. The
-    * rate parameters (lambda) of the exponential distribution must have been
-    * precomputed for each link before calling this method.
-    *
-    * @param stream
-    */
-   protected void drawRepairTimes(RandomStream stream) {
-      int m = father.getNumLinks();
-      double w, lambda;
-      for (int j = 0; j < m; j++) {
-         Link link = father.getLink(j);
-         lambda = link.getParam();
-         w = ExponentialDist.inverseF(lambda, stream.nextDouble());
-         forest.setWeight(j, w);
-      }
-   }
-
-   /**
-    * Computes rates such that Lam(E_i) = sum lambda(link) over links that are
-    * (see eq. 16.5 in Botev handbook paper).
-    *
-    * @param link
-    *           link numbers sorted according to weights
-    * @param b
-    *           critical link rank at which network becomes operational
-    * @return the rates
-    */
-   private double[] computeRates(int[] link, int b) {
-      int m = link.length;
-      double x = 0;
-      int r; // link number
-      for (int j = b; j < m; j++) {
-         // Sum lambda for links with weight > weight of link[b]
-         r = link[j];
-         // assume Exponential sampler: param = lambda
-         x += father.getLink(r).getParam();  // A MODIFIER le GET PARAM recupere reliabilty
-      }
-
-      Lam[b] = x;
-      // now the links with small weights
-      for (int j = b - 1; j >= 0; j--) {
-         r = link[j];
-         Lam[j] = Lam[j + 1] + father.getLink(r).getParam();  // A MODIFIER Le getPARAM recupere
-      }
-      return Lam;
-   }
-
-
-   /**
     * function ell=convolution(t,Lam) computes P(A_1+...+A_b1> 1) exactly, where
     * A_i ~ Exp(Lambda(i)) independently; Lambda has to be decreasing (sorted)
     * sequence. See the book \cite{pGER10a} on page 188 formula 5 for the
@@ -438,9 +543,7 @@ public class PMC {
    }
 
 
-   public void setForest(Forest forest) {
-      this.forest = forest;
-   }
+
 
    /**
     * Sets all elements of Lam to 0.

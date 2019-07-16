@@ -1,4 +1,4 @@
-package umontreal.ssj.networks.flow.nouv;
+package umontreal.ssj.networks.flow;
 
 import java.io.IOException;
 import umontreal.ssj.networks.*;
@@ -9,52 +9,73 @@ public class testGraphLattice {
 
 	  public static void main(String[] args) throws IOException {
 
-		  //GraphFlow g = buildLattice();
-	      GraphFlow g = buildLatticeComplete();
+	     //GraphFlow g = buildLatticeComplete();
 	      //GraphFlow g2 = buildDodecaComplete();
-	      g.setSource(0);
-	      g.setTarget(15);
+	      //g.setSource(0);
+	      //g.setTarget(15);
 	      //g2.setSource(0);
 	      //g2.setTarget(19);
+ 
+	      //GraphFlow g = buildLattice6();
+	      //g.setSource(0);
+	      //g.setTarget(35);
+	      //g.toString();
+	      //g2.toString();
 	      
-	      //System.out.println(g.toString());
-	      //MaxFlowEdmondsKarp EK=new MaxFlowEdmondsKarp(g);
-	      //EK.EdmondsKarp();
-	      //System.out.println(EK.maxFlowValue);
-	      //System.out.println(g.residual().toString());
-	      //System.out.println(EK.EdmondsKarp());
+	      //int b = 8;
+	      //int m0 = g.getNumLinks();
+	      //int m0 = g2.getNumLinks();
+	      //int[] tab = new int[m0];
+	      //for (int i = 0; i<m0;i++) {
+	    //	  tab[i] = b;
+	     // }
 	      
-	      //String filename = TestParams.getGraphfile("1-diamond"); 
-	      //System.out.println("Peut etre");
-	      //GraphFlow graph = new GraphFlow(filename);
-	      
-	      
-	      
-	      int m0 = g.getNumLinks();
-	      int[] tab = new int[m0];
-	      for (int i = 0; i<m0;i++) {
-	    	  tab[i] = 8;
-	      }
-	      
-	      PMC p = new PMC(g);
-	      RandomStream stream = new LFSR113();
-	      //RandomStream stream = new F2NL607();
-	      
-	      double eps = 1.0e-5;
-	      
-	      //0.0001
-	      
-	      //double prob = p.testRun(stream, 1000000, false, tab, 0.6, eps);
+	     // PMC p = new PMC(g);
+	      //PMC p = new PMC(g2);
+	    
+	      //double prob = p.doOneRun(stream,demand, false);
 	      //System.out.println("Proba" + prob);
-	      
-	       double nrun = 5* 1.0e4;
-	       nrun = 1;
-	       
-	       nrun = 50000;
-	      //printTab(g.getLink(1).getCapacityValues());
+
 	       
 	       
-	       p.run(50000,stream,10, false, tab, 0.6, eps);
+	       PMC pL4 = doLattice44();
+	       PMC pL6 = doLattice66();
+	       PMC pDo = doDodeca();
+		   RandomStream stream = new LFSR113();
+		   int b = 4;
+		   //int m0 = pL4.father.getNumLinks();
+		   //int m0 = pL6.father.getNumLinks();
+		   int m0 = pDo.father.getNumLinks();
+		   int[] tab = new int[m0];
+		   for (int i = 0; i<m0;i++) {
+			   tab[i] = b;
+		      }
+		   double eps = 1.0e-8;
+		   double rho = 0.7;
+		   int demand = 5;
+		   //pL4.initCapaProbaB(tab, rho, eps);
+		   //pL4.trimCapacities(demand);
+		   //pL6.initCapaProbaB(tab, rho, eps);
+		   //pL6.trimCapacities(demand);
+		   pDo.initCapaProbaB(tab, rho, eps);
+		   pDo.trimCapacities(demand);
+		   
+	       int nrun = 50000;
+	       
+	       
+	       //pL4.setHypoExpKind(1);
+
+	       //pL4.run(nrun,stream,demand, false);
+	       
+	       //pL6.setHypoExpKind(1);
+
+	       //pL6.run(nrun,stream,demand, false);
+	       pDo.setHypoExpKind(1);
+
+	       pDo.run(nrun,stream,demand, false);
+	       
+	       
+	       
 	   }
 	  
 	  
@@ -71,7 +92,35 @@ public class testGraphLattice {
 			   System.out.println(t[i]);
 		   }
 	   }
+	   
+	   private static PMC doLattice44() {
+		   GraphFlow g = buildLatticeComplete();
+		   g.setSource(0);
+		   g.setTarget(15);
+		   PMC p = new PMC(g);
+		   return p;
+	   }
+	   
+	   private static PMC doLattice66() {
+		   GraphFlow g = buildLattice6();
+		   g.setSource(0);
+		   g.setTarget(35);
+		   PMC p = new PMC(g);
+		   return p;
+	   }
+	   
+	   private static PMC doDodeca() {
+		   GraphFlow g = buildDodecaComplete();
+		   g.setSource(0);
+		   g.setTarget(19);
+		   PMC p = new PMC(g);
+		   return p;
+	   }
+	   
+	   
 	  
+	   // build 4*4 lattice Graph (with no full orientation)
+	   
 	   private static GraphFlow buildLattice() {
 		   GraphFlow g=new GraphFlow();
 		      
@@ -119,6 +168,7 @@ public class testGraphLattice {
 		      return g;
 	   }
 	   
+	// build 4*4 lattice Graph (Full orientation)
 	   
 	   public static GraphFlow buildLatticeComplete() {
 		      GraphFlow g=new GraphFlow();
@@ -203,7 +253,7 @@ public class testGraphLattice {
 	   }
 	  
 	   
-	   
+	   // build Lattice taille 2 (complete)
 	   private static GraphFlow buildLattice2() {
 		      GraphFlow g=new GraphFlow();
 		      
@@ -215,8 +265,11 @@ public class testGraphLattice {
 		      g.addLink(new LinkFlow(1,2,3));
 		      g.addLink(new LinkFlow(2,0,2));
 		      g.addLink(new LinkFlow(3,1,3));
+		      g.addLink(new LinkFlow(4,1,0));
+		      g.addLink(new LinkFlow(5,2,0));
+		      g.addLink(new LinkFlow(6,3,2));
+		      g.addLink(new LinkFlow(7,3,1));
 		      return g;
-		   
 	   }
 	   
 	   
@@ -257,21 +310,35 @@ public class testGraphLattice {
 		      
 		      
 		      
-		      g.addLink(new LinkFlow(20,13,7));
-		      g.addLink(new LinkFlow(21,12,6));
-		      g.addLink(new LinkFlow(22,17,11));
-		      g.addLink(new LinkFlow(23,19,16));
-		      g.addLink(new LinkFlow(24,18,14));
+		      g.addLink(new LinkFlow(20,7,13));
+		      g.addLink(new LinkFlow(21,6,12));
+		      g.addLink(new LinkFlow(22,11,17));
+		      g.addLink(new LinkFlow(23,16,19));
+		      g.addLink(new LinkFlow(24,14,18));
 		      
-		      g.addLink(new LinkFlow(25,2,0));
-		      g.addLink(new LinkFlow(26,5,1));
-		      g.addLink(new LinkFlow(27,10,4));
-		      g.addLink(new LinkFlow(28,15,9));
-		      g.addLink(new LinkFlow(29,8,3));
+		      g.addLink(new LinkFlow(25,0,2));
+		      g.addLink(new LinkFlow(26,1,5));
+		      g.addLink(new LinkFlow(27,4,10));
+		      g.addLink(new LinkFlow(28,9,15));
+		      g.addLink(new LinkFlow(29,3,8));
 		      
 	
 		      return g;
 	   }
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
+	   
 	   
 	   private static GraphFlow buildDodecaComplete() {
 		   GraphFlow g=new GraphFlow();
@@ -389,6 +456,39 @@ public class testGraphLattice {
 		      
 		      return g;
 	   }
+	   
+	   
+	   //build Lattice complete 6*6
+	   private static GraphFlow buildLattice6() {
+		      GraphFlow g=new GraphFlow();
+		      
+		      int count = 0; //number of links
+		      for (int i = 0;i<36;i++) {
+		    	  g.addNode(new NodeBasic(i));
+		      }
+		      
+		      // aretes horizontales
+		      
+		      for (int i=0; i<6;i++) { //ligne i
+		    	  for (int j=0;j<5;j++) {
+		    	  g.addLink(new LinkFlow(count,6*i +j, 6*i +j+1));
+		    	  g.addLink(new LinkFlow(count+1,6*i +j+1,6*i +j));
+		    	  count+=2;
+		    	  }
+		      }
+		      //aretes verticales
+		      
+		      for (int j=0; j<6;j++) { //ligne i
+		    	  for (int i=0;i<5;i++) {
+		    	  g.addLink(new LinkFlow(count, 6*i +j, 6*i +j + 6));
+		    	  g.addLink(new LinkFlow(count+1,6*i +j+6,6*i +j));
+		    	  count+=2;
+		    	  }
+		      }
+
+		      return g;
+	   }
+	   
 	   
 	   
 }

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package umontreal.ssj.networks.flow.nouv;
+package umontreal.ssj.networks.flow;
 
 import java.io.IOException;
 import java.util.ArrayList;

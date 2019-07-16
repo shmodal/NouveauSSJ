@@ -1,13 +1,22 @@
 package umontreal.ssj.networks;
 
+
+/**
+ * Base class for links in graphs. The only fields are
+ */
 public class LinkBasic {
 	   // son indice ou identificateur dans le tableau Links
+	
 		protected int indice;
 
-	   // indice du noeud source
+		   /**
+		    * source of the link
+		    */
 		protected int source;
+		   /**
+		    * target of the link
+		    */
 
-	   // indice du noeud target
 		protected int target;
 	
 	

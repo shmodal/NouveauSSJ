@@ -1,4 +1,4 @@
-package umontreal.ssj.networks.flow.nouv;
+package umontreal.ssj.networks.flow;
 
 import java.io.IOException;
 import umontreal.ssj.networks.*;
@@ -48,11 +48,18 @@ public class testGraph {
 	    	  tab[i] = 8;
 	      }
 	      
+	      double rho = 0.6;
+	      double eps = 0.0001;
+	      int demand =10;
+	      
+	      
 	      PMC p = new PMC(g);
+	      p.initCapaProbaB(tab, rho, eps);
+	      p.trimCapacities(demand);
 	      RandomStream stream = new LFSR113();
 	      //RandomStream stream = new F2NL607();
 	      
-	      double prob = p.testRun(stream, 1000000, false, tab, 0.6, 0.0001);
+	      double prob = p.doOneRun(stream, 1000000, false);
 	      System.out.println("Proba" + prob);
 	      
 	      
