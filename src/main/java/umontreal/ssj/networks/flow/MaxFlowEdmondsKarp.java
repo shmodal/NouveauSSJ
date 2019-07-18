@@ -1,9 +1,6 @@
 package umontreal.ssj.networks.flow;
 import java.util.*;
 
-import java.util.LinkedList;
-import java.util.List;
-
 
 //import umontreal.ssj.util.Tools;
 //import umontreal.ssj.networks.flow.GraphWithCapacity;
@@ -15,8 +12,6 @@ public class MaxFlowEdmondsKarp {
 	protected GraphFlow network;
 	/*network's residual graph*/
 	protected GraphFlow residual;
-	/*If link j is operational, then operational[j] = true; otherwise false.*/
-	protected boolean[] operational;
 	/* Source used during the last invocation of this algorithm */
 	protected int source = -1;
 	/* Sink used during the last invocation of this algorithm */
@@ -34,41 +29,13 @@ public class MaxFlowEdmondsKarp {
     	this.sink=network.getTarget();
     	this.maxFlowValue=0.0;
         int numberOfLinks = network.getNumLinks();
-   
-        operational = new boolean[numberOfLinks];
-        /*for the moment nut will evolve if unreliability*/
-        setOperational(true);
 
     }
     
+    public void IncreaseLinkCapacity(int link, int increaseCap) {
+    	this.residual.getLink(link).setCapacity(this.residual.getLink(link).getCapacity()+increaseCap);
+    }
     
-    /**
-     * 
-     * @param i
-     *           link
-     * @return true if link i is operational
-     */
-    public boolean isOperational(int i) {
-       return operational[i];
-    }
-
-    /**
-     * if flag = true, link i becomes operational; otherwise not
-     * 
-     * @param i
-     * @param flag
-     */
-    public void setOperational(int i, boolean flag) {
-       operational[i] = flag;
-    }
-
-    /**
-     * if flag = true, all links become operational; otherwise not.
-     */
-    public void setOperational(boolean flag) {
-       for (int i = 0; i < operational.length; i++)
-          operational[i] = flag;
-    }
     
     
     public int EdmondsKarp() {
@@ -102,17 +69,15 @@ public class MaxFlowEdmondsKarp {
     			// get link i connected to node v
     			link = this.residual.getLinkFromNode(i, v);
     			j = link.getIndice();
-		        if (operational[j]) {
-		        	// get node u such that i = (v,u)
-		        	int u = this.residual.getNeighborOfNode(link, v);
-		        	if(u != s && link.getCapacity()> 0 && parent[u] == null) {
-		        		// we found an unvisited node u
-		        		parent[u] = link;
-		        		pathcap[u] = Math.min(pathcap[v], link.getCapacity());
-		        		Queue.add(u);
-		        	}
+	        	// get node u such that i = (v,u)
+	        	int u = this.residual.getNeighborOfNode(link, v);
+	        	if(u != s && link.getCapacity()> 0 && parent[u] == null) {
+	        		// we found an unvisited node u
+	        		parent[u] = link;
+	        		pathcap[u] = Math.min(pathcap[v], link.getCapacity());
+	        		Queue.add(u);
+	        	}
 		           
-		        }
 		     }
 		 }
 		  
