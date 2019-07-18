@@ -283,4 +283,36 @@ public class GraphWithCapacity extends GraphOriented<NodeBasic,LinkWithCapacity>
 	   }
 
 	
+	   
+	   @Override
+	   public String toString() {
+	      StringBuffer sb = new StringBuffer(
+	            "================================================= Graph"
+	                  + PrintfFormat.NEWLINE);
+	      
+	      for (int i = 0; i < numLinks; i++) {
+	         LinkWithCapacity link = links.get(i);
+	         sb.append("link  " + link.getIndice() + "  connects nodes  "
+	               + link.getSource() + ", " + link.getTarget() + ", capacity  "
+	               + link.getCapacity() + PrintfFormat.NEWLINE);
+	      }
+	      sb.append(PrintfFormat.NEWLINE + "----------------------------------"
+	                + PrintfFormat.NEWLINE);
+	      
+	      for (int i = 0; i < numNodes; i++) {
+	         NodeBasic node = nodes.get(i);
+	         int r = node.getNodeLinks().size();
+	         sb.append("node  " + node.getNumber());
+	         sb.append("  has " + r + " links: ");
+	         if(r>0) {
+		         for (int j = 0; j < r - 1; j++) {
+		            sb.append(node.getNodeLink(j) + ", ");
+		         }
+		         sb.append(node.getNodeLink(r - 1));
+	         }
+	         sb.append(PrintfFormat.NEWLINE);
+	      }
+	      
+	      return sb.toString();
+	   }
 }

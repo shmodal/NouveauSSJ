@@ -7,6 +7,8 @@ import java.util.List;
 
 import umontreal.ssj.util.Tools;
 import umontreal.ssj.networks.GraphWithCapacity;
+import umontreal.ssj.networks.flow.GraphFlow;
+import umontreal.ssj.networks.flow.LinkFlow;
 import umontreal.ssj.rng.*;
 
 
@@ -20,7 +22,7 @@ public class MaxFlowEdmondsKarp {
 	/* Sink used during the last invocation of this algorithm */
 	protected int sink = -1;
 	/* Max flow established after last invocation of the algorithm. */
-	protected double maxFlowValue = -1;
+	protected int maxFlowValue = -1;
 	
 	
 	
@@ -30,29 +32,51 @@ public class MaxFlowEdmondsKarp {
     	this.residual=network.residual();
     	this.source=network.getSource();
     	this.sink=network.getTarget();
-    	this.maxFlowValue=0.0;
+    	this.maxFlowValue=0;
         int numberOfLinks = network.getNumLinks();
-   
 
     }
     
-    
-    public void IncreaseLinkCapacity(int link, int increaseCap) {
+    public boolean IncreaseLinkCapacity(int link, int increaseCap) {
+    	boolean reloadFlow=false;
+    	if(residual.getLink(link).getCapacity()==0) {
+    		reloadFlow=true;
+    	}
     	this.residual.getLink(link).setCapacity(this.residual.getLink(link).getCapacity()+increaseCap);
+	    int oppositeIndice = residual.getLinkWithSourceAndSinkNodes(this.residual.getLink(link).getTarget(),
+	    															this.residual.getLink(link).getSource());
+	    LinkWithCapacity oppositeLink = residual.getLink(oppositeIndice);
+	    oppositeLink.setCapacity(oppositeLink.getCapacity()-increaseCap);
+	    
+    	return reloadFlow;
     }
+    
+    public boolean DecreaseLinkCapacity(int link, int decreaseCap) {
+    	boolean reloadFlow=false;
+    	if(residual.getLink(link).getCapacity()-decreaseCap<0) {
+    		reloadFlow=true;
+    	}
+    	this.residual.getLink(link).setCapacity(this.residual.getLink(link).getCapacity()-decreaseCap);
+	    int oppositeIndice = residual.getLinkWithSourceAndSinkNodes(this.residual.getLink(link).getTarget(),
+				this.residual.getLink(link).getSource());
+		LinkWithCapacity oppositeLink = residual.getLink(oppositeIndice);
+		oppositeLink.setCapacity(oppositeLink.getCapacity()+decreaseCap);
+
+    	return reloadFlow;
+    }
+    
     
     
     public int EdmondsKarp() {
-        int maxflow = 0;
         int flow;
         //System.out.println(residual.toString());
         while((flow = flowBFS(source , sink)) != 0) {
-            maxflow += flow;
+        	this.maxFlowValue += flow;
         }
-        //System.out.println(residual.toString());
-        return maxflow;
+        System.out.println(residual.toString());
+        return this.maxFlowValue;
     }
-	  
+    
 
     public int flowBFS(int s,int target) {
     	// find a s-t path in g of positive capacity
