@@ -1,6 +1,7 @@
 package umontreal.ssj.networks.flow;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 import umontreal.ssj.networks.NodeBasic;
 import umontreal.ssj.rng.LFSR113;
@@ -10,34 +11,43 @@ public class testAlexopo3 {
 	
 	
 	public static void main(String[] args) throws IOException {
-		GraphFlow g = buildAlexo3();
+		GraphFlow g = buildAlexo3NoOr();
 		
-		int demande = 20;
+		int demande = 5;
 	    g.setSource(0);
 	    g.setTarget(6);
 	    
-	    PMC p = new PMC(g);
+	    PMCNonOriented p = new PMCNonOriented(g);
+	    
+	    //PMC p = new PMC(g);
 	    RandomStream stream = new LFSR113();
+	    
 	    //System.out.println("capacités arete 3");
-	    //printTab(g.getCapacityValues(3));
+	    //printTab(g.getCapacityValues(11));
+	    //System.out.println("capacités arete 15");
+	    //printTab(g.getCapacityValues(23));
+	    
+	    
 	    p.trimCapacities(demande);
 	    
 	    //System.out.println("capacités arete 3");
 	    //printTab(g.getCapacityValues(3));
 	    
-	    //p.run(50000,stream,demande, true);
-	    System.out.println("Résultat: "+p.doOneRun(stream, demande, false));
+	    p.run(50000,stream,demande, true);
+	    //System.out.println("Résultat: "+p.doOneRun(stream, demande, false));
 	    
 	    
 		int m = g.getNumLinks();
-		for (int i=0;i<m;i++) {
-			LinkFlow Edge = g.getLink(i);
-			int a = Edge.getSource();
-			int b = Edge.getTarget();
-			System.out.println("Lien " + (i+1) + ": " + (a+1) + " et " + (b+1));
-			System.out.println("Capacités");
-			printTab(Edge.getCapacityValues());
-		}
+		System.out.println("Nombre liens" + m);
+		
+//		for (int i=0;i<m;i++) {
+//			LinkFlow Edge = g.getLink(i);
+//			int a = Edge.getSource();
+//			int b = Edge.getTarget();
+//			System.out.println("Lien " + (i+1) + ": " + (a+1) + " et " + (b+1));
+//			System.out.println("Capacités");
+//			printTab(Edge.getCapacityValues());
+//		}
 	    
 	    
 	    
@@ -53,7 +63,7 @@ public class testAlexopo3 {
 	
 	
 	
-	public static GraphFlow buildAlexo3() {
+	public static GraphFlow buildAlexo3Or() {
 		GraphFlow g=new GraphFlow();
 		//add Nodes
 		for (int i =0;i<7;i++) {
@@ -169,6 +179,43 @@ public class testAlexopo3 {
 
 	return g;
 	}
+	
+	
+	
+	public static GraphFlow buildAlexo3NoOr() {
+		GraphFlow g = buildAlexo3Or();
+		
+		int numLinks = g.getNumLinks();
+		//System.out.print("Nombre links" + numLinks);
+		
+		
+		/*Storing the edges that are not present in both ways : source-->target and target-->source */
+		LinkedList<Integer> Queue = new LinkedList<Integer>();
+		
+  	      for (int i = 0; i < numLinks; i++) {
+   			      Queue.add(i);
+   	      }
+  	    int counterIndiceLink=g.getNumLinks();
+ 	    while(!Queue.isEmpty()) {
+ 		     /*we pop the first element of the queue*/
+ 		     int duplicate=Queue.poll();
+ 		     LinkFlow original = g.getLink(duplicate);
+ 		     g.addLink(new LinkFlow(counterIndiceLink, original.getTarget(),
+ 		        		 original.getSource(), original.getCapacity()));
+ 		     g.getLink(counterIndiceLink).setCapacityValues(original.getCapacityValues());
+ 		     g.getLink(counterIndiceLink).setProbabilityValues(original.getProbabilityValues());
+ 		     g.getLink(counterIndiceLink).setB(original.getB());
+ 		     counterIndiceLink++;
+ 	      }
+		
+		return g;
+	}
+	
+	
+	
+	
+	
+	
 
 	   private static void printTab(double[] t) {
 		   int m = t.length;

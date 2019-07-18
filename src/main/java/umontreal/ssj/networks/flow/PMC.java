@@ -37,6 +37,7 @@ public class PMC {
    protected boolean shockFlag;
    
    public HashMap <Double,int[]> permutation;
+   boolean oriented;
 
    
    public PMC(GraphFlow graph) {
@@ -70,7 +71,7 @@ public class PMC {
    protected double doOneRun(RandomStream stream,int demand,boolean flag) {
 	   //initCapaProbaB(tableauB,rho,epsilon); //initialise bi, c_{i,k} et r_{i,k}
 	   trimCapacities(demand);
-	   
+	   //int m= father.getNumLinks();
 	   // verif
 	   //System.out.println("les capas de 0");
 	   //printTab(father.getCapacityValues(0));
@@ -326,7 +327,7 @@ public class PMC {
 	   double[] Lambda = new double[k];
 	   int m = father.getNumLinks();
 	   double l = 0.0;
-	   for (int i=0;i<m;i++) {
+	   for (int i=0;i<(m/2);i++) {
 		   LinkFlow EdgeI = father.getLink(i);
 		   l += EdgeI.sommeLambda;
 	   }

@@ -1,5 +1,7 @@
 package umontreal.ssj.networks.flow;
 
+import java.util.LinkedList;
+
 import umontreal.ssj.networks.NodeBasic;
 import umontreal.ssj.rng.LFSR113;
 import umontreal.ssj.rng.RandomStream;
@@ -12,19 +14,19 @@ public class MCFlowTest {
 		
 		// Calcul de la fiabilité : 1 si on satisfait la demande
 		
-		// Build graph 3 Daly and Alexopoulos
+		//Build graph 3 Daly and Alexopoulos
 		
 		
-		//GraphFlow g3 = buildAlexo3();
+		//GraphFlow g3 = buildAlexo3NoOr();
 		
 		//int demande = 20;
-	    //g3.setSource(0);
-	    //g3.setTarget(6);
+		//g3.setSource(0);
+		//g3.setTarget(6);
 	    
-	    //MonteCarloFlow mc3 = new MonteCarloFlow(g3);
+		//MonteCarloFlow mc3 = new MonteCarloFlow(g3);
 	    
-	    //RandomStream stream = new LFSR113();
-	    //mc3.run(50000,stream,demande);
+		//RandomStream stream = new LFSR113();
+		//mc3.run(50000,stream,demande);
 	    //System.out.println(mc3.doOneRun(stream,demande));
 	    
 	    
@@ -32,14 +34,16 @@ public class MCFlowTest {
 		GraphFlow g1 = buildAlexo1NoOr();
 		
 		int demande = 60;
-	    g1.setSource(0);
-	    g1.setTarget(9);
+		g1.setSource(0);
+		g1.setTarget(9);
 	    
-	    MonteCarloFlow mc1 = new MonteCarloFlow(g1);
+	    //MonteCarloFlow mc1 = new MonteCarloFlow(g1);
+		
+		MonteCarloFlowNonOriented mc1 = new MonteCarloFlowNonOriented(g1);
 	    
-	    RandomStream stream = new LFSR113();
+		RandomStream stream = new LFSR113();
 	    //mc1.doOneRun(stream, demande);
-	    mc1.run(50000,stream,demande);
+		mc1.run(50000,stream,demande);
 
 		
 //		int m = g1.getNumLinks();
@@ -57,7 +61,7 @@ public class MCFlowTest {
 	
 	
 	
-	public static GraphFlow buildAlexo3() {
+	public static GraphFlow buildAlexo3Or() {
 		GraphFlow g=new GraphFlow();
 		//add Nodes
 		for (int i =0;i<7;i++) {
@@ -826,11 +830,39 @@ public class MCFlowTest {
 			
 			
 			
-			
-			
-			
-			
+
 			
 			return g;
 		}
+		
+		
+		public static GraphFlow buildAlexo3NoOr() {
+			GraphFlow g = buildAlexo3Or();
+			
+			int numLinks = g.getNumLinks();
+			//System.out.print("Nombre links" + numLinks);
+			
+			
+			/*Storing the edges that are not present in both ways : source-->target and target-->source */
+			LinkedList<Integer> Queue = new LinkedList<Integer>();
+			
+	  	      for (int i = 0; i < numLinks; i++) {
+	   			      Queue.add(i);
+	   	      }
+	  	    int counterIndiceLink=g.getNumLinks();
+	 	    while(!Queue.isEmpty()) {
+	 		     /*we pop the first element of the queue*/
+	 		     int duplicate=Queue.poll();
+	 		     LinkFlow original = g.getLink(duplicate);
+	 		     g.addLink(new LinkFlow(counterIndiceLink, original.getTarget(),
+	 		        		 original.getSource(), original.getCapacity()));
+	 		     g.getLink(counterIndiceLink).setCapacityValues(original.getCapacityValues());
+	 		     g.getLink(counterIndiceLink).setProbabilityValues(original.getProbabilityValues());
+	 		     g.getLink(counterIndiceLink).setB(original.getB());
+	 		     counterIndiceLink++;
+	 	      }
+			
+			return g;
+		}
+		
 }

@@ -14,7 +14,7 @@ public class testAlexopo1 {
 
 	public static void main(String[] args) {
 		
-		boolean oriented = false; 
+		
 		
 		
 		//GraphFlow g = buildAlexo1();
@@ -44,7 +44,9 @@ public class testAlexopo1 {
 	    g.setSource(0);
 	    g.setTarget(9);
 	    
-	    PMC p = new PMC(g);
+	    //PMC p = new PMC(g);
+	    PMCNonOriented p = new PMCNonOriented(g);
+	    
 	    //System.out.println("proba arete 0");
 	    //printTab(g.getProbabilityValues(0));
 	    //System.out.println("proba arete 1");
