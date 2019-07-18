@@ -32,8 +32,13 @@ public class MaxFlowEdmondsKarp {
 
     }
     
-    public void IncreaseLinkCapacity(int link, int increaseCap) {
+    public boolean IncreaseLinkCapacity(int link, int increaseCap) {
+    	boolean reloadFlow=false;
+    	if(residual.getLink(link).getCapacity()==0) {
+    		reloadFlow=true;
+    	}
     	this.residual.getLink(link).setCapacity(this.residual.getLink(link).getCapacity()+increaseCap);
+    	return reloadFlow;
     }
     
     
