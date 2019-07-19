@@ -8,7 +8,7 @@ public class MonteCarloFlowNonOriented extends MonteCarloFlow {
 		super(graph);
 	}
 
-	   protected double doOneRun(RandomStream stream,int demande) {
+	   public double doOneRun(RandomStream stream,int demande) {
 		   int m = father.getNumLinks();
 		   for (int i=0;i<(m/2);i++) {
 			   father.setCapacity(i, drawCapacity(stream,i));
@@ -20,11 +20,11 @@ public class MonteCarloFlowNonOriented extends MonteCarloFlow {
 		   } 
 		   MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(father);
 		   int maxFlow = Ek.EdmondsKarp();
-		   //System.out.println(maxFlow);
+		   System.out.println("MaxFlow MC " + maxFlow);
 		   if (maxFlow >= demande){
-			   return 0.0;
+			   return 1.0;
 			   }
-		   else {return 1.0;}
+		   else {return 0.0;}
 		   
 	   }
 	

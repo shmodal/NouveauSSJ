@@ -158,6 +158,8 @@ public class PMCNonOriented extends PMC {
 				   //System.out.println("Jump détecté");
 				   double l = EdgeI.getLambdaTilde(k);
 				   
+				   int prevCapacity = EdgeI.getCapacity();
+				   
 				   
 				   // ANCIEN pour j++ qui est au debut de l'algo
 				   //Lam[j] = Lam[j-1] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
@@ -182,8 +184,25 @@ public class PMCNonOriented extends PMC {
 				   // Si , k : k entre 0 et bi-1. Mais k de l'algo, entre 1 et bi
 				   
 				   //father.setCapacity(i, EdgeI.getCapacity(k+1));
-				   father.setCapacity(i, EdgeI.getCapacityValue(k+1));
+				   
+				   
+				   boolean reload1 = Ek.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) -prevCapacity);
+				   if (reload1) {
+					   maxFlow = Ek.EdmondsKarp();
+				   }
 				   father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
+				   
+				   // boolean reload2 = Ek.IncreaseLinkCapacity(i+ (m/2),EdgeI.getCapacityValue(k+1) -prevCapacity);
+				   //if (reload2) {
+				   //	   maxFlow = Ek.EdmondsKarp();
+				   //}
+				   
+				   //father.setCapacity(i, EdgeI.getCapacityValue(k+1));
+				   //father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
+				   
+				   
+				   
+				   
 				  // System.out.println();
 				  // System.out.println("Capa indice k " +EdgeI.getCapacity(k));
 				   //System.out.println("Capa indice k+1 " +EdgeI.getCapacity(k+1));
@@ -196,9 +215,14 @@ public class PMCNonOriented extends PMC {
 				   
 				   //X[i] = EdgeI.getCapacity(k); // vérifier pour l'indice
 				   //Filter()
-				   Ek= new MaxFlowEdmondsKarp(father);
-				  // System.out.println("calcul maxFlow");
-				   maxFlow = Ek.EdmondsKarp();
+				   
+				   
+				   //Ek= new MaxFlowEdmondsKarp(father);
+				  
+				   // System.out.println("calcul maxFlow");
+				   
+				   
+				  // maxFlow = Ek.EdmondsKarp();
 				   //System.out.println("MaxFLow : " + maxFlow);
 			   }
 			   
