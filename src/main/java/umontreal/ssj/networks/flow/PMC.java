@@ -37,6 +37,7 @@ public class PMC {
    protected boolean shockFlag;
    
    public HashMap <Double,int[]> permutation;
+   boolean oriented;
 
    
    public PMC(GraphFlow graph) {
@@ -70,7 +71,7 @@ public class PMC {
    protected double doOneRun(RandomStream stream,int demand,boolean flag) {
 	   //initCapaProbaB(tableauB,rho,epsilon); //initialise bi, c_{i,k} et r_{i,k}
 	   trimCapacities(demand);
-	   
+	   //int m= father.getNumLinks();
 	   // verif
 	   //System.out.println("les capas de 0");
 	   //printTab(father.getCapacityValues(0));
@@ -122,6 +123,11 @@ public class PMC {
 		   int k = indices[1];
 		   //System.out.println("i : " + i + "   k : " +k);
 		   LinkFlow EdgeI = father.getLink(i);
+		   
+		   //System.out.println("Capacites arete i=0");
+		   //printTab(father.getLink(3).getCapacityValues());
+		   //System.out.println("Capacites arete i=3");
+		   //if (i==3) {printTab(EdgeI.getCapacityValues());}
 		   int s = EdgeI.getJump(k);
 		   if (s==1) {
 			   //System.out.println();
@@ -149,7 +155,7 @@ public class PMC {
 			   // Si , k : k entre 0 et bi-1. Mais k de l'algo, entre 1 et bi
 			   
 			   //father.setCapacity(i, EdgeI.getCapacity(k+1));
-			   father.setCapacity(i, EdgeI.getCapacity(k+1));
+			   father.setCapacity(i, EdgeI.getCapacityValue(k+1));
 			  // System.out.println();
 			  // System.out.println("Capa indice k " +EdgeI.getCapacity(k));
 			   //System.out.println("Capa indice k+1 " +EdgeI.getCapacity(k+1));
@@ -165,11 +171,12 @@ public class PMC {
 			   Ek= new MaxFlowEdmondsKarp(father);
 			  // System.out.println("calcul maxFlow");
 			   maxFlow = Ek.EdmondsKarp();
-			  // System.out.println("MaxFLow : " + maxFlow);
+			   //System.out.println("MaxFLow : " + maxFlow);
 		   }
 		   
 	   j++;	   
 	   }
+	   //System.out.println("MaxFLow : " + maxFlow);
 	   criticalLink.add(j);
 	   //System.out.println("Tableau des grands Lambda ");
 	   //printTab(Lam);
@@ -320,7 +327,7 @@ public class PMC {
 	   double[] Lambda = new double[k];
 	   int m = father.getNumLinks();
 	   double l = 0.0;
-	   for (int i=0;i<m;i++) {
+	   for (int i=0;i<(m/2);i++) {
 		   LinkFlow EdgeI = father.getLink(i);
 		   l += EdgeI.sommeLambda;
 	   }
@@ -365,8 +372,13 @@ public class PMC {
 	   for (int i=0;i<m;i++) {
 		   int b = father.getB(i);
 		   int [] tab = father.getCapacityValues(i);
-		   tab[b] = Math.min(demand,tab[b]);
-		   father.setCapacityValues(tab);
+		   father.getLink(i).setCapacityValue(b,Math.min(demand,tab[b]) );
+		   //int [] copy = new int[tab.length];
+		   //System.arraycopy(tab, 0, copy, 0, tab.length);
+		   //copy[b] =Math.min(demand,tab[b]);
+		   //tab[b] = Math.min(demand,tab[b]);
+		   //father.setCapacityValues(tab);
+		   //father.setCapacityValues(copy);
 	   }
    }
    

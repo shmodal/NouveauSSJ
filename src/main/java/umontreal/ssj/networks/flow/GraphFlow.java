@@ -306,8 +306,16 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 
 	   
 	   public void initLinkLambda(int i) {
+		   //if (i<3) {
+		//	   System.out.println("Init lambda arête " +i);
+		//	   links.get(i).initLambda();
+		//	   printTab(links.get(i).getLambdaValues());
+		 //  }
 		   //System.out.println("Init lambda arête " +i);
-		   links.get(i).initLambda();
+		   //else {
+			   links.get(i).initLambda();
+			   //}
+		   
 	   }
 	   public void initJumpAndIndexes(int i) {
 		   //System.out.println("Init jump arête " +i);
@@ -400,6 +408,20 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	   public double[] getProbabilityValues(int i) {
 		   return links.get(i).getProbabilityValues();
 	   }
+
+	   private void printTab(double[] t) {
+		   int m = t.length;
+		   for (int i =0;i<m;i++) {
+			   System.out.println(t[i]);
+		   }
+	   }
+	   private void printTab(int[] t) {
+		   int m = t.length;
+		   for (int i =0;i<m;i++) {
+			   System.out.println(t[i]);
+		   }
+	   }
+	   
 }
 
 

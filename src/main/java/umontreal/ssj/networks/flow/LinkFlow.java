@@ -125,9 +125,14 @@ public class LinkFlow extends LinkWithCapacity {
 	     this.capacityValues = tab;
 	   }
 	   
-	   public int getCapacity(int k)
+	   public int getCapacityValue(int k)
 	   {
 	      return capacityValues[k];
+	   }
+	   
+	   public void setCapacityValue(int k, int c)
+	   {
+	      capacityValues[k] =c;
 	   }
 	   
 
