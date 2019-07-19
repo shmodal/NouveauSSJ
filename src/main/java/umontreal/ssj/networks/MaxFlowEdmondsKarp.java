@@ -37,19 +37,23 @@ public class MaxFlowEdmondsKarp {
 
     }
     
-    public boolean IncreaseLinkCapacity(int link, int increaseCap) {
+    public boolean IncreaseLinkCapacity(boolean isOriented, int link, int increaseCap) {
     	boolean reloadFlow=false;
     	if(residual.getLink(link).getCapacity()==0) {
     		reloadFlow=true;
     	}
     	this.residual.getLink(link).setCapacity(this.residual.getLink(link).getCapacity()+increaseCap);
-	    int oppositeIndice = residual.getLinkWithSourceAndSinkNodes(this.residual.getLink(link).getTarget(),
-	    															this.residual.getLink(link).getSource());
-	    LinkWithCapacity oppositeLink = residual.getLink(oppositeIndice);
-	    oppositeLink.setCapacity(oppositeLink.getCapacity()-increaseCap);
 	    
+    	if(!isOriented) {
+	    	int oppositeIndice = residual.getLinkWithSourceAndSinkNodes(this.residual.getLink(link).getTarget(),
+																this.residual.getLink(link).getSource());
+			LinkWithCapacity oppositeLink = residual.getLink(oppositeIndice);
+			oppositeLink.setCapacity(oppositeLink.getCapacity()+increaseCap);
+	    }
+    	
     	return reloadFlow;
     }
+    
     
     public boolean DecreaseLinkCapacity(int link, int decreaseCap) {
     	boolean reloadFlow=false;
