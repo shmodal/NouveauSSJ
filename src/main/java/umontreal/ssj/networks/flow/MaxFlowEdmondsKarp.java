@@ -1,7 +1,7 @@
 package umontreal.ssj.networks.flow;
 import java.util.*;
 
-
+import umontreal.ssj.networks.LinkWithCapacity;
 //import umontreal.ssj.util.Tools;
 //import umontreal.ssj.networks.flow.GraphWithCapacity;
 import umontreal.ssj.rng.*;
@@ -40,7 +40,7 @@ public class MaxFlowEdmondsKarp {
     	this.residual.getLink(link).setCapacity(this.residual.getLink(link).getCapacity()+increaseCap);
 	    int oppositeIndice = residual.getLinkWithSourceAndSinkNodes(this.residual.getLink(link).getTarget(),
 	    															this.residual.getLink(link).getSource());
-	    LinkFlow oppositeLink = residual.getLink(oppositeIndice);
+	    LinkWithCapacity oppositeLink = residual.getLink(oppositeIndice);
 	    oppositeLink.setCapacity(oppositeLink.getCapacity()-increaseCap);
 	    
     	return reloadFlow;
