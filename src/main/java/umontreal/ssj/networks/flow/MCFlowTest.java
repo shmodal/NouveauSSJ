@@ -33,7 +33,7 @@ public class MCFlowTest {
 	    
 		GraphFlow g1 = buildAlexo1NoOr();
 		
-		int demande = 60;
+		int demande = 30;
 		g1.setSource(0);
 		g1.setTarget(9);
 	    
