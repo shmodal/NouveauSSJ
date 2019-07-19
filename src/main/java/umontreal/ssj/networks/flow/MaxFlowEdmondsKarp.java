@@ -41,7 +41,7 @@ public class MaxFlowEdmondsKarp {
 	    int oppositeIndice = residual.getLinkWithSourceAndSinkNodes(this.residual.getLink(link).getTarget(),
 	    															this.residual.getLink(link).getSource());
 	    LinkWithCapacity oppositeLink = residual.getLink(oppositeIndice);
-	    oppositeLink.setCapacity(oppositeLink.getCapacity()-increaseCap);
+	    oppositeLink.setCapacity(oppositeLink.getCapacity()+increaseCap     );
 	    
     	return reloadFlow;
     }

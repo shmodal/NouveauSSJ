@@ -183,6 +183,15 @@ public class PMC {
 			   }
 			   
 			   
+//////////////////////////ANCIEN CODE //////////
+		   //father.setCapacity(i, EdgeI.getCapacityValue(k+1));
+		   //father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
+		   
+		   //Ek= new MaxFlowEdmondsKarp(father);
+		   //maxFlow = Ek.EdmondsKarp();
+//////////////////FIN ANCIEN CODE	
+			   
+			   
 			  // System.out.println("calcul maxFlow");
 			   
 			   //System.out.println("MaxFLow : " + maxFlow);
@@ -249,7 +258,7 @@ public class PMC {
 		   System.out.println(t[i]);
 	   }
    }
-   private void printTab(int[] t) {
+   protected void printTab(int[] t) {
 	   int m = t.length;
 	   for (int i =0;i<m;i++) {
 		   System.out.println(t[i]);

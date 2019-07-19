@@ -158,12 +158,9 @@ public class PMCNonOriented extends PMC {
 				   //System.out.println("Jump détecté");
 				   double l = EdgeI.getLambdaTilde(k);
 				   
-				   int prevCapacity = EdgeI.getCapacity();
-				   
 				   
 				   // ANCIEN pour j++ qui est au debut de l'algo
 				   //Lam[j] = Lam[j-1] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
-				   
 				   
 				   
 				   Lam[j+1] = Lam[j] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
@@ -178,28 +175,54 @@ public class PMCNonOriented extends PMC {
 				   //System.out.println("Ancienne capacité de l'arete " + i);
 				   //System.out.println();
 				   //System.out.println(father.getLink(i).getCapacity());
+				   //System.out.println("Tableau des capas possibles");
+				   
 				   //printTab(EdgeI.getCapacityValues());
+				   
+				   
 				   
 				   // Oui, probleme d'indices. il ne met jamais la capacité 8 alors qu'il devrait la mettre tout le temps.
 				   // Si , k : k entre 0 et bi-1. Mais k de l'algo, entre 1 et bi
 				   
 				   //father.setCapacity(i, EdgeI.getCapacity(k+1));
 				   
+	/////////////			   // MISE A JOUR AISEE DE LA CAPACITE ////
+				   
+				   int prevCapacity = father.getLink(i).getCapacity();
+				   //System.out.println("Prev capacity" +prevCapacity);
+				   //System.out.println("Capacite a atteindre"+EdgeI.getCapacityValue(k+1));
 				   
 				   boolean reload1 = Ek.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) -prevCapacity);
+				   father.setCapacity(i, EdgeI.getCapacityValue(k+1));
+				   father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
 				   if (reload1) {
 					   maxFlow = Ek.EdmondsKarp();
 				   }
-				   father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
 				   
-				   // boolean reload2 = Ek.IncreaseLinkCapacity(i+ (m/2),EdgeI.getCapacityValue(k+1) -prevCapacity);
-				   //if (reload2) {
-				   //	   maxFlow = Ek.EdmondsKarp();
-				   //}
 				   
+				   //System.out.println("Nouvelle capacité de l'arete " + i);
+				   //System.out.println();
+				   //System.out.println(father.getLink(i).getCapacity());
+				   
+				   
+//////////////////////////FIN NOUVEAU CODE //////////		
+				   
+				   
+//////////////////////////ANCIEN CODE //////////
+				   //int prevCapacity = father.getLink(i).getCapacity();
+				   //System.out.println("Pev capacity de l'arete" + i + " : " +prevCapacity);
+				   //System.out.println("Capacite actuelle "+EdgeI.getCapacityValue(k));
 				   //father.setCapacity(i, EdgeI.getCapacityValue(k+1));
 				   //father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
 				   
+				   //System.out.println("Nouvelle capacité de l'arete " + i);
+				   //System.out.println();
+				   //System.out.println(father.getLink(i).getCapacity());
+				   
+				   
+				   //Ek= new MaxFlowEdmondsKarp(father);
+				   //maxFlow = Ek.EdmondsKarp();
+//////////////////FIN ANCIEN CODE				   
 				   
 				   
 				   
@@ -207,11 +230,10 @@ public class PMCNonOriented extends PMC {
 				  // System.out.println("Capa indice k " +EdgeI.getCapacity(k));
 				   //System.out.println("Capa indice k+1 " +EdgeI.getCapacity(k+1));
 				   
-				   //System.out.println("Nouvellecapacité de l'arete " + i);
+				   //System.out.println("Nouvelle capacité de l'arete " + i);
 				   //System.out.println();
 				   //System.out.println(father.getLink(i).getCapacity());
 
-				   //father.setCapacity(i, EdgeI.getCapacity(k+1));
 				   
 				   //X[i] = EdgeI.getCapacity(k); // vérifier pour l'indice
 				   //Filter()
