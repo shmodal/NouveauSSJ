@@ -192,7 +192,7 @@ public class PMCNonOriented extends PMC {
 				   //System.out.println("Prev capacity" +prevCapacity);
 				   //System.out.println("Capacite a atteindre"+EdgeI.getCapacityValue(k+1));
 				   
-				   boolean reload1 = Ek.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) -prevCapacity);
+				   boolean reload1 = Ek.IncreaseLinkCapacity(false,i,EdgeI.getCapacityValue(k+1) -prevCapacity);
 				   father.setCapacity(i, EdgeI.getCapacityValue(k+1));
 				   father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
 				   if (reload1) {

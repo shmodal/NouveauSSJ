@@ -55,7 +55,7 @@ public class testAlexopo1 {
 	    
 	    RandomStream stream = new LFSR113();
 	    p.trimCapacities(demande);
-	    p.run(50000,stream,demande, true);
+	    p.run(5000000,stream,demande, true);
 	    //stream.resetNextSubstream();
 	    //System.out.println("Résultat: "+p.doOneRun(stream, demande, false));
 	    

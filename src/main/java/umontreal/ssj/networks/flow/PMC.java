@@ -134,7 +134,7 @@ public class PMC {
 			   //System.out.println("Jump détecté");
 			   double l = EdgeI.getLambdaTilde(k);
 			   
-			   int prevCapacity = EdgeI.getCapacity();
+			   int prevCapacity = father.getLink(i).getCapacity();
 			   
 			   
 			   // ANCIEN pour j++ qui est au debut de l'algo
@@ -158,8 +158,8 @@ public class PMC {
 			   
 			   //father.setCapacity(i, EdgeI.getCapacity(k+1));
 			   
-			   boolean reload =Ek.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) - prevCapacity  );
-			   
+			   boolean reload =Ek.IncreaseLinkCapacity(true,i,EdgeI.getCapacityValue(k+1) - prevCapacity  );
+			 //father.setCapacity(i, EdgeI.getCapacity(k+1));
 			   
 			   
 			   //father.setCapacity(i, EdgeI.getCapacityValue(k+1));
