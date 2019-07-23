@@ -13,7 +13,7 @@ public class testAlexopo3 {
 	public static void main(String[] args) throws IOException {
 		GraphFlow g = buildAlexo3NoOr();
 		
-		int demande = 5;
+		int demande = 20;
 	    g.setSource(0);
 	    g.setTarget(6);
 	    
@@ -21,6 +21,8 @@ public class testAlexopo3 {
 	    
 	    //PMC p = new PMC(g);
 	    RandomStream stream = new LFSR113();
+	    
+	    stream = new LFSR113();
 	    
 	    //System.out.println("capacités arete 3");
 	    //printTab(g.getCapacityValues(11));
@@ -32,13 +34,24 @@ public class testAlexopo3 {
 	    
 	    //System.out.println("capacités arete 3");
 	    //printTab(g.getCapacityValues(3));
+	    System.out.println("Filter single");
+	    p.filter=true;
+	    //p.setHypoExpKind(2);
+	    p.run(1000000,stream,demande, true);
 	    
-	    p.run(50000,stream,demande, true);
+	    System.out.println("No Filter");
+	    p.filter=false;
+	    //p.setHypoExpKind(2);
+	    p.run(1000000,stream,demande, true);
+	    
+
+	    
+	    
 	    //System.out.println("Résultat: "+p.doOneRun(stream, demande, false));
 	    
 	    
-		int m = g.getNumLinks();
-		System.out.println("Nombre liens" + m);
+		//int m = g.getNumLinks();
+		//System.out.println("Nombre liens" + m);
 		
 //		for (int i=0;i<m;i++) {
 //			LinkFlow Edge = g.getLink(i);

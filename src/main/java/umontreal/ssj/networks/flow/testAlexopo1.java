@@ -40,36 +40,29 @@ public class testAlexopo1 {
 		
 
 		
-		int demande = 60;
+		int demande = 30;
 	    g.setSource(0);
 	    g.setTarget(9);
 	    
 	    //PMC p = new PMC(g);
 	    PMCNonOriented p = new PMCNonOriented(g);
 	    
-	    //System.out.println("proba arete 0");
-	    //printTab(g.getProbabilityValues(0));
-	    //System.out.println("proba arete 1");
-	    //printTab(g.getProbabilityValues(1));
-	    
-	    
 	    RandomStream stream = new LFSR113();
 	    p.trimCapacities(demande);
-	    p.run(5000000,stream,demande, true);
+	    //p.run(5000000,stream,demande, true);
 	    //stream.resetNextSubstream();
 	    //System.out.println("Résultat: "+p.doOneRun(stream, demande, false));
 	    
 	    
-		//for (int i=0;i<g.getNumLinks();i++) {
-		//	System.out.println("arete " + i);
-		//	printTab(g.getProbabilityValues(i));
-		//}
+	    //System.out.println("Filter single");
+	    //p.filter=true;
+	    //p.setHypoExpKind(2);
+	    //p.run(1000000,stream,demande, true);
 	    
-	    
-	    //System.out.println("proba arete 0");
-	    //printTab(g.getProbabilityValues(0));
-	    //System.out.println("proba arete 1");
-	    //printTab(g.getProbabilityValues(1));
+	    System.out.println("No Filter");
+	    p.filter=false;
+	    //p.setHypoExpKind(2);
+	    p.run(1000000,stream,demande, true);
 	    
 	    
 	}
