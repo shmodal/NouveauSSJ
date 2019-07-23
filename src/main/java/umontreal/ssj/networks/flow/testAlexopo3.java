@@ -37,12 +37,12 @@ public class testAlexopo3 {
 	    System.out.println("Filter single");
 	    p.filter=true;
 	    //p.setHypoExpKind(2);
-	    p.run(1000000,stream,demande, true);
+	    p.run(10000,stream,demande, true);
 	    
 	    System.out.println("No Filter");
 	    p.filter=false;
 	    //p.setHypoExpKind(2);
-	    p.run(1000000,stream,demande, true);
+	    p.run(10000,stream,demande, true);
 	    
 
 	    
