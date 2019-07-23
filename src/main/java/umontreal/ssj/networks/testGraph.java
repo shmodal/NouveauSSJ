@@ -16,7 +16,7 @@ public class testGraph {
 	      g.addNode(new NodeBasic(4));
 	      g.addNode(new NodeBasic(5));
 	      
-	      g.addLink(new LinkWithCapacity(0,0,1,5));
+	      g.addLink(new LinkWithCapacity(0,0,1,15));
 	      g.addLink(new LinkWithCapacity(1,0,2,10));
 	      g.addLink(new LinkWithCapacity(2,1,3,4));
 	      g.addLink(new LinkWithCapacity(3,1,4,8));
@@ -36,7 +36,7 @@ public class testGraph {
 	      g.addNode(new NodeBasic(2));
 	      g.addNode(new NodeBasic(3));
 	      
-	      g.addLink(new LinkWithCapacity(0,0,1,1));
+	      g.addLink(new LinkWithCapacity(0,0,1,3));
 	      g.addLink(new LinkWithCapacity(1,0,2,1));
 	      g.addLink(new LinkWithCapacity(2,1,3,1));
 	      g.addLink(new LinkWithCapacity(3,2,3,1));
@@ -54,8 +54,7 @@ public class testGraph {
 	      MaxFlowEdmondsKarp EK=new MaxFlowEdmondsKarp(g);
 	      //System.out.println(g.residual().toString());
 	      System.out.println(EK.EdmondsKarp());
-	      boolean reload=EK.IncreaseLinkCapacity(false,3,1);
-	      reload=EK.IncreaseLinkCapacity(false,0,1);
-	      System.out.println(EK.EdmondsKarp());
+	      EK.DecreaseLinkCapacity(0,1);
+	      System.out.println(EK.maxFlowValue);
 	   }
 }
