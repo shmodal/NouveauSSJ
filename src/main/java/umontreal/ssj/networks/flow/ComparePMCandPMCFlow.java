@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 import umontreal.ssj.networks.*;
 import umontreal.ssj.rng.LFSR113;
+import umontreal.ssj.rng.MRG31k3p;
 import umontreal.ssj.rng.RandomStream;
 
 public class ComparePMCandPMCFlow {
@@ -16,6 +17,9 @@ public class ComparePMCandPMCFlow {
 		
 		 GraphFlow g = buildDodecaNoOr();
 		 RandomStream stream = new LFSR113();
+		 stream = new MRG31k3p();
+		 stream.resetNextSubstream();
+		 //stream.resetStartSubstream();
 		 int demande =1;
 		 g.setSource(0);
 		 g.setTarget(19);

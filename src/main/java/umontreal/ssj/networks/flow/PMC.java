@@ -38,6 +38,8 @@ public class PMC {
    
    public HashMap <Double,int[]> permutation;
    boolean oriented;
+   boolean filter;
+   
 
    
    public PMC(GraphFlow graph) {
@@ -64,11 +66,10 @@ public class PMC {
 	   initProbabilityValues(rho,epsilon);
    }
    
-
+  
+   //pas de MAJ dynamique du flot par les capacités. Pas de filtering
    
-   
-   
-   protected double doOneRun(RandomStream stream,int demand,boolean flag) {
+   protected double doOneRunOld(RandomStream stream,int demand,boolean flag) {
 	   //initCapaProbaB(tableauB,rho,epsilon); //initialise bi, c_{i,k} et r_{i,k}
 	   trimCapacities(demand);
 	   //int m= father.getNumLinks();
@@ -99,20 +100,11 @@ public class PMC {
 	   MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(father);
 	   int maxFlow = Ek.EdmondsKarp();
 	   
-	   //System.out.println();
-	   //System.out.println("maxFlow initial" +maxFlow );
-	   
-	   
 	   // JE PENSE ERREUR / IL FAUT PAS INCREMENTER J AU DEBUT
 	   // ARTICLE, S(PI(1), Y PI(1)  ca fait ingorer le 1er terme du tableau Y a chaque fois,
 	   // il manque un jump
 	   
 	   while (maxFlow < demand && j <Lam.length-1) {
-		   
-		   
-		   //System.out.println(" j avant : " + j);
-		   //j++;
-		   //System.out.println(" j après : " + j);
 		   double y = valuesY[j]; // Y(pi(j))
 		   //System.out.println();
 		   //System.out.println("Valeur de Ypi(J)"+ y);
@@ -139,7 +131,6 @@ public class PMC {
 			   
 			   // ANCIEN pour j++ qui est au debut de l'algo
 			   //Lam[j] = Lam[j-1] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
-			   
 			   
 			   
 			   Lam[j+1] = Lam[j] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
@@ -182,16 +173,15 @@ public class PMC {
 				   maxFlow = Ek.EdmondsKarp();
 			   }
 			   
+
 			   
 //////////////////////////ANCIEN CODE //////////
-		   //father.setCapacity(i, EdgeI.getCapacityValue(k+1));
-		   //father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
-		   
-		   //Ek= new MaxFlowEdmondsKarp(father);
-		   //maxFlow = Ek.EdmondsKarp();
+		   father.setCapacity(i, EdgeI.getCapacityValue(k+1));
+
+		   Ek= new MaxFlowEdmondsKarp(father);
+		   maxFlow = Ek.EdmondsKarp();
 //////////////////FIN ANCIEN CODE	
-			   
-			   
+   
 			  // System.out.println("calcul maxFlow");
 			   
 			   //System.out.println("MaxFLow : " + maxFlow);
@@ -210,6 +200,92 @@ public class PMC {
 	   
 	   return ell;
    }
+   
+   
+   protected double doOneRun(RandomStream stream,int demand,boolean flag) {
+	   //initCapaProbaB(tableauB,rho,epsilon); //initialise bi, c_{i,k} et r_{i,k}
+	   trimCapacities(demand);
+	   
+	   drawY(stream); // initialise les lambda et tire les Yi, pour toutes les arêtes i
+	   initJumpAndIndexes();//initialise le tableau S, les lambdatilde
+	   double [] valuesY = Y_values();  // j'ai les Y triés, et les hash maps comme il faut
+	   
+	   int K = valuesY.length;
+	   // LE tableau LAM est de taille : 1(le lambda 1 initial) + le nombre de sauts
+	   
+	   initLamb(K+1);
+	   //System.out.println("Tableau des Lam initial");
+	   //System.out.println();
+	   //printTab(Lam);
+	   //System.out.println();
+	   
+	   int j = 0;
+	   int[] X = buildX();
+	   father.setCapacity(X);
+	   MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(father);
+	   int maxFlow = Ek.EdmondsKarp();
+	   
+	   int p=0; // parcours du tableau des valeurs de Y
+	   // Il est necessaire de distinguer p et j, car comme on filter, on tombe sur des
+	   // valeurs Y dans le talbeau Y_values, mais dont le Si,k est nul. Elles ne sont donc
+	   // pas rajoutées comme lien et j ne doit pas etre incrémenté   
+	   while (maxFlow < demand && j <Lam.length-1 && p<K) {
+
+		   double y = valuesY[j]; // Y(pi(j))
+		   //System.out.println();
+		   //System.out.println("Valeur de Ypi(J)"+ y);
+		   int [] indices = permutation.get(y);
+		   //System.out.println();
+		   //System.out.println("Indices récupérés");
+		   int i = indices[0];
+		   int k = indices[1];
+		   //System.out.println("i : " + i + "   k : " +k);
+		   LinkFlow EdgeI = father.getLink(i);
+		   int s = EdgeI.getJump(k);
+		   if (s==1) {
+			   //System.out.println();
+			   //System.out.println("Jump détecté");
+			   double l = EdgeI.getLambdaTilde(k);
+			   
+			   Lam[j+1] = Lam[j] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
+			   father.setJump(i, k, 0);
+			   int prevCapacity = father.getLink(i).getCapacity();
+			   boolean reload =Ek.IncreaseLinkCapacity(true,i,EdgeI.getCapacityValue(k+1) - prevCapacity  );
+
+			  father.setCapacity(i, EdgeI.getCapacityValue(k+1)); 
+			   if (reload) {
+				   maxFlow = Ek.EdmondsKarp();
+			   }
+
+////////////////////FILTERING/////////////
+			   if (filter) {
+		   double sumLamb = FilterSingle(i,demand);
+		   if (sumLamb >=0) {
+			   Lam[j+1] = Lam[j] - sumLamb; // A VERIFIER
+		   }
+			   }
+			   j++; 
+		   }
+		   
+	   p++;	   
+	   }
+	   //System.out.println("MaxFLow : " + maxFlow);
+	   criticalLink.add(j);
+	   //System.out.println("Tableau des grands Lambda ");
+	   //printTab(Lam);
+	   //System.out.println();
+	   
+	   double ell = computeBarF(Lam,j);
+	   //System.out.println("ell" + ell);
+	   
+	   return ell;
+   }
+   
+   
+   
+   
+   
+   
    
    public double run(int n, RandomStream stream,int demand,boolean flag) {
 	      Chrono timer = new Chrono();
@@ -252,7 +328,7 @@ public class PMC {
 	   }
       
    
-   private void printTab(double[] t) {
+   protected void printTab(double[] t) {
 	   int m = t.length;
 	   for (int i =0;i<m;i++) {
 		   System.out.println(t[i]);
@@ -264,6 +340,32 @@ public class PMC {
 		   System.out.println(t[i]);
 	   }
    }
+   
+   
+   
+   public double FilterSingle(int i, int demand) {
+	   LinkFlow EdgeI = father.getLink(i);
+	   int source = EdgeI.getSource();
+	   int target = EdgeI.getTarget();
+	   MaxFlowEdmondsKarp EkFilter= new MaxFlowEdmondsKarp(father);
+	   EkFilter.source = source;
+	   EkFilter.sink = target;
+	   int f = EkFilter.EdmondsKarp();
+	   if (f>=demand) {
+		   int b = EdgeI.getB();
+		   double sumLamb = 0.;
+		   for (int k=0;k<b;k++) {
+			   int s= EdgeI.getJump(k);
+			   if(s==1) {
+				   sumLamb += EdgeI.getLambdaTilde(k);
+				   EdgeI.setJump(k, 0);
+			   }
+		   }
+		return sumLamb;   
+	   }
+	   return (-1.0);
+	   }
+   
    
    
    // Pour le moment, ED Karps construit un graphe à chaque itération
@@ -338,10 +440,7 @@ public class PMC {
    
    
    
-   /** Computes the values of <tt>Lambda_i,k</tt> and sets them in each link i.
-    * Then, it draws the values of <tt>Y_i,k</tt> and also sets them.
-    * @param stream
-    */
+
    
    // Attention, il faut verifie rplus tard que toutes les valeurs de Lamb sont initialisées 
    // à un moment(dans l'étape finale du pseudo code)
@@ -350,13 +449,18 @@ public class PMC {
 	   double[] Lambda = new double[k];
 	   int m = father.getNumLinks();
 	   double l = 0.0;
-	   for (int i=0;i<(m/2);i++) {
+	   for (int i=0;i<m;i++) {
 		   LinkFlow EdgeI = father.getLink(i);
 		   l += EdgeI.sommeLambda;
 	   }
 	   Lambda[0] = l;
 	   Lam = Lambda;
    }
+   
+   /** Computes the values of <tt>Lambda_i,k</tt> and sets them in each link i.
+    * Then, it draws the values of <tt>Y_i,k</tt> and also sets them.
+    * @param stream
+    */
    
    public void drawY(RandomStream stream) {
 	   int m = father.getNumLinks();
@@ -378,8 +482,6 @@ public class PMC {
 		   father.setValuesY(ValuesY, i);
 		   //System.out.println("Tab des Y, arete " + i);
 		   //printTab(ValuesY);
-		   //if (i==0) {System.out.println("Tab des Y");
-		//	   printTab(ValuesY);}
 	   }
    }
    
@@ -395,7 +497,9 @@ public class PMC {
 	   for (int i=0;i<m;i++) {
 		   int b = father.getB(i);
 		   int [] tab = father.getCapacityValues(i);
-		   father.getLink(i).setCapacityValue(b,Math.min(demand,tab[b]) );
+		   for (int k=0;k<tab.length;k++) {
+			   father.getLink(i).setCapacityValue(k,Math.min(demand,tab[k]) );
+			   }
 		   //int [] copy = new int[tab.length];
 		   //System.arraycopy(tab, 0, copy, 0, tab.length);
 		   //copy[b] =Math.min(demand,tab[b]);
@@ -460,15 +564,7 @@ public class PMC {
 	   //System.out.println("Valeur Y en 0" + valuesY[0]);
 	   //System.out.println(valuesY[1]);
 	   Arrays.sort(valuesY);
-	   return valuesY;
-	   //for (int j=0;j<valuesY.length;j++) {
-	//	   			int [] t = permutation.get(valuesY[j]);
-		   			//t[2] = j;
-		   			//permutation.replace(valuesY[j],t);
-		   			
-		   				// j = Pi(i,k), on cherche lequel est-ce
-		   
-	   
+	   return valuesY;	   
    }
    
    
