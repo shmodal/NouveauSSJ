@@ -15,10 +15,11 @@ public class ComparePMCandPMCFlow {
 		// TODO Auto-generated method stub
 		
 		
-		 GraphFlow g = buildDodecaNoOr();
+		 //GraphFlow g = buildDodecaNoOr();
+		GraphFlow g = ExamplesGraphs.buildDodecaNoOr();
 		 RandomStream stream = new LFSR113();
-		 stream = new MRG31k3p();
-		 stream.resetNextSubstream();
+		 //stream = new MRG31k3p();
+		 //stream.resetNextSubstream();
 		 //stream.resetStartSubstream();
 		 int demande =1;
 		 g.setSource(0);
@@ -39,7 +40,7 @@ public class ComparePMCandPMCFlow {
 		 }
 		 
 		 PMCNonOriented p = new PMCNonOriented(g);
-		 p.run(10000000,stream,demande, true);
+		 p.run(1000000,stream,demande);
 		 
 
 	}

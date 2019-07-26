@@ -11,10 +11,6 @@ import java.util.Arrays;
 
 
 /**
- * This class implements the Permutation Monte Carlo method to estimate the
- * reliability of a network. It uses the constructive schema, i.e., it assumes
- * that initially, all links are failed and then add working links until the
- * network becomes operational, i.e., the subset of nodes V0 becomes connected.
  *
  * @since 2011
  */
@@ -67,15 +63,16 @@ public class PMC {
    }
    
   
+   
+   
    //pas de MAJ dynamique du flot par les capacités. Pas de filtering
    
-   protected double doOneRunOld(RandomStream stream,int demand,boolean flag) {
+   
+   
+   
+   protected double doOneRunOld(RandomStream stream,int demand) {
 	   //initCapaProbaB(tableauB,rho,epsilon); //initialise bi, c_{i,k} et r_{i,k}
 	   trimCapacities(demand);
-	   //int m= father.getNumLinks();
-	   // verif
-	   //System.out.println("les capas de 0");
-	   //printTab(father.getCapacityValues(0));
 	   
 	   
 	   drawY(stream); // initialise les lambda et tire les Yi, pour toutes les arêtes i
@@ -89,10 +86,6 @@ public class PMC {
 	   // LE tableau LAM est de taille : 1(le lambda 1 initial) + le nombre de sauts
 	   
 	   initLamb(K+1);
-	   //System.out.println("Tableau des Lam initial");
-	   //System.out.println();
-	   //printTab(Lam);
-	   //System.out.println();
 	   
 	   int j = 0;
 	   int[] X = buildX();
@@ -100,17 +93,9 @@ public class PMC {
 	   MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(father);
 	   int maxFlow = Ek.EdmondsKarp();
 	   
-	   // JE PENSE ERREUR / IL FAUT PAS INCREMENTER J AU DEBUT
-	   // ARTICLE, S(PI(1), Y PI(1)  ca fait ingorer le 1er terme du tableau Y a chaque fois,
-	   // il manque un jump
-	   
 	   while (maxFlow < demand && j <Lam.length-1) {
 		   double y = valuesY[j]; // Y(pi(j))
-		   //System.out.println();
-		   //System.out.println("Valeur de Ypi(J)"+ y);
 		   int [] indices = permutation.get(y);
-		   //System.out.println();
-		   //System.out.println("Indices récupérés");
 		   int i = indices[0];
 		   int k = indices[1];
 		   //System.out.println("i : " + i + "   k : " +k);
@@ -149,12 +134,12 @@ public class PMC {
 			   
 			   //father.setCapacity(i, EdgeI.getCapacity(k+1));
 			   
-			   boolean reload =Ek.IncreaseLinkCapacity(true,i,EdgeI.getCapacityValue(k+1) - prevCapacity  );
 			 //father.setCapacity(i, EdgeI.getCapacity(k+1));
+
+			   father.setCapacity(i, EdgeI.getCapacityValue(k+1));
 			   
-			   
-			   //father.setCapacity(i, EdgeI.getCapacityValue(k+1));
-			   
+			   Ek= new MaxFlowEdmondsKarp(father);
+			   maxFlow = Ek.EdmondsKarp();
 			   
 			  // System.out.println();
 			  // System.out.println("Capa indice k " +EdgeI.getCapacity(k));
@@ -166,25 +151,10 @@ public class PMC {
 
 			   //father.setCapacity(i, EdgeI.getCapacity(k+1));
 			   
-			   //X[i] = EdgeI.getCapacity(k); // vérifier pour l'indice
-			   //Filter()
-			   
-			   if (reload) {
-				   maxFlow = Ek.EdmondsKarp();
-			   }
-			   
-
-			   
-//////////////////////////ANCIEN CODE //////////
 		   father.setCapacity(i, EdgeI.getCapacityValue(k+1));
 
 		   Ek= new MaxFlowEdmondsKarp(father);
-		   maxFlow = Ek.EdmondsKarp();
-//////////////////FIN ANCIEN CODE	
-   
-			  // System.out.println("calcul maxFlow");
-			   
-			   //System.out.println("MaxFLow : " + maxFlow);
+		   maxFlow = Ek.EdmondsKarp();	
 		   }
 		   
 	   j++;	   
@@ -202,7 +172,7 @@ public class PMC {
    }
    
    
-   protected double doOneRun(RandomStream stream,int demand,boolean flag) {
+   protected double doOneRun(RandomStream stream,int demand) {
 	   //initCapaProbaB(tableauB,rho,epsilon); //initialise bi, c_{i,k} et r_{i,k}
 	   trimCapacities(demand);
 	   
@@ -231,7 +201,7 @@ public class PMC {
 	   // pas rajoutées comme lien et j ne doit pas etre incrémenté   
 	   while (maxFlow < demand && j <Lam.length-1 && p<K) {
 
-		   double y = valuesY[j]; // Y(pi(j))
+		   double y = valuesY[p]; // Y(pi(j))
 		   //System.out.println();
 		   //System.out.println("Valeur de Ypi(J)"+ y);
 		   int [] indices = permutation.get(y);
@@ -250,14 +220,13 @@ public class PMC {
 			   Lam[j+1] = Lam[j] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
 			   father.setJump(i, k, 0);
 			   int prevCapacity = father.getLink(i).getCapacity();
-			   boolean reload =Ek.IncreaseLinkCapacity(true,i,EdgeI.getCapacityValue(k+1) - prevCapacity  );
+			   boolean reload =Ek.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) - prevCapacity  );
 
 			  father.setCapacity(i, EdgeI.getCapacityValue(k+1)); 
 			   if (reload) {
 				   maxFlow = Ek.EdmondsKarp();
 			   }
 
-////////////////////FILTERING/////////////
 			   if (filter) {
 		   double sumLamb = FilterSingle(i,demand);
 		   if (sumLamb >=0) {
@@ -287,12 +256,13 @@ public class PMC {
    
    
    
-   public double run(int n, RandomStream stream,int demand,boolean flag) {
+   public double run(int n, RandomStream stream,int demand) {
 	      Chrono timer = new Chrono();
 	      timer.init();
 	      Tally values = new Tally(); // unreliability estimates
 	      for (int j = 0; j < n; j++) {
-	         double x = doOneRun(stream,demand,flag);
+	    	  //stream.resetNextSubstream();
+	         double x = doOneRun(stream,demand);
 	         if (storeFlag)
 	            store.add(x);
 	         if (histFlag)
@@ -326,6 +296,50 @@ public class PMC {
 	      System.out.printf("CPU time:   %.1f  sec%n%n%n", cro);
 	      return relerr;
 	   }
+   
+   // Runs without dynamic update of max flow
+   public double runOld(int n, RandomStream stream,int demand) {
+	      Chrono timer = new Chrono();
+	      timer.init();
+	      Tally values = new Tally(); // unreliability estimates
+	      for (int j = 0; j < n; j++) {
+	    	  stream.resetNextSubstream();
+	         double x = doOneRunOld(stream,demand);
+	         if (storeFlag)
+	            store.add(x);
+	         if (histFlag)
+	            hist.add(Math.log10(x));
+	         values.add(x);
+	      }
+
+	      m_ell = values.average();
+	      m_variance = values.variance();
+	      double sig = Math.sqrt(m_variance);
+	      double relvar = m_variance / (m_ell * m_ell); // relative variance
+	      double relerr = sig / (m_ell * Math.sqrt(n)); // relative error
+	      System.out.printf("barW_n      = %g%n", m_ell);
+	      System.out.printf("S_n         = %g%n", sig);
+	      System.out.printf("var = S_n^2 = %g%n", m_variance);
+	      System.out.printf("var/n       = %g%n", m_variance / n);
+	      System.out.printf("rel var(W)  = %g%n%n", relvar);
+	      System.out.println(values.formatCINormal(0.95, 4));
+	      System.out.printf("rel err(barW_n) = %g%n", relerr);
+
+	      double cro = timer.getSeconds();
+	      double tem = cro * m_variance / n;
+	      System.out.printf("time*var/n      = %g%n", tem);
+	      System.out.printf("time*var/(n*barW_n^2) = %g%n%n", tem
+	            / (m_ell * m_ell));
+	      if (shockFlag)
+	         System.out.printf("rank crit. shock = %g%n", criticalLink.average());
+	      else
+	         System.out.printf("rank crit. link = %g%n", criticalLink.average());
+	      printHypoExpFlag();
+	      System.out.printf("CPU time:   %.1f  sec%n%n%n", cro);
+	      return relerr;
+	   }
+   
+   
       
    
    protected void printTab(double[] t) {

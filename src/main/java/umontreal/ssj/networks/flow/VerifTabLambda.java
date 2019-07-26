@@ -8,12 +8,11 @@ import umontreal.ssj.rng.LFSR113;
 import umontreal.ssj.rng.*;
 import umontreal.ssj.rng.RandomStream;
 
-public class PMCFlowtest {
+public class VerifTabLambda {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		
-		proc("1-diamond");
 		//testTab();
 		//initLambda();
 		//initLambda2();
@@ -21,31 +20,6 @@ public class PMCFlowtest {
 	}
 
 	
-	 private static void proc(String GraphName) throws IOException {
-
-
-		      String filename = TestParams.getGraphfile(GraphName); 
-		      System.out.println("Peut etre");
-		      GraphFlow graph = new GraphFlow(filename);
-		      System.out.println("Oui");
-		      //Graph graph = new Graph(filename);
-		      
-		      int m = graph.getNumLinks();
-		      int[] tab = new int[m];
-		      for (int i = 0; i<m;i++) {
-		    	  tab[i] = 8;
-		      }
-		      
-		      PMC p = new PMC(graph);
-		      RandomStream stream = new LFSR113();
-		      //RandomStream stream = new F2NL607();
-		      
-		      double prob = p.doOneRun(stream, 10, false, tab, 0.6, 0.0001);
-		      System.out.println("Proba" + prob);
-		      
-		      
-		      //p.run(5, stream, 10, false, tab, 0.6, 0.0001);
-}
 	 
 	 
 	 

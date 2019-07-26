@@ -129,6 +129,7 @@ public class LinkFlow extends LinkWithCapacity {
 	   {
 	      return capacityValues[k];
 	   }
+
 	   
 	   public void setCapacityValue(int k, int c)
 	   {
@@ -149,6 +150,11 @@ public class LinkFlow extends LinkWithCapacity {
 	   public double[] getProbabilityValues()
 	   {
 	      return probabilityValues;
+	   }
+	   
+	   public double getProbabilityValue(int k)
+	   {
+	      return probabilityValues[k];
 	   }
 	   
 	   public double[] getLambdaValues()

@@ -27,17 +27,17 @@ public class turniptest {
      // for (int i = 5; i <= 22; i += 5) {
     //   for (int i = 3; i < 8; i += 2) {
       for (int i = 1; i < 4; i += 2) {
-         proc(A[i],"1-diamond");
+         proc(A[i],"dodecahedron");
       }
    }
 
    private static void proc(double q, String GraphName) throws IOException {
       // = 0: no shock; = 1, shocks; = -1: anti-shocks
-      int shockFlag = -1;
+      int shockFlag = 0;
       boolean antiScanFlag = false; // true for reverse scan; false otherwise
     //  antiScanFlag = true;
       boolean pmcFlag = false; // false for Turnip
-    //  pmcFlag = true; // true for PermutationMonteCarlo
+      pmcFlag = true; // true for PermutationMonteCarlo
       boolean flagpi = false; // version permut or not of Turnip*, pmc*
    //   flagpi = true;
 

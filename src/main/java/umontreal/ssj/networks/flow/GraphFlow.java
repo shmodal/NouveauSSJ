@@ -61,6 +61,7 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	}
 	
 
+	
 
 	   /**
 	    * Get the source of the graph
@@ -346,7 +347,9 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	   // New
 	   
 	   public void setCapacityValues(int i, int[] tab) {
-		   links.get(i).setCapacityValues(tab);
+		   int [] copy = new int[tab.length];
+		   System.arraycopy(tab, 0, copy, 0, tab.length);
+		   links.get(i).setCapacityValues(copy);
 	   }
 	   
 	   // Memes capacites, NEW

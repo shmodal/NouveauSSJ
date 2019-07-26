@@ -87,7 +87,7 @@ public class PMCNonOriented extends PMC {
 	   // et pas de filtering
 	   // du coup un seul indice j
 
-	   protected double doOneRunOld(RandomStream stream,int demand,boolean flag) {
+	   protected double doOneRunOlder(RandomStream stream,int demand) {
 		   //initCapaProbaB(tableauB,rho,epsilon); //initialise bi, c_{i,k} et r_{i,k}
 		   trimCapacities(demand);
 		   int m= father.getNumLinks();
@@ -108,9 +108,9 @@ public class PMCNonOriented extends PMC {
 		   // LE tableau LAM est de taille : 1(le lambda 1 initial) + le nombre de sauts
 		   
 		   initLamb(K+1);
-		   System.out.println("Tableau des Lam initial");
-		   System.out.println();
-		   printTab(Lam);
+		   //System.out.println("Tableau des Lam initial");
+		   //System.out.println();
+		   //printTab(Lam);
 		   //System.out.println();
 		   
 		   int j = 0;
@@ -219,8 +219,10 @@ public class PMCNonOriented extends PMC {
 		   return ell;
 	   }
 	   
+	   // Filter mais recalcule maxFlow à chaque fois de zéro
 	   
-	   protected double doOneRun(RandomStream stream,int demand,boolean flag) {
+	   protected double doOneRunOld(RandomStream stream,int demand) {
+		   //initCapaProbaB(tableauB,rho,epsilon); //initialise bi, c_{i,k} et r_{i,k}
 		   trimCapacities(demand);
 		   int m= father.getNumLinks();
 		   		   
@@ -230,14 +232,87 @@ public class PMCNonOriented extends PMC {
 
 		   double [] valuesY = Y_values();  // j'ai les Y triés, et les hash maps comme il faut
 
+		   
 		   int K = valuesY.length;
 		   // LE tableau LAM est de taille : 1(le lambda 1 initial) + le nombre de sauts
 		   
 		   initLamb(K+1);
-		   //System.out.println("Tableau des Lam initial");
-		   //System.out.println();
+
+		   int j = 0;
+		   int[] X = buildX();
+		   father.setCapacity(X);
+		   MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(father);
+		   int maxFlow = Ek.EdmondsKarp();
+		  
+		   int p=0;
+		    
+		   while (maxFlow < demand && j <Lam.length-1 && p<K) {
+			   
+
+			   double y = valuesY[p]; 
+			   int [] indices = permutation.get(y);
+			   int i = indices[0];
+			   int k = indices[1];
+			   LinkFlow EdgeI = father.getLink(i);
+			   
+
+			   int s = EdgeI.getJump(k);
+			   if (s==1) {
+
+				   double l = EdgeI.getLambdaTilde(k);
+
+				   Lam[j+1] = Lam[j] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
+
+				   father.setJump(i, k, 0);
+				   father.setJump(i+(m/2), k, 0);
+
+
+				   father.setCapacity(i, EdgeI.getCapacityValue(k+1));
+				   father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
+
+				   
+				   Ek= new MaxFlowEdmondsKarp(father);
+				   maxFlow = Ek.EdmondsKarp();
+				   
+				   if (filter) {
+					   double sumLamb = FilterSingle(i,demand);
+					   if (sumLamb >=0) {
+						   Lam[j+1] = Lam[j+1] - sumLamb; // A VERIFIER
+					   }
+				   }
+				   j++;
+			   }
+			   
+		   p++;	   
+		   }
+		   //System.out.println("MaxFLow : " + maxFlow);
+		   criticalLink.add(j);
+		   //System.out.println("Tableau des grands Lambda ");
 		   //printTab(Lam);
 		   //System.out.println();
+		   
+		   double ell = computeBarF(Lam,j);
+		   //System.out.println("ell" + ell);
+		   
+		   return ell;
+	   }
+	   
+	   
+	   
+	   // Filter + update Max Flow
+	   @Override
+	   protected double doOneRun(RandomStream stream,int demand) {
+		   trimCapacities(demand);
+		   int m= father.getNumLinks();
+		   		   
+		   drawY(stream); // initialise les lambda et tire les Yi, pour toutes les arêtes i
+		   initJumpAndIndexes();//initialise le tableau S, les lambdatilde
+		   double [] valuesY = Y_values();  // j'ai les Y triés, et les hash maps comme il faut
+
+		   int K = valuesY.length;
+		   // LE tableau LAM est de taille : 1(le lambda 1 initial) + le nombre de sauts
+		   
+		   initLamb(K+1);
 		   
 		   int j = 0;
 		   int[] X = buildX();
@@ -267,7 +342,7 @@ public class PMCNonOriented extends PMC {
 
 	   
 				   int prevCapacity = father.getLink(i).getCapacity();
-				   boolean reload1 = Ek.IncreaseLinkCapacity(false,i,EdgeI.getCapacityValue(k+1) -prevCapacity);
+				   boolean reload1 = Ek.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) -prevCapacity);
 				   father.setCapacity(i, EdgeI.getCapacityValue(k+1));
 				   father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
 				   
@@ -289,13 +364,8 @@ public class PMCNonOriented extends PMC {
 		   }
 		   //System.out.println("MaxFLow : " + maxFlow);
 		   criticalLink.add(j);
-		   //System.out.println("Tableau des grands Lambda ");
-		   //printTab(Lam);
-		   //System.out.println();
 		   
 		   double ell = computeBarF(Lam,j);
-		   //System.out.println("ell" + ell);
-		   
 		   return ell;
 	   }
 	   
@@ -326,7 +396,7 @@ public class PMCNonOriented extends PMC {
 			   }
 			return sumLamb;   
 		   }
-		   return (-1.0);
+		   else {return (-1.0);}
 		   }
 	   
 	   
