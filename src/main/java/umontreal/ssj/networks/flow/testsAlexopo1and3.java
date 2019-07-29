@@ -48,23 +48,23 @@ public class testsAlexopo1and3 {
 		
 		//GraphFlow g1 = ExamplesGraphs.buildAlexo1NoOr();
 		
-		GraphFlow g1 = ExamplesGraphs.buildAlexo1Or();
+		GraphFlow g1 = ExamplesGraphs.buildAlexo1NoOr();
 		g1 = ExamplesGraphs.Undirect(g1);
 
 		
-		int demande = 60; // ou 30
+		int demande = 30; // ou 30
 		g1.setSource(0);
 		g1.setTarget(9);
 		
 		MonteCarloFlowNonOriented mc1 = new MonteCarloFlowNonOriented(g1);
 	    
 		RandomStream stream = new LFSR113();
-		mc1.run(1000000,stream,demande);
+		mc1.run(10000000,stream,demande);
 		
 		
-		//PMCNonOriented p1 = new PMCNonOriented(g1);
+		PMCNonOriented p = new PMCNonOriented(g1);
 		
-		//p.trimCapacities(demande);
+		p.trimCapacities(demande);
 		
 		//System.out.println("Filter single");
 	    //p.filter=true;
@@ -73,8 +73,8 @@ public class testsAlexopo1and3 {
 	    
 	    //System.out.println("No Filter");
 	    //p.filter=false;
-		///stream.resetStartSubstream();
-	    //p.run(100000,stream,demande);
+		stream.resetStartSubstream();
+	    p.run(10000000,stream,demande);
 	    
 		
 

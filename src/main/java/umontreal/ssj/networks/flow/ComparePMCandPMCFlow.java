@@ -5,13 +5,14 @@ import java.io.IOException;
 import java.util.LinkedList;
 
 import umontreal.ssj.networks.*;
+import umontreal.ssj.networks.staticreliability.turniptest;
 import umontreal.ssj.rng.LFSR113;
 import umontreal.ssj.rng.MRG31k3p;
 import umontreal.ssj.rng.RandomStream;
 
 public class ComparePMCandPMCFlow {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 		
 		
@@ -40,7 +41,14 @@ public class ComparePMCandPMCFlow {
 		 }
 		 
 		 PMCNonOriented p = new PMCNonOriented(g);
-		 p.run(1000000,stream,demande);
+		 //p.filter = true;
+		 p.run(10000000,stream,demande);
+		 
+		 stream.resetStartSubstream();
+		 turniptest.proc(q,"dodecahedron");
+		 
+		 
+		 
 		 
 
 	}
