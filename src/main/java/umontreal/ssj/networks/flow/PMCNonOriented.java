@@ -23,15 +23,12 @@ public class PMCNonOriented extends PMC {
 		   for (int i=0;i<m;i++) {
 			   //System.out.println("Arête " + i);
 			   father.initLinkLambda(i);
-			   //System.out.println(father.getLambdaValues(i).length);
 			   
 			   if (i<(m/2)) {
 			   double [] lamb = father.getLambdaValues(i);
 			   //if (i==0) {System.out.println("Tab Lambda");
 				//   printTab(lamb);}
-			   //System.out.println("Bjr");
 			   double [] ValuesY = new double[lamb.length];
-			   //System.out.println(ValuesY.length);
 			   for (int j=0;j< ValuesY.length;j++) {
 				   //System.out.println("j");
 				   double lambda = lamb[j];
@@ -41,12 +38,13 @@ public class PMCNonOriented extends PMC {
 			   father.setValuesY(ValuesY, i+m/2); // les Y simulés pour l'autre
 			   //System.out.println("Tab des Y, arete " + i);
 			   //printTab(ValuesY);
-			   //if (i==0) {System.out.println("Tab des Y");
-			//	   printTab(ValuesY);}
 		   }
 		}
 	   }
 		
+		
+		// Dans valuesY, pour chaque Y, on retient le i et k tel que i< m/2 
+		//(le premier sens des arêtes)
 		
 	   @Override
 	   public double[] Y_values() {
@@ -80,29 +78,27 @@ public class PMCNonOriented extends PMC {
 		   //System.out.println("Valeur Y en 0" + valuesY[0]);
 		   //System.out.println(valuesY[1]);
 		   Arrays.sort(valuesY);
-		   return valuesY;
-		   //for (int j=0;j<valuesY.length;j++) {
-		//	   			int [] t = permutation.get(valuesY[j]);
-			   			//t[2] = j;
-			   			//permutation.replace(valuesY[j],t);
-			   			
-			   				// j = Pi(i,k), on cherche lequel est-ce
-			   
-		   
+		   return valuesY;		   
 	   }
 	   	
+	   
+	   // Old : pas d'incrémentation dynamique du maxFlot( on recalcule le maxFlot à chaque
+	   // changement de capacité
+	   // et pas de filtering
+	   // du coup un seul indice j
 
-	   protected double doOneRun(RandomStream stream,int demand,boolean flag) {
+	   protected double doOneRunOlder(RandomStream stream,int demand) {
 		   //initCapaProbaB(tableauB,rho,epsilon); //initialise bi, c_{i,k} et r_{i,k}
 		   trimCapacities(demand);
 		   int m= father.getNumLinks();
-		   // verif
-		   //System.out.println("les capas de 0");
-		   //printTab(father.getCapacityValues(0));
-		   
-		   
+		   		   
 		   drawY(stream); // initialise les lambda et tire les Yi, pour toutes les arêtes i
 		   initJumpAndIndexes();//initialise le tableau S, les lambdatilde
+		   
+		   //for (int k=0;k<(m/2);k++) {
+		//	   System.out.println("Arete " + k);
+		//	   printTab(father.getLink(k).getValuesY());
+		 //  }
 		   double [] valuesY = Y_values();  // j'ai les Y triés, et les hash maps comme il faut
 		   //System.out.println("Valeurs de Y triées");
 		   //printTab(valuesY);
@@ -122,11 +118,8 @@ public class PMCNonOriented extends PMC {
 		   father.setCapacity(X);
 		   MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(father);
 		   int maxFlow = Ek.EdmondsKarp();
-		   
-		   //System.out.println();
-		   //System.out.println("maxFlow initial" +maxFlow );
-		   
-		   
+		  
+		    
 		   // JE PENSE ERREUR / IL FAUT PAS INCREMENTER J AU DEBUT
 		   // ARTICLE, S(PI(1), Y PI(1)  ca fait ingorer le 1er terme du tableau Y a chaque fois,
 		   // il manque un jump
@@ -157,49 +150,37 @@ public class PMCNonOriented extends PMC {
 				   //System.out.println();
 				   //System.out.println("Jump détecté");
 				   double l = EdgeI.getLambdaTilde(k);
-				   
-				   int prevCapacity = EdgeI.getCapacity();
-				   
-				   
+			   
 				   // ANCIEN pour j++ qui est au debut de l'algo
 				   //Lam[j] = Lam[j-1] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
-				   
-				   
 				   
 				   Lam[j+1] = Lam[j] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
 				   //System.out.println(Lam[j]);
 				   // pour que Lam[j] toujours défini
+				  // System.out.println("Jump now " +father.getLink(i).getJump(k));
 				   father.setJump(i, k, 0);
-				   
 				   father.setJump(i+(m/2), k, 0);
-				   
-				   //System.out.println();
-				   //System.out.println("MAJ d'une capacité");
-				   //System.out.println("Ancienne capacité de l'arete " + i);
-				   //System.out.println();
-				   //System.out.println(father.getLink(i).getCapacity());
-				   //printTab(EdgeI.getCapacityValues());
-				   
+				  // System.out.println("Jump now " +father.getLink(i+ m/2).getJump(k));
+
 				   // Oui, probleme d'indices. il ne met jamais la capacité 8 alors qu'il devrait la mettre tout le temps.
 				   // Si , k : k entre 0 et bi-1. Mais k de l'algo, entre 1 et bi
 				   
-				   //father.setCapacity(i, EdgeI.getCapacity(k+1));
-				   
-				   
-				   boolean reload1 = Ek.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) -prevCapacity);
-				   if (reload1) {
-					   maxFlow = Ek.EdmondsKarp();
-				   }
+
+//////////////////////////ANCIEN CODE //////////
+				   //int prevCapacity = father.getLink(i).getCapacity();
+				   //System.out.println("Pev capacity de l'arete" + i + " : " +prevCapacity);
+				   //System.out.println("Capacite actuelle "+EdgeI.getCapacityValue(k));
+				   father.setCapacity(i, EdgeI.getCapacityValue(k+1));
 				   father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
 				   
-				   // boolean reload2 = Ek.IncreaseLinkCapacity(i+ (m/2),EdgeI.getCapacityValue(k+1) -prevCapacity);
-				   //if (reload2) {
-				   //	   maxFlow = Ek.EdmondsKarp();
-				   //}
+				   //System.out.println("Nouvelle capacité de l'arete " + i);
+				   //System.out.println();
+				   //System.out.println(father.getLink(i).getCapacity());
 				   
-				   //father.setCapacity(i, EdgeI.getCapacityValue(k+1));
-				   //father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
 				   
+				   Ek= new MaxFlowEdmondsKarp(father);
+				   maxFlow = Ek.EdmondsKarp();
+//////////////////FIN ANCIEN CODE				   
 				   
 				   
 				   
@@ -207,17 +188,15 @@ public class PMCNonOriented extends PMC {
 				  // System.out.println("Capa indice k " +EdgeI.getCapacity(k));
 				   //System.out.println("Capa indice k+1 " +EdgeI.getCapacity(k+1));
 				   
-				   //System.out.println("Nouvellecapacité de l'arete " + i);
+				   //System.out.println("Nouvelle capacité de l'arete " + i);
 				   //System.out.println();
 				   //System.out.println(father.getLink(i).getCapacity());
 
-				   //father.setCapacity(i, EdgeI.getCapacity(k+1));
 				   
 				   //X[i] = EdgeI.getCapacity(k); // vérifier pour l'indice
+				   	   
 				   //Filter()
-				   
-				   
-				   //Ek= new MaxFlowEdmondsKarp(father);
+
 				  
 				   // System.out.println("calcul maxFlow");
 				   
@@ -239,6 +218,204 @@ public class PMCNonOriented extends PMC {
 		   
 		   return ell;
 	   }
+	   
+	   // Filter mais recalcule maxFlow à chaque fois de zéro
+	   
+	   protected double doOneRunOld(RandomStream stream,int demand) {
+		   //initCapaProbaB(tableauB,rho,epsilon); //initialise bi, c_{i,k} et r_{i,k}
+		   trimCapacities(demand);
+		   int m= father.getNumLinks();
+		   		   
+		   drawY(stream); // initialise les lambda et tire les Yi, pour toutes les arêtes i
+		   initJumpAndIndexes();//initialise le tableau S, les lambdatilde
+		   
+
+		   double [] valuesY = Y_values();  // j'ai les Y triés, et les hash maps comme il faut
+
+		   
+		   int K = valuesY.length;
+		   // LE tableau LAM est de taille : 1(le lambda 1 initial) + le nombre de sauts
+		   
+		   initLamb(K+1);
+
+		   int j = 0;
+		   int[] X = buildX();
+		   father.setCapacity(X);
+		   MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(father);
+		   int maxFlow = Ek.EdmondsKarp();
+		  
+		   int p=0;
+		    
+		   while (maxFlow < demand && j <Lam.length-1 && p<K) {
+			   
+
+			   double y = valuesY[p]; 
+			   int [] indices = permutation.get(y);
+			   int i = indices[0];
+			   int k = indices[1];
+			   LinkFlow EdgeI = father.getLink(i);
+			   
+
+			   int s = EdgeI.getJump(k);
+			   if (s==1) {
+
+				   double l = EdgeI.getLambdaTilde(k);
+
+				   Lam[j+1] = Lam[j] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
+
+				   father.setJump(i, k, 0);
+				   father.setJump(i+(m/2), k, 0);
+
+
+				   father.setCapacity(i, EdgeI.getCapacityValue(k+1));
+				   father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
+
+				   
+				   Ek= new MaxFlowEdmondsKarp(father);
+				   maxFlow = Ek.EdmondsKarp();
+				   
+				   if (filter) {
+					   double sumLamb = FilterSingle(i,demand);
+					   if (sumLamb >=0) {
+						   Lam[j+1] = Lam[j+1] - sumLamb; // A VERIFIER
+					   }
+				   }
+				   j++;
+			   }
+			   
+		   p++;	   
+		   }
+		   //System.out.println("MaxFLow : " + maxFlow);
+		   criticalLink.add(j);
+		   //System.out.println("Tableau des grands Lambda ");
+		   //printTab(Lam);
+		   //System.out.println();
+		   
+		   double ell = computeBarF(Lam,j);
+		   //System.out.println("ell" + ell);
+		   
+		   return ell;
+	   }
+	   
+	   
+	   
+	   // Filter + update Max Flow
+	   @Override
+	   protected double doOneRun(RandomStream stream,int demand) {
+		   trimCapacities(demand);
+		   int m= father.getNumLinks();
+		   		   
+		   drawY(stream); // initialise les lambda et tire les Yi, pour toutes les arêtes i
+		   initJumpAndIndexes();//initialise le tableau S, les lambdatilde
+		   double [] valuesY = Y_values();  // j'ai les Y triés, et les hash maps comme il faut
+
+		   int K = valuesY.length;
+		   // LE tableau LAM est de taille : 1(le lambda 1 initial) + le nombre de sauts
+		   
+		   initLamb(K+1);
+		   
+		   int j = 0;
+		   int[] X = buildX();
+		   father.setCapacity(X);
+		   MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(father);
+		   int maxFlow = Ek.EdmondsKarp();
+		  
+		    
+		   int p=0; // parcours du tableau des valeurs de Y
+		   // Il est necessaire de distinguer p et j, car comme on filter, on tombe sur des
+		   // valeurs Y dans le talbeau Y_values, mais dont le Si,k est nul. Elles ne sont donc
+		   // pas rajoutées comme lien et j ne doit pas etre incrémenté
+		   while (maxFlow < demand && j <Lam.length-1 && p<K) {
+			   
+			   double y = valuesY[p]; // Y(pi(j))
+			   int [] indices = permutation.get(y);
+			   int i = indices[0];
+			   int k = indices[1];
+			   LinkFlow EdgeI = father.getLink(i);
+			   int s = EdgeI.getJump(k);
+			   
+			   if (s==1) {
+				   double l = EdgeI.getLambdaTilde(k); 
+				   Lam[j+1] = Lam[j] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
+				   father.setJump(i, k, 0);
+				   father.setJump(i+(m/2), k, 0);
+
+	   
+				   int prevCapacity = father.getLink(i).getCapacity();
+				   boolean reload1 = Ek.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) -prevCapacity);
+				   father.setCapacity(i, EdgeI.getCapacityValue(k+1));
+				   father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
+				   
+				   if (reload1) {
+					   maxFlow = Ek.EdmondsKarp();
+				   }
+				   				      
+				   if (filter) {
+	////////////////////FILTERING/////////////
+					   double sumLamb = FilterSingle(i,demand);
+					   if (sumLamb >=0) {
+						   Lam[j+1] = Lam[j+1] - sumLamb; // A VERIFIER
+					   }
+				   }
+				   j++;
+			   }
+			   p++;
+		   	   
+		   }
+		   //System.out.println("MaxFLow : " + maxFlow);
+		   criticalLink.add(j);
+		   
+		   double ell = computeBarF(Lam,j);
+		   return ell;
+	   }
+	   
+	   
+   
+	   
+	   @Override
+	   public double FilterSingle(int i, int demand) {
+		   int m = father.getNumLinks();
+		   //System.out.println("Filtrage arête " + i);
+		   LinkFlow EdgeI = father.getLink(i);
+		   int source = EdgeI.getSource();
+		   int target = EdgeI.getTarget();
+		   MaxFlowEdmondsKarp EkFilter= new MaxFlowEdmondsKarp(father);
+		   EkFilter.source = source;
+		   EkFilter.sink = target;
+		   int f = EkFilter.EdmondsKarp();
+		   if (f>=demand) {
+			   int b = EdgeI.getB();
+			   double sumLamb = 0.;
+			   for (int k=0;k<b;k++) {
+				   int s= EdgeI.getJump(k);
+				   if(s==1) {
+					   sumLamb += EdgeI.getLambdaTilde(k);
+					   EdgeI.setJump(k, 0);
+					   father.getLink(i+ m/2 ).setJump(k, 0);
+				   }
+			   }
+			return sumLamb;   
+		   }
+		   else {return (-1.0);}
+		   }
+	   
+	   
+	   // Ne pas prendre en compte les arêtes symétriques( i >) m/2)
+	   @Override
+	   public void initLamb(int k) {
+		   double[] Lambda = new double[k];
+		   int m = father.getNumLinks();
+		   double l = 0.0;
+		   for (int i=0;i<(m/2);i++) {
+			   LinkFlow EdgeI = father.getLink(i);
+			   l += EdgeI.sommeLambda;
+		   }
+		   Lambda[0] = l;
+		   Lam = Lambda;
+	   }
+	   
+	   
+	   
 	   
 	   
 }

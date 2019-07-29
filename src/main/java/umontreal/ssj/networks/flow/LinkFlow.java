@@ -19,7 +19,7 @@ public class LinkFlow extends LinkWithCapacity {
 	private double [] lambdaValues;  // les lambda i,k, taille bi, de 0 à bi-1
 	public double sommeLambda; // somme des lambda i,k à i fixé(poour ne pas recalculer plus tard)
 	public double [] tabY ; //les Yi,k
-	private int [] S_jump ;  //tableau S
+	public int [] S_jump ;  //tableau S
 	public int numberJumps; // nombre de jumps (Si,k) =1
 	public double [] lambdaTildeValues ; // les lambdaTilde
 	
@@ -129,6 +129,7 @@ public class LinkFlow extends LinkWithCapacity {
 	   {
 	      return capacityValues[k];
 	   }
+
 	   
 	   public void setCapacityValue(int k, int c)
 	   {
@@ -149,6 +150,11 @@ public class LinkFlow extends LinkWithCapacity {
 	   public double[] getProbabilityValues()
 	   {
 	      return probabilityValues;
+	   }
+	   
+	   public double getProbabilityValue(int k)
+	   {
+	      return probabilityValues[k];
 	   }
 	   
 	   public double[] getLambdaValues()
