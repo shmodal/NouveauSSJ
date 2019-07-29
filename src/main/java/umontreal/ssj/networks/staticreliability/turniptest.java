@@ -114,6 +114,7 @@ public class turniptest {
       turn.setHypoExpKind(1);
       
       int nrun = 1000 * 1000 * 1;
+      //nrun = nrun*10;
 
       String pmcname = turn.toString();
       printHead(pmcname, shockFlag, shocks, antiScanFlag, flagpi);
