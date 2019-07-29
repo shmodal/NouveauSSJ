@@ -221,7 +221,8 @@ public class PMC {
 			   father.setJump(i, k, 0);
 			   int prevCapacity = father.getLink(i).getCapacity();
 			   boolean reload =Ek.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) - prevCapacity  );
-
+			   
+			   
 			  father.setCapacity(i, EdgeI.getCapacityValue(k+1)); 
 			   if (reload) {
 				   maxFlow = Ek.EdmondsKarp();

@@ -40,6 +40,7 @@ public class ComparePMCandPMCFlow {
 		 }
 		 
 		 PMCNonOriented p = new PMCNonOriented(g);
+		 //p.filter = true;
 		 p.run(1000000,stream,demande);
 		 
 

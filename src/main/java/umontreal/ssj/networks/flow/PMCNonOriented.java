@@ -344,12 +344,14 @@ public class PMCNonOriented extends PMC {
 				   int prevCapacity = father.getLink(i).getCapacity();
 				   boolean reload1 = Ek.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) -prevCapacity);
 				   father.setCapacity(i, EdgeI.getCapacityValue(k+1));
-				   father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
 				   
-				   if (reload1) {
+				   boolean reload2 = Ek.IncreaseLinkCapacity(i+ (m/2),EdgeI.getCapacityValue(k+1) -prevCapacity);
+				   father.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
+				   if (reload1 || reload2) {
 					   maxFlow = Ek.EdmondsKarp();
 				   }
-				   				      
+				   
+ 				      
 				   if (filter) {
 	////////////////////FILTERING/////////////
 					   double sumLamb = FilterSingle(i,demand);

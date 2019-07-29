@@ -30,7 +30,9 @@ public class testPMCDodecaRohan {
 		
 		//p.filter = true;
 		
-		p.runOld(50000, stream, demande);
+		p.run(500000, stream, demande);
+		stream.resetStartSubstream();
+		p.runOld(500000, stream, demande);
 		//ExamplesGraphs.toString(Latt6);
 		
 		//Comparaison avec Monte Carlo : inefficace à epsilon = 1e-4
