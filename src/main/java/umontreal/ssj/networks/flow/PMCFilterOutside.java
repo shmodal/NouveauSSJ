@@ -366,7 +366,7 @@ public class PMCFilterOutside extends PMC {
 				   }
 				   
 				   if (filterOutside) { 
-					   if (p%5 ==0 && p>(3*K/4)) { //mise a jour updateFlow. //Proposer aussi p depasse un seuil ? ?
+					   if (p%5 ==0 && p>(0.8*K)) { //mise a jour updateFlow. //Proposer aussi p depasse un seuil ? ?
 						   
 						   //MaxFlowEdmondsKarp EkOut = new MaxFlowEdmondsKarp(father);
 						   MaxFlowEdmondsKarp EkOut = new MaxFlowEdmondsKarp(father.clone());

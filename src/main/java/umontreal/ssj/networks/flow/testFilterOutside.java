@@ -6,14 +6,14 @@ import umontreal.ssj.rng.RandomStream;
 public class testFilterOutside {
 	
 	public static void main(String[] args) {
-		GraphFlow Do = ExamplesGraphs.buildLatt6NoOr(); //Attention, aucune capacité set
+		GraphFlow Do = ExamplesGraphs.buildDodecaNoOr(); //Attention, aucune capacité set
 		
 		Do.setSource(0);
-		Do.setTarget(35);  //19 avant
+		Do.setTarget(19);  //19 avant
 		RandomStream stream = new LFSR113();
-		int b = 8;
-		int demande = 10;
-		double rho = 0.6;
+		int b = 4;
+		int demande = 5;
+		double rho = 0.7;
 		double[] epsilon = {1.0e-4, 1.0e-5, 1.0e-6, 1.0e-7, 1.0e-8, 1.0e-9, 1.0e-10, 1.0e-11,
 				1.0e-12, 1.0e-13};
 		
@@ -41,7 +41,7 @@ public class testFilterOutside {
 		p.filterOutside = false;
 		p.filter=true;
 		
-		p.run(100000, stream, demande);
+		//p.run(100000, stream, demande);
 		
 		p.filter=false;
 		p.run(100000, stream, demande);
