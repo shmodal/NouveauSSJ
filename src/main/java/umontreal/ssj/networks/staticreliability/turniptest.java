@@ -31,7 +31,7 @@ public class turniptest {
       }
    }
 
-   private static void proc(double q, String GraphName) throws IOException {
+   public static void proc(double q, String GraphName) throws IOException {
       // = 0: no shock; = 1, shocks; = -1: anti-shocks
       int shockFlag = 0;
       boolean antiScanFlag = false; // true for reverse scan; false otherwise

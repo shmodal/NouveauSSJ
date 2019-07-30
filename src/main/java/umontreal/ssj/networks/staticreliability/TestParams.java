@@ -18,7 +18,7 @@ import umontreal.ssj.networks.staticreliability.ShockList;
  */
 public class TestParams {
 
-   static void setRel(GraphReliability graph) {
+   public static void setRel(GraphReliability graph) {
       int m = graph.getNumLinks();
       double r = 0.9;
       for (int i = 0; i < m; i++) {
@@ -55,7 +55,7 @@ public class TestParams {
       // graph.setReliability (98, r);
    }
 
-   static String getGraphfile(String GraphName) {
+   public static String getGraphfile(String GraphName) {
       String legraphe;
       // choose a network
       // legraphe = "dodac3paragain2";

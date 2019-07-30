@@ -149,7 +149,7 @@ public class PMC {
       return relerr;
    }
 
-   protected double doOneRun(RandomStream stream) {
+   public double doOneRun(RandomStream stream) {
       // Draw independent repair times
       drawRepairTimes(stream);
       int m = father.getNumLinks();

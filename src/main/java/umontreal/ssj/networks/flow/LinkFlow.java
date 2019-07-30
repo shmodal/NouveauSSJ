@@ -23,7 +23,7 @@ public class LinkFlow extends LinkWithCapacity {
 	public int numberJumps; // nombre de jumps (Si,k) =1
 	public double [] lambdaTildeValues ; // les lambdaTilde
 	
-	
+	public int outsideFlow;
 	
 	// capacity: only used in flowProblem 
 	private int capacity;

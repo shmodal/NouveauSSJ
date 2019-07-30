@@ -35,6 +35,7 @@ public class PMC {
    public HashMap <Double,int[]> permutation;
    boolean oriented;
    boolean filter;
+   double level; //seuil des alpha pour relancer le max Flot
    
 
    
@@ -228,7 +229,7 @@ public class PMC {
 				   maxFlow = Ek.EdmondsKarp();
 			   }
 
-			   if (filter) {
+			   if (filter && maxFlow > level*demand) {
 		   double sumLamb = FilterSingle(i,demand);
 		   if (sumLamb >=0) {
 			   Lam[j+1] = Lam[j] - sumLamb; // A VERIFIER

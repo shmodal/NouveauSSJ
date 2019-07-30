@@ -1,5 +1,8 @@
-package umontreal.ssj.networks.flow;
+package umontreal.ssj.networks.verifPMC;
 
+import umontreal.ssj.networks.flow.ExamplesGraphs;
+import umontreal.ssj.networks.flow.GraphFlow;
+import umontreal.ssj.networks.flow.PMCNonOriented;
 import umontreal.ssj.rng.LFSR113;
 import umontreal.ssj.rng.RandomStream;
 
@@ -25,26 +28,12 @@ public class testPMCLatt6Rohan {
 			tab[i] = b;
 		}
 		
-		p.initCapaProbaB(tab, rho, epsilon[0]);
+		p.initCapaProbaB(tab, rho, epsilon[2]);
 		p.trimCapacities(demande);
 		
 		//p.filter = true;
 		
-		//p.run(50000, stream, demande);
-		
-		
-		
-		System.out.println("Filter single");
-	    p.filter=true;
-		stream.resetStartSubstream();
-	    p.run(100000,stream,demande);
-	    
-	    System.out.println("No Filter");
-	    p.filter=false;
-		stream.resetStartSubstream();
-	    p.run(100000,stream,demande);
-		
-		
+		p.run(50000, stream, demande);
 		//ExamplesGraphs.toString(Latt6);
 		
 		//Comparaison avec Monte Carlo : ne pas faire plus que epsilon =  1e-4

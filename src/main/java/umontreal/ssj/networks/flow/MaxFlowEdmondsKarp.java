@@ -20,8 +20,6 @@ public class MaxFlowEdmondsKarp {
 	protected int maxFlowValue = -1;
 	
 	
-	
-	
     public MaxFlowEdmondsKarp(GraphFlow network){
     	this.network=network;
     	this.residual=network.residual();
@@ -31,6 +29,9 @@ public class MaxFlowEdmondsKarp {
         int numberOfLinks = network.getNumLinks();
 
     }
+
+    //if graph non oriented considered (which has been transformed in an oriented graph) you
+    // have to call it on both links (the symmetric ones)
     
     public boolean IncreaseLinkCapacity(int link, int increaseCap) {
     	boolean reloadFlow=false;
