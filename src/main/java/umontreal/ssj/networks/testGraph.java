@@ -8,7 +8,7 @@ public class testGraph {
 	  public static void main(String[] args) throws IOException {
 	      GraphWithCapacity g=new GraphWithCapacity();
 	      
-	      /*
+	      
 	      g.addNode(new NodeBasic(0));
 	      g.addNode(new NodeBasic(1));
 	      g.addNode(new NodeBasic(2));
@@ -16,7 +16,11 @@ public class testGraph {
 	      g.addNode(new NodeBasic(4));
 	      g.addNode(new NodeBasic(5));
 	      
+<<<<<<< HEAD
+	      g.addLink(new LinkWithCapacity(0,0,1,10));
+=======
 	      g.addLink(new LinkWithCapacity(0,0,1,15));
+>>>>>>> b2559ae23de1364b3b7ec74093a92c798f47757c
 	      g.addLink(new LinkWithCapacity(1,0,2,10));
 	      g.addLink(new LinkWithCapacity(2,1,3,4));
 	      g.addLink(new LinkWithCapacity(3,1,4,8));
@@ -24,13 +28,13 @@ public class testGraph {
 	      g.addLink(new LinkWithCapacity(5,2,4,9));
 	      g.addLink(new LinkWithCapacity(6,4,3,6));
 	      g.addLink(new LinkWithCapacity(7,4,5,10));
-	      g.addLink(new LinkWithCapacity(8,3,5,10));
+	      g.addLink(new LinkWithCapacity(8,3,5,11));
 	      
 	      
 	      g.setSource(0);
 	      g.setTarget(5);
-	      */
 	      
+	      /*
 	      g.addNode(new NodeBasic(0));
 	      g.addNode(new NodeBasic(1));
 	      g.addNode(new NodeBasic(2));
@@ -48,13 +52,19 @@ public class testGraph {
 	      g.addLink(new LinkWithCapacity(9,2,1,2));
 	      g.setSource(0);
 	      g.setTarget(3);
-	      
+	      */
 	      
 	      System.out.println(g.toString());
 	      MaxFlowEdmondsKarp EK=new MaxFlowEdmondsKarp(g);
 	      //System.out.println(g.residual().toString());
 	      System.out.println(EK.EdmondsKarp());
+<<<<<<< HEAD
+	      //boolean reload=EK.IncreaseLinkCapacity(2,);
+	      //reload=EK.IncreaseLinkCapacity(0,1);
+	      System.out.println(EK.EdmondsKarp());
+=======
 	      EK.DecreaseLinkCapacity(0,1);
 	      System.out.println(EK.maxFlowValue);
+>>>>>>> b2559ae23de1364b3b7ec74093a92c798f47757c
 	   }
 }

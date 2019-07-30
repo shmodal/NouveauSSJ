@@ -33,46 +33,34 @@ public class MaxFlowEdmondsKarp {
     	this.source=network.getSource();
     	this.sink=network.getTarget();
     	this.maxFlowValue=0;
-        int numberOfLinks = network.getNumLinks();
 
     }
     
-    public boolean IncreaseLinkCapacity(int link, int increaseCap) {
+    //if graph non oriented considered (which has been transformed in an oriented graph) you
+    // have to call it on both links (the symmetric ones)
+    public boolean IncreaseLinkCapacity( int link, int increaseCap) {
     	boolean reloadFlow=false;
     	if(residual.getLink(link).getCapacity()==0) {
     		reloadFlow=true;
     	}
     	this.residual.getLink(link).setCapacity(this.residual.getLink(link).getCapacity()+increaseCap);
-    	
+	    
     	return reloadFlow;
     }
     
-    public void DecreaseLinkCapacity(int link, int decreaseCap) {
-    	int delta= decreaseCap-residual.getLink(link).getCapacity();
-    	if(delta>0) {
-	    	int tmpSource=this.residual.getLink(link).getSource();
-	    	int tmpTarget=this.residual.getLink(link).getTarget();
-	    	int oppositeIndice = residual.getLinkWithSourceAndSinkNodes(tmpTarget,tmpSource);
-			LinkWithCapacity oppositeLink = residual.getLink(oppositeIndice);
-			oppositeLink.setCapacity(oppositeLink.getCapacity()-residual.getLink(link).getCapacity());
-	    	this.residual.getLink(link).setCapacity(0);
-	    	
-	    	//call ax flow for source u et target v
-	    	int uvMaxFlow=DecreaseCapFlow(tmpSource, tmpTarget, delta);
-	    	this.maxFlowValue+=uvMaxFlow-delta;
-	    	
-	    	//reequilibre flow matrix
-	    	if(tmpSource!=this.source) {
-	    		int uToSource=DecreaseCapFlow(tmpSource, this.source, delta-uvMaxFlow);
+    
+    public boolean DecreaseLinkCapacity(int link, int decreaseCap) {
+    	boolean reloadFlow=false;
+    	if(residual.getLink(link).getCapacity()-decreaseCap<0) {
+    		reloadFlow=true;
+    	}
+    	this.residual.getLink(link).setCapacity(this.residual.getLink(link).getCapacity()-decreaseCap);
+	    int oppositeIndice = residual.getLinkWithSourceAndSinkNodes(this.residual.getLink(link).getTarget(),
+				this.residual.getLink(link).getSource());
+		LinkWithCapacity oppositeLink = residual.getLink(oppositeIndice);
+		oppositeLink.setCapacity(oppositeLink.getCapacity()+decreaseCap);
 
-	    	}
-	    	if(tmpTarget!=this.sink) {
-	    		int vToSink=DecreaseCapFlow(tmpTarget, this.sink, delta-uvMaxFlow);
-	    	}	    	
-	    	
-    	}else {
-    		this.residual.getLink(link).setCapacity(-delta);
-	    }
+    	return reloadFlow;
     }
     
     
@@ -87,19 +75,6 @@ public class MaxFlowEdmondsKarp {
         return this.maxFlowValue;
     }
     
-    public int DecreaseCapFlow(int tmpSource,int tmpTarget,int delta) {
-        int flow=flowBFS(tmpSource , tmpTarget);
-        int uvMaxFlow=0;
-        while(flow != 0 && uvMaxFlow<delta) {
-        	uvMaxFlow += flow;
-        	flow=flowBFS(tmpSource , tmpTarget);
-        }
-        if(uvMaxFlow>delta) {
-        	uvMaxFlow=delta;
-        }
-        
-        return uvMaxFlow;
-    }
 
     public int flowBFS(int s,int target) {
     	// find a s-t path in g of positive capacity

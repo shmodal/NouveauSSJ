@@ -214,15 +214,15 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 
 		      for (int i = 0; i < numLinks; i++) {
 		         int a, b;
-		         double prob;
+		         int capacity;
 
 		         pos = 3 * i + 4;
 
 		         a = Integer.parseInt(ss[pos]);
 		         b = Integer.parseInt(ss[pos + 1]);
 		         nodes.get(a).incCounter();
-		         prob = Double.parseDouble(ss[pos + 2]);
-		         this.addLink(new LinkFlow(i, a, b));
+		         capacity = Integer.parseInt(ss[pos + 2]);
+		         this.addLink(new LinkFlow(i, a, b,capacity));
 		      }
 
 		      for (int i = 0; i < numNodes; i++) {
@@ -308,18 +308,18 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	   
 	   public void initLinkLambda(int i) {
 		   //if (i<3) {
-		//	   System.out.println("Init lambda arête " +i);
+		//	   System.out.println("Init lambda arï¿½te " +i);
 		//	   links.get(i).initLambda();
 		//	   printTab(links.get(i).getLambdaValues());
 		 //  }
-		   //System.out.println("Init lambda arête " +i);
+		   //System.out.println("Init lambda arï¿½te " +i);
 		   //else {
 			   links.get(i).initLambda();
 			   //}
 		   
 	   }
 	   public void initJumpAndIndexes(int i) {
-		   //System.out.println("Init jump arête " +i);
+		   //System.out.println("Init jump arï¿½te " +i);
 		   links.get(i).initJumpAndIndexes();
 	   }
 	   

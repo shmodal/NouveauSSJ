@@ -32,14 +32,14 @@ public class MaxFlowEdmondsKarp {
 
     //if graph non oriented considered (which has been transformed in an oriented graph) you
     // have to call it on both links (the symmetric ones)
-    
+
     public boolean IncreaseLinkCapacity(int link, int increaseCap) {
     	boolean reloadFlow=false;
     	if(residual.getLink(link).getCapacity()==0) {
     		reloadFlow=true;
     	}
     	this.residual.getLink(link).setCapacity(this.residual.getLink(link).getCapacity()+increaseCap);
-    	
+
     	return reloadFlow;
     }
     
@@ -61,13 +61,13 @@ public class MaxFlowEdmondsKarp {
 	    	if(tmpSource!=this.source) {
 	    		int uToSource=DecreaseCapFlow(tmpSource, this.source, delta-uvMaxFlow);
 	    		if(uToSource!=0) {
-	    			System.out.println("Erreur devrait être nul");
+	    			System.out.println("Erreur devrait ï¿½tre nul");
 	    		}
 	    	}
 	    	if(tmpTarget!=this.sink) {
 	    		int vToSink=DecreaseCapFlow(tmpTarget, this.sink, delta-uvMaxFlow);
 	    		if(vToSink!=0) {
-	    			System.out.println("Erreur devrait être nul");
+	    			System.out.println("Erreur devrait ï¿½tre nul");
 	    		}
 	    	}	    	
 	    	
