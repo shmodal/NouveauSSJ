@@ -11,9 +11,9 @@ public class testFilterOutside {
 		Do.setSource(0);
 		Do.setTarget(35);  //19 avant
 		RandomStream stream = new LFSR113();
-		int b = 4;
-		int demande = 5;
-		double rho = 0.7;
+		int b = 8;
+		int demande = 10;
+		double rho = 0.6;
 		double[] epsilon = {1.0e-4, 1.0e-5, 1.0e-6, 1.0e-7, 1.0e-8, 1.0e-9, 1.0e-10, 1.0e-11,
 				1.0e-12, 1.0e-13};
 		
@@ -39,7 +39,11 @@ public class testFilterOutside {
 		stream.resetStartSubstream();
 		
 		p.filterOutside = false;
+		p.filter=true;
 		
+		p.run(100000, stream, demande);
+		
+		p.filter=false;
 		p.run(100000, stream, demande);
 		
 		//p.runOld(500000, stream, demande);

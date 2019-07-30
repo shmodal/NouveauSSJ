@@ -366,13 +366,14 @@ public class PMCFilterOutside extends PMC {
 				   }
 				   
 				   if (filterOutside) { 
-					   if (p%3 ==0 && p>(K/3)) { //mise a jour updateFlow. //Proposer aussi p depasse un seuil ? ?
+					   if (p%5 ==0 && p>(3*K/4)) { //mise a jour updateFlow. //Proposer aussi p depasse un seuil ? ?
 						   
 						   //MaxFlowEdmondsKarp EkOut = new MaxFlowEdmondsKarp(father);
 						   MaxFlowEdmondsKarp EkOut = new MaxFlowEdmondsKarp(father.clone());
 						   EkOut.source = EdgeI.getSource();
 						   EkOut.sink = EdgeI.getTarget();
-						   EkOut.network.setCapacity(i, 0);
+						   //EkOut.network.setCapacity(i, 0);
+						   EkOut.DecreaseLinkCapacity(i,EdgeI.getCapacity());
 						   EkOut.EdmondsKarp();
 						   //EkOut.DecreaseLinkCapacity(i,EdgeI.getCapacity()); // on la met à 0
 						   EdgeI.outsideFlow = EkOut.maxFlowValue;

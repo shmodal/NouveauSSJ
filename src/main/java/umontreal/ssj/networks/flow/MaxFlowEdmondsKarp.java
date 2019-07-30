@@ -61,13 +61,13 @@ public class MaxFlowEdmondsKarp {
 	    	if(tmpSource!=this.source) {
 	    		int uToSource=DecreaseCapFlow(tmpSource, this.source, delta-uvMaxFlow);
 	    		if(uToSource!=0) {
-	    			System.out.println("Erreur devrait ï¿½tre nul");
+	    			System.out.println("Erreur devrait être nul");
 	    		}
 	    	}
 	    	if(tmpTarget!=this.sink) {
 	    		int vToSink=DecreaseCapFlow(tmpTarget, this.sink, delta-uvMaxFlow);
 	    		if(vToSink!=0) {
-	    			System.out.println("Erreur devrait ï¿½tre nul");
+	    			System.out.println("Erreur devrait être nul");
 	    		}
 	    	}	    	
 	    	
