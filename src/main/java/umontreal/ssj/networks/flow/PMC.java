@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 /**
  *
- * @since 2011
+ * 
  */
 public class PMC {
 
@@ -65,15 +65,14 @@ public class PMC {
    
    //initialiser capacités allant de 0 à capaMax, et probabilités uniformes
    public void initBasicCapaProba(int capaMax) {
-	   for (int i=0;i<father.getNumLinks();i++) {
-		   int[] capa = new int[capaMax+1];
-		   double[] proba = new double[capaMax+1];
-		   for (int k=0;k<capaMax+1;k++) {
-			   capa[k] =k;
-			   proba[k] = 1.0/(capaMax+1) ;
-		   }
+	   int[] capa = new int[capaMax+1];
+	   double[] proba = new double[capaMax+1];
+	   for (int k=0;k<capaMax+1;k++) {
+		   capa[k] =k;
+		   proba[k] = 1.0/(capaMax+1) ;
 	   }
-	   father.setCapacity(capa);
+
+	   father.setCapacityValues(capa);
 	   father.setProbabilityValues(proba);
    }
    

@@ -5,8 +5,12 @@ import java.util.LinkedList;
 import umontreal.ssj.networks.NodeBasic;
 
 /**
- * @author Sofiane
+ *  This class provides several pre builts graphs which can be used for flow reliability
+ *  estimation. There are Lattice graphs(4 and 6), Dodecahedron, and networks from Daly and Alexopoulos (2006).
  *
+ * WARNING : networks from Daly and Alexopoulos have pre set capacities/probabilities values (as in the
+ * paper). Other networks do not have pre set capacity/probability values, and they must
+ * be set by hand.
  */
 public class ExamplesGraphs {
 	

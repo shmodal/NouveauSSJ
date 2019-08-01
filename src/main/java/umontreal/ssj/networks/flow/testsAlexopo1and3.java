@@ -7,6 +7,15 @@ import umontreal.ssj.networks.NodeBasic;
 import umontreal.ssj.rng.LFSR113;
 import umontreal.ssj.rng.RandomStream;
 
+
+/**
+ * This class calls reliability estimation tests on networks presented in Daly and Alexopoulos (2006).
+ * Crude Monte Carlo, PMC Flow, PMC Flow with Filter and PMC Flow with FilterOutside can be
+ * called for comparaison.
+ * 
+ */
+
+
 public class testsAlexopo1and3 {
 
 	public static void main(String[] args) {
@@ -139,7 +148,7 @@ public class testsAlexopo1and3 {
 		if(pmc) { 
 			System.out.println("============================================ Permutation Monte Carlo");
 			if (filter) {
-				System.out.println("Filter single");
+				System.out.println("============================================ Filter single");
 				//PMCNonOriented p = new PMCNonOriented(g); 
 				p = new PMCFilterOutsideNew(g);
 				p.filter=true; p.filterOutside=false;
@@ -149,7 +158,7 @@ public class testsAlexopo1and3 {
 				
 			}
 			else if (filterOutside) {
-				System.out.println("Filter Outside");
+				System.out.println("============================================ Filter Outside");
 				//PMCFilterOutsideNew p = new PMCFilterOutsideNew(g);
 				p = new PMCFilterOutsideNew(g);
 				p.filterOutside=true; p.filter=false;
@@ -157,7 +166,7 @@ public class testsAlexopo1and3 {
 				p.trimCapacities(demand);
 				p.run(nrun,stream,demand);
 			}
-			else { System.out.println("No Filter");
+			else { System.out.println("============================================ No Filter");
 				//PMCNonOriented p = new PMCNonOriented(g);
 				p = new PMCFilterOutsideNew(g);
 				p.filter=false; p.filterOutside=false;

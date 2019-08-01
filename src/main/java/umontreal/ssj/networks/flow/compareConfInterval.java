@@ -11,6 +11,16 @@ import umontreal.ssj.rng.LFSR113;
 import umontreal.ssj.rng.RandomStream;
 import umontreal.ssj.stat.Tally;
 
+/**===============================   TEST    ============================
+ *  Test pour vérifier les résultats de PMC Flot. On prend le même graphe dodecahedron.
+ *  On compare le résultat obtenu de PMC de static reliability, avec celui du PMC Flot (pour chaque 
+ *  arête, capacités binaires, 0 ou 1) 
+ *  On observe les intervalles de confiance n fois, et on vérifie si ils se recoupent bien à chaque 
+ *  reprise.
+ *  
+ */
+
+
 public class compareConfInterval {
 
 	public static void main(String[] args) throws IOException {
