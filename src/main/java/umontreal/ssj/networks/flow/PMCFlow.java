@@ -84,7 +84,6 @@ public class PMCFlow {
 	   father.setProbabilityValues(proba);
    }
    
-
    
    protected double doOneRun(RandomStream stream,int demand) {
 	   trimCapacities(demand);
@@ -243,15 +242,11 @@ public class PMCFlow {
 
 					//System.out.println("Filter outside");
 					//System.out.println("Capa de l'arete " +EdgeI.getCapacity());
-
-
 				}
 				double sumLamb = FilterOutside(i,k,demand);
 				if (sumLamb >=0) {
 					Lam[j+1] = Lam[j+1] - sumLamb; // A VERIFIER
 				}
-
-
 				j++;
 			}
 			p++;
@@ -259,7 +254,6 @@ public class PMCFlow {
 		}
 		//System.out.println("MaxFLow : " + maxFlow);
 		criticalLink.add(j);
-
 		double ell = computeBarF(Lam,j);
 		return ell;
 	}
@@ -666,24 +660,6 @@ public class PMCFlow {
       }
    }
 
-   /**
-    * Sets the direction of scan to find the critical link that fails the
-    * network. If <tt>true</tt>, use reverse scanning (also called anti
-    * scanning), otherwise use direct scanning.
-    * @param flag reverse scan flag
-    */
-   public void setAntiScan(boolean flag) {
-      antiScanFlag = flag;
-   }
-
-   /**
-    * Returns <tt>true</tt> if the anti scan flag is set, <tt>false</tt> otherwise.
-    * @see #setAntiScan
-    * @return the reverse scan flag
-    */
-   public boolean isAntiScan () {
-      return antiScanFlag;
-   }
 
 
    /**

@@ -6,6 +6,10 @@ import umontreal.ssj.networks.NodeBasic;
 import umontreal.ssj.rng.LFSR113;
 import umontreal.ssj.rng.RandomStream;
 
+
+//The graph is not finished.
+
+
 public class testAlexopo2 {
 
 	public static void main(String[] args) {
@@ -19,7 +23,7 @@ public class testAlexopo2 {
 	    PMCFlow p = new PMCFlow(g);
 	    RandomStream stream = new LFSR113();
 	    p.trimCapacities(demande);
-	    p.run(50000,stream,demande, true);
+	    p.run(50000,stream,demande);
 	    
 
 	}

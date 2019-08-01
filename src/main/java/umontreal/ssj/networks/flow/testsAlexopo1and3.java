@@ -20,9 +20,9 @@ public class testsAlexopo1and3 {
 
 	public static void main(String[] args) {
 		
-
+		//Graph 3 is loaded in proc.
 		
-		int demand = 20;
+		int demand = 20; // 5 or 20
 	    proc(demand,0,6);
 		
 		//Build graph 3 Daly and Alexopoulos
