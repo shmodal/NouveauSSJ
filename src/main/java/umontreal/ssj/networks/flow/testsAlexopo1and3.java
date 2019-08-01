@@ -21,6 +21,10 @@ public class testsAlexopo1and3 {
 	public static void main(String[] args) {
 		
 
+		
+		int demand = 20;
+	    proc(demand,0,6);
+		
 		//Build graph 3 Daly and Alexopoulos
 		
 		
@@ -88,8 +92,7 @@ public class testsAlexopo1and3 {
 //	    p.run(100000,stream,demande);
 	    
 		
-		int demand = 20;
-	    proc(demand,0,6);
+
 		
 //		int m = g1.getNumLinks();
 //		for (int i=0;i<m;i++) {
@@ -110,10 +113,12 @@ public class testsAlexopo1and3 {
 		mc = true;
 		boolean pmc = false; //true for launching PMC
 		pmc = true;
+		boolean nofilter = false; //true for plain PMC(without filter)
+		nofilter = true;
 		boolean filter = false; // true for filtering simple
-		filter= true;
-		boolean filterOutside = false; // true for Filter Outside
-		filterOutside = true;
+		//filter= true;
+		boolean fOutside = false; // true for Filter Outside
+		//fOutside = true;
 		
 		int nrun = 1000000 ;
 		
@@ -144,31 +149,32 @@ public class testsAlexopo1and3 {
 		}
 		
 		stream.resetStartSubstream();
-		PMCFilterOutsideNew p = null;
+		PMCFlowNonOriented p = null;
 		if(pmc) { 
 			System.out.println("============================================ Permutation Monte Carlo");
 			if (filter) {
 				System.out.println("============================================ Filter single");
-				//PMCNonOriented p = new PMCNonOriented(g); 
-				p = new PMCFilterOutsideNew(g);
+				p = new PMCFlowNonOriented(g); 
+				//p = new PMCFilterOutsideNew(g);
 				p.filter=true; p.filterOutside=false;
 				stream.resetStartSubstream();
 				p.trimCapacities(demand);
 				p.run(nrun,stream,demand);
 				
 			}
-			else if (filterOutside) {
+			if (fOutside) {
 				System.out.println("============================================ Filter Outside");
 				//PMCFilterOutsideNew p = new PMCFilterOutsideNew(g);
-				p = new PMCFilterOutsideNew(g);
+				p = new PMCFlowNonOriented(g);
 				p.filterOutside=true; p.filter=false;
+				p.frequency=5;p.seuil=0.8;
 				stream.resetStartSubstream();
 				p.trimCapacities(demand);
 				p.run(nrun,stream,demand);
 			}
 			else { System.out.println("============================================ No Filter");
 				//PMCNonOriented p = new PMCNonOriented(g);
-				p = new PMCFilterOutsideNew(g);
+				p = new PMCFlowNonOriented(g);
 				p.filter=false; p.filterOutside=false;
 				stream.resetStartSubstream();
 				p.trimCapacities(demand);

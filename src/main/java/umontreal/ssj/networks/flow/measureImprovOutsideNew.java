@@ -31,7 +31,7 @@ public class measureImprovOutsideNew {
 				1.0e-12, 1.0e-13};
 		
 		
-		PMCNonOriented p = new PMCNonOriented(Do);
+		PMCFlowNonOriented p = new PMCFlowNonOriented(Do);
 		p.filter = false;
 		
 		PMCFilterOutsideNew q = new PMCFilterOutsideNew(Do);

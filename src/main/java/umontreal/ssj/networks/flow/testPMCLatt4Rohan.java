@@ -17,7 +17,7 @@ public class testPMCLatt4Rohan {
 		double[] epsilon = {1.0e-4, 1.0e-5, 1.0e-6, 1.0e-7, 1.0e-8, 1.0e-9, 1.0e-10, 1.0e-11,
 				1.0e-12, 1.0e-13};
 		
-		PMCNonOriented p = new PMCNonOriented(Latt4);
+		PMCFlowNonOriented p = new PMCFlowNonOriented(Latt4);
 
 		int m0 = p.father.getNumLinks();
 		int[] tab = new int[m0];

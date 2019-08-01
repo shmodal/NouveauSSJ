@@ -1,4 +1,4 @@
-package umontreal.ssj.networks.flow;
+package umontreal.ssj.networks.verifPMC;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -8,10 +8,10 @@ import umontreal.ssj.probdist.ExponentialDist;
 import umontreal.ssj.rng.RandomStream;
 
 
-public class PMCFilterOutside extends PMCFlowNonOriented {
+public class PMCFilterOutsideNew extends PMCNonOriented {
 	boolean filterOutside;
 	
-	public PMCFilterOutside(GraphFlow graph) {
+	public PMCFilterOutsideNew(GraphFlow graph) {
 		super(graph);
 	}
 	
@@ -324,7 +324,9 @@ public class PMCFilterOutside extends PMCFlowNonOriented {
 		   MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(father);
 		   int maxFlow = Ek.EdmondsKarp();
 		  
-		    
+		   GraphFlow copy = prepareMultiFlow();
+		   MaxFlowEdmondsKarp EkOut = new MaxFlowEdmondsKarp(copy);
+		   
 		   int p=0; // parcours du tableau des valeurs de Y
 		   // Il est necessaire de distinguer p et j, car comme on filter, on tombe sur des
 		   // valeurs Y dans le talbeau Y_values, mais dont le Si,k est nul. Elles ne sont donc
@@ -354,6 +356,16 @@ public class PMCFilterOutside extends PMCFlowNonOriented {
 				   if (reload1 || reload2) {
 					   maxFlow = Ek.EdmondsKarp();
 				   }
+				   /////
+				   prevCapacity = EkOut.network.getLink(i).getCapacity();
+				   reload1 = EkOut.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) -prevCapacity);
+				   EkOut.network.setCapacity(i, EdgeI.getCapacityValue(k+1));
+				   
+				   reload2 = EkOut.IncreaseLinkCapacity(i+ (m/2),EdgeI.getCapacityValue(k+1) -prevCapacity);
+				   EkOut.network.setCapacity(i + (m/2), EdgeI.getCapacityValue(k+1));
+				   if (reload1 || reload2) {
+					   EkOut.EdmondsKarp();
+				   }
 				   
 				   //System.out.println("Capa avant Filter " +EdgeI.getCapacity());
 				   
@@ -367,22 +379,24 @@ public class PMCFilterOutside extends PMCFlowNonOriented {
 				   }
 				   
 				   if (filterOutside) { 
-					   if (p%3 ==0 && p>(0.8*K)) { //mise a jour updateFlow. //Proposer aussi p depasse un seuil ? ?
+					   if (p%5 ==0 && p>(0.8*K)) { //mise a jour updateFlow. //Proposer aussi p depasse un seuil ? ?
 						   
+						   int source = EdgeI.getSource();
+						   int sink = EdgeI.getTarget();
+						   int n =father.getNumNodes();
 						   
-						   
-						   //MaxFlowEdmondsKarp EkOut = new MaxFlowEdmondsKarp(father);
-						   MaxFlowEdmondsKarp EkOut = new MaxFlowEdmondsKarp(father.clone());
-						   EkOut.source = EdgeI.getSource();
-						   EkOut.sink = EdgeI.getTarget();
-						   //EkOut.network.setCapacity(i, 0);
 						   EkOut.DecreaseLinkCapacity(i,EdgeI.getCapacity());
+						   boolean b =EkOut.IncreaseLinkCapacity( EkOut.network.getLinkWithSourceAndSinkNodes(n, source), 1000*demand);
+						   boolean c =EkOut.IncreaseLinkCapacity( EkOut.network.getLinkWithSourceAndSinkNodes(sink, n+1), 1000*demand);
 						   
-						   //Inutile ?
-						   EkOut.EdmondsKarp();
-						   /////////////////////////////////////////
-						   //EkOut.DecreaseLinkCapacity(i,EdgeI.getCapacity()); // on la met à 0
+						   if (b || c) {EkOut.EdmondsKarp();}
 						   EdgeI.outsideFlow = EkOut.maxFlowValue;
+
+						   EkOut.DecreaseLinkCapacity( EkOut.network.getLinkWithSourceAndSinkNodes(n, source), 1000*demand);
+						   EkOut.DecreaseLinkCapacity( EkOut.network.getLinkWithSourceAndSinkNodes(sink, n+1), 1000*demand);
+
+						   //EkOut.DecreaseLinkCapacity(i,EdgeI.getCapacity()); // on la met à 0
+						   
 						   //System.out.println("Filter outside");
 						   //System.out.println("Capa de l'arete " +EdgeI.getCapacity());
 					   
@@ -474,11 +488,11 @@ public class PMCFilterOutside extends PMCFlowNonOriented {
 	   }
 	 
 	   // on prend le graphe de base. On rajoute 2 sommets supplémentaires. On cree un EK 
-	   // dont c'est source et sink. On les relie à toutes les sommets(2 sens ?) avec
+	   // dont c'est sorce et sink. On les relie à toutes les sommets(2 sens ?) avec
 	   // capa nulle initialement.
 	   //on retient l'ancien lien où on a modifié les capacités, et on les update à 0.
 	   // puis on increase les capa des nouvelles aretes
-	   public void prepareMultiFlow() {
+	   public GraphFlow prepareMultiFlow() {
 		   GraphFlow copy = father.clone();
 		   int n = copy.getNumNodes();
 		   copy.addNode(new NodeBasic(n));  //noeud source
@@ -490,6 +504,8 @@ public class PMCFilterOutside extends PMCFlowNonOriented {
 		   for (int k=0;k<n;k++) {
 			   copy.addLink(new LinkFlow(m,k,n+1,0)); m++;
 		   }
+		   copy.source = n; copy.target = n+1;
+		   return copy;
 		   
 		   
 	   }

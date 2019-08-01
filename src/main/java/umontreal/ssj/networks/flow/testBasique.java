@@ -57,7 +57,7 @@ public class testBasique {
 	    g.setSource(0);
 	    g.setTarget(2);
 	    
-	    PMC p = new PMC(g);
+	    PMCFlow p = new PMCFlow(g);
 	    RandomStream stream = new LFSR113();
 	    p.trimCapacities(demande);
 	    double  pr = p.doOneRun(stream, demande);

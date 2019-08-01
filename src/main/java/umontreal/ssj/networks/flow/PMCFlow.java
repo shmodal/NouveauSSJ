@@ -2,6 +2,7 @@ package umontreal.ssj.networks.flow;
 
 
 import umontreal.ssj.rng.*;
+import umontreal.ssj.networks.NodeBasic;
 import umontreal.ssj.probdist.*;
 import umontreal.ssj.stat.*;
 import umontreal.ssj.util.*;
@@ -10,11 +11,11 @@ import java.util.Arrays;
 
 
 
-/**
+/** PMC,sans filtre, avec filtre
  *
  * 
  */
-public class PMC {
+public class PMCFlow {
 
 	private double m_variance; // variance
 	private double m_ell; // network reliability
@@ -36,10 +37,14 @@ public class PMC {
    boolean oriented;
    boolean filter;
    double level; //seuil des alpha pour relancer le max Flot
+   boolean filterOutside;
+   int frequency;
+   double seuil;
+
    
 
    
-   public PMC(GraphFlow graph) {
+   public PMCFlow(GraphFlow graph) {
       father = graph;
       //father.setSampler(SamplerType.EXPONENTIAL, false);
       criticalLink = new Tally();
@@ -48,6 +53,9 @@ public class PMC {
       hekind = 1;
       antiScanFlag = false;
       shockFlag = false;
+      level = -1.0; //de base, on relance le maxFlot tout le temps dans filter
+      frequency = 1; //base, relance le calcul de outsideFlow a chaque fois
+      seuil = -1.0; //de base, toujours au dessus du seuil pour outsideFlow
    }
    
    
@@ -76,117 +84,9 @@ public class PMC {
 	   father.setProbabilityValues(proba);
    }
    
-   
-   
-   //pas de MAJ dynamique du flot par les capacités. Pas de filtering
-   
-   
-   
-   
-   protected double doOneRunOld(RandomStream stream,int demand) {
-	   //initCapaProbaB(tableauB,rho,epsilon); //initialise bi, c_{i,k} et r_{i,k}
-	   trimCapacities(demand);
-	   
-	   
-	   drawY(stream); // initialise les lambda et tire les Yi, pour toutes les arêtes i
-	   initJumpAndIndexes();//initialise le tableau S, les lambdatilde
-	   double [] valuesY = Y_values();  // j'ai les Y triés, et les hash maps comme il faut
-	   //System.out.println("Valeurs de Y triées");
-	   //printTab(valuesY);
-	   
-	   
-	   int K = valuesY.length;
-	   // LE tableau LAM est de taille : 1(le lambda 1 initial) + le nombre de sauts
-	   
-	   initLamb(K+1);
-	   
-	   int j = 0;
-	   int[] X = buildX();
-	   father.setCapacity(X);
-	   MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(father);
-	   int maxFlow = Ek.EdmondsKarp();
-	   
-	   while (maxFlow < demand && j <Lam.length-1) {
-		   double y = valuesY[j]; // Y(pi(j))
-		   int [] indices = permutation.get(y);
-		   int i = indices[0];
-		   int k = indices[1];
-		   //System.out.println("i : " + i + "   k : " +k);
-		   LinkFlow EdgeI = father.getLink(i);
-		   
-		   //System.out.println("Capacites arete i=0");
-		   //printTab(father.getLink(3).getCapacityValues());
-		   //System.out.println("Capacites arete i=3");
-		   //if (i==3) {printTab(EdgeI.getCapacityValues());}
-		   int s = EdgeI.getJump(k);
-		   if (s==1) {
-			   //System.out.println();
-			   //System.out.println("Jump détecté");
-			   double l = EdgeI.getLambdaTilde(k);
-			   
-			   int prevCapacity = father.getLink(i).getCapacity();
-			   
-			   
-			   // ANCIEN pour j++ qui est au debut de l'algo
-			   //Lam[j] = Lam[j-1] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
-			   
-			   
-			   Lam[j+1] = Lam[j] - l;  // Veifier que FIlterSIngle et FIlterall font bien leur taf
-			   //System.out.println(Lam[j]);
-			   // pour que Lam[j] toujours défini
-			   father.setJump(i, k, 0);
-			   //System.out.println();
-			   //System.out.println("MAJ d'une capacité");
-			   //System.out.println("Ancienne capacité de l'arete " + i);
-			   //System.out.println();
-			   //System.out.println(father.getLink(i).getCapacity());
-			   //printTab(EdgeI.getCapacityValues());
-			   
-			   // Oui, probleme d'indices. il ne met jamais la capacité 8 alors qu'il devrait la mettre tout le temps.
-			   // Si , k : k entre 0 et bi-1. Mais k de l'algo, entre 1 et bi
-			   
-			   //father.setCapacity(i, EdgeI.getCapacity(k+1));
-			   
-			 //father.setCapacity(i, EdgeI.getCapacity(k+1));
 
-			   father.setCapacity(i, EdgeI.getCapacityValue(k+1));
-			   
-			   Ek= new MaxFlowEdmondsKarp(father);
-			   maxFlow = Ek.EdmondsKarp();
-			   
-			  // System.out.println();
-			  // System.out.println("Capa indice k " +EdgeI.getCapacity(k));
-			   //System.out.println("Capa indice k+1 " +EdgeI.getCapacity(k+1));
-			   
-			   //System.out.println("Nouvellecapacité de l'arete " + i);
-			   //System.out.println();
-			   //System.out.println(father.getLink(i).getCapacity());
-
-			   //father.setCapacity(i, EdgeI.getCapacity(k+1));
-			   
-		   father.setCapacity(i, EdgeI.getCapacityValue(k+1));
-
-		   Ek= new MaxFlowEdmondsKarp(father);
-		   maxFlow = Ek.EdmondsKarp();	
-		   }
-		   
-	   j++;	   
-	   }
-	   //System.out.println("MaxFLow : " + maxFlow);
-	   criticalLink.add(j);
-	   //System.out.println("Tableau des grands Lambda ");
-	   //printTab(Lam);
-	   //System.out.println();
-	   
-	   double ell = computeBarF(Lam,j);
-	   //System.out.println("ell" + ell);
-	   
-	   return ell;
-   }
-   
    
    protected double doOneRun(RandomStream stream,int demand) {
-	   //initCapaProbaB(tableauB,rho,epsilon); //initialise bi, c_{i,k} et r_{i,k}
 	   trimCapacities(demand);
 	   
 	   drawY(stream); // initialise les lambda et tire les Yi, pour toutes les arêtes i
@@ -242,7 +142,7 @@ public class PMC {
 			   }
 
 			   if (filter && maxFlow > level*demand) {
-		   double sumLamb = FilterSingle(i,demand);
+		   double sumLamb = FilterSingle(i,k,demand);
 		   if (sumLamb >=0) {
 			   Lam[j+1] = Lam[j] - sumLamb; // A VERIFIER
 		   }
@@ -264,7 +164,105 @@ public class PMC {
 	   return ell;
    }
    
-   
+	// 
+	
+	protected double doOneRunFilterOutside(RandomStream stream,int demand) {
+		trimCapacities(demand);
+		int m= father.getNumLinks();
+		for (int i=0;i<m;i++) {
+			father.getLink(i).outsideFlow=0;
+		}
+
+		drawY(stream); // initialise les lambda et tire les Yi, pour toutes les arêtes i
+		initJumpAndIndexes();//initialise le tableau S, les lambdatilde
+		double [] valuesY = Y_values();  // j'ai les Y triés, et les hash maps comme il faut
+		int K = valuesY.length; // LE tableau LAM est de taille : 1(le lambda 1 initial) + le nombre de sauts
+		initLamb(K+1);
+
+		int[] X = buildX();
+		father.setCapacity(X);
+		MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(father);
+		int maxFlow = Ek.EdmondsKarp();
+
+		GraphFlow copy = prepareMultiFlow();
+		MaxFlowEdmondsKarp EkOut = new MaxFlowEdmondsKarp(copy);
+
+		int j = 0;
+		int p=0; // parcours du tableau des valeurs de Y
+		// Il est necessaire de distinguer p et j, car comme on filter, on tombe sur des
+		// valeurs Y dans le talbeau Y_values, mais dont le Si,k est nul. Elles ne sont donc
+		// pas rajoutées comme lien et j ne doit pas etre incrémenté
+
+		while (maxFlow < demand && j <Lam.length-1 && p<K) {
+			//System.out.println(K);
+			double y = valuesY[p]; // Y(pi(j))
+			int [] indices = permutation.get(y);
+			int i = indices[0];
+			int k = indices[1];
+			LinkFlow EdgeI = father.getLink(i);
+			int s = EdgeI.getJump(k);
+			if (s==1) {
+				double l = EdgeI.getLambdaTilde(k); 
+				Lam[j+1] = Lam[j] - l; 
+				father.setJump(i, k, 0);
+				
+
+				int prevCapacity = father.getLink(i).getCapacity();
+				boolean reload = Ek.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) -prevCapacity);
+				father.setCapacity(i, EdgeI.getCapacityValue(k+1));
+
+				if (reload) {
+					maxFlow = Ek.EdmondsKarp();
+				}
+				///For FilterOutside
+				prevCapacity = EkOut.network.getLink(i).getCapacity();
+				reload = EkOut.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) -prevCapacity);
+				EkOut.network.setCapacity(i, EdgeI.getCapacityValue(k+1));
+				
+				if (reload) {
+					EkOut.EdmondsKarp();
+				}
+				
+				if (p%frequency ==0 && p>(seuil*K) && maxFlow > level*demand) { //mise a jour updateFlow. //Proposer aussi p depasse un seuil ? ?
+
+					int source = EdgeI.getSource();
+					int sink = EdgeI.getTarget();
+					int n =father.getNumNodes();
+
+					EkOut.DecreaseLinkCapacity(i,EdgeI.getCapacity());
+					boolean b =EkOut.IncreaseLinkCapacity( EkOut.network.getLinkWithSourceAndSinkNodes(n, source), 1000*demand);
+					boolean c =EkOut.IncreaseLinkCapacity( EkOut.network.getLinkWithSourceAndSinkNodes(sink, n+1), 1000*demand);
+
+					if (b || c) {EkOut.EdmondsKarp();}
+					EdgeI.outsideFlow = EkOut.maxFlowValue;
+
+					EkOut.DecreaseLinkCapacity( EkOut.network.getLinkWithSourceAndSinkNodes(n, source), 1000*demand);
+					EkOut.DecreaseLinkCapacity( EkOut.network.getLinkWithSourceAndSinkNodes(sink, n+1), 1000*demand);
+
+					//EkOut.DecreaseLinkCapacity(i,EdgeI.getCapacity()); // on la met à 0
+
+					//System.out.println("Filter outside");
+					//System.out.println("Capa de l'arete " +EdgeI.getCapacity());
+
+
+				}
+				double sumLamb = FilterOutside(i,k,demand);
+				if (sumLamb >=0) {
+					Lam[j+1] = Lam[j+1] - sumLamb; // A VERIFIER
+				}
+
+
+				j++;
+			}
+			p++;
+
+		}
+		//System.out.println("MaxFLow : " + maxFlow);
+		criticalLink.add(j);
+
+		double ell = computeBarF(Lam,j);
+		return ell;
+	}
    
    
    
@@ -276,7 +274,9 @@ public class PMC {
 	      Tally values = new Tally(); // unreliability estimates
 	      for (int j = 0; j < n; j++) {
 	    	  //stream.resetNextSubstream();
-	         double x = doOneRun(stream,demand);
+	    	  double x;
+	    	  if (filterOutside) {x = doOneRunFilterOutside(stream,demand);}
+	    	  else {x = doOneRun(stream,demand);}
 	         if (storeFlag)
 	            store.add(x);
 	         if (histFlag)
@@ -311,47 +311,7 @@ public class PMC {
 	      return relerr;
 	   }
    
-   // Runs without dynamic update of max flow
-   public double runOld(int n, RandomStream stream,int demand) {
-	      Chrono timer = new Chrono();
-	      timer.init();
-	      Tally values = new Tally(); // unreliability estimates
-	      for (int j = 0; j < n; j++) {
-	    	  stream.resetNextSubstream();
-	         double x = doOneRunOld(stream,demand);
-	         if (storeFlag)
-	            store.add(x);
-	         if (histFlag)
-	            hist.add(Math.log10(x));
-	         values.add(x);
-	      }
 
-	      m_ell = values.average();
-	      m_variance = values.variance();
-	      double sig = Math.sqrt(m_variance);
-	      double relvar = m_variance / (m_ell * m_ell); // relative variance
-	      double relerr = sig / (m_ell * Math.sqrt(n)); // relative error
-	      System.out.printf("barW_n      = %g%n", m_ell);
-	      System.out.printf("S_n         = %g%n", sig);
-	      System.out.printf("var = S_n^2 = %g%n", m_variance);
-	      System.out.printf("var/n       = %g%n", m_variance / n);
-	      System.out.printf("rel var(W)  = %g%n%n", relvar);
-	      System.out.println(values.formatCINormal(0.95, 4));
-	      System.out.printf("rel err(barW_n) = %g%n", relerr);
-
-	      double cro = timer.getSeconds();
-	      double tem = cro * m_variance / n;
-	      System.out.printf("time*var/n      = %g%n", tem);
-	      System.out.printf("time*var/(n*barW_n^2) = %g%n%n", tem
-	            / (m_ell * m_ell));
-	      if (shockFlag)
-	         System.out.printf("rank crit. shock = %g%n", criticalLink.average());
-	      else
-	         System.out.printf("rank crit. link = %g%n", criticalLink.average());
-	      printHypoExpFlag();
-	      System.out.printf("CPU time:   %.1f  sec%n%n%n", cro);
-	      return relerr;
-	   }
    
    
       
@@ -371,7 +331,14 @@ public class PMC {
    
    
    
-   public double FilterSingle(int i, int demand) {
+   
+   // Attention, faire le filtrage seulement à partir du Si,k 
+   //(les capacités qui sont supérieures à celle actuelle)
+   
+   
+   public double FilterSingle(int i, int k, int demand) {
+	   int m = father.getNumLinks();
+	   //System.out.println("Filtrage arête " + i);
 	   LinkFlow EdgeI = father.getLink(i);
 	   int source = EdgeI.getSource();
 	   int target = EdgeI.getTarget();
@@ -382,17 +349,39 @@ public class PMC {
 	   if (f>=demand) {
 		   int b = EdgeI.getB();
 		   double sumLamb = 0.;
-		   for (int k=0;k<b;k++) {
-			   int s= EdgeI.getJump(k);
+		   for (int j=k+1;j<b;j++) {
+			   int s= EdgeI.getJump(j);
 			   if(s==1) {
-				   sumLamb += EdgeI.getLambdaTilde(k);
-				   EdgeI.setJump(k, 0);
+				   sumLamb += EdgeI.getLambdaTilde(j);
+				   EdgeI.setJump(j, 0);
+				   father.getLink(i+ m/2 ).setJump(j, 0);
 			   }
 		   }
 		return sumLamb;   
 	   }
-	   return (-1.0);
+	   else {return (-1.0);}
 	   }
+   
+	
+   public double FilterOutside(int i, int k, int demand) {
+	   LinkFlow EdgeI = father.getLink(i);
+	   int outsideFlow = EdgeI.outsideFlow;
+	   int newCapa = EdgeI.getCapacity();
+	   if (outsideFlow + newCapa >= demand) {
+		   int b = EdgeI.getB();
+		   double sumLamb = 0.;
+		   for (int j=k+1;j<b;j++) {
+			   int s= EdgeI.getJump(j);
+			   if(s==1) {
+				   sumLamb += EdgeI.getLambdaTilde(j);
+				   EdgeI.setJump(j, 0);
+			   }
+		   
+	   }
+		   return sumLamb;
+	   }
+	   else {return (-1.0);}
+   }
    
    
    
@@ -593,6 +582,29 @@ public class PMC {
 	   //System.out.println(valuesY[1]);
 	   Arrays.sort(valuesY);
 	   return valuesY;	   
+   }
+   
+   // on prend le graphe de base. On rajoute 2 sommets supplémentaires. On cree un EK 
+   // dont c'est sorce et sink. On les relie à toutes les sommets(2 sens ?) avec
+   // capa nulle initialement.
+   //on retient l'ancien lien où on a modifié les capacités, et on les update à 0.
+   // puis on increase les capa des nouvelles aretes
+   public GraphFlow prepareMultiFlow() {
+	   GraphFlow copy = father.clone();
+	   int n = copy.getNumNodes();
+	   copy.addNode(new NodeBasic(n));  //noeud source
+	   copy.addNode(new NodeBasic(n+1));  // noeud target
+	   int m = copy.getNumLinks();
+	   for (int k=0;k<n;k++) {
+		   copy.addLink(new LinkFlow(m,n,k,0)); m++;
+	   }
+	   for (int k=0;k<n;k++) {
+		   copy.addLink(new LinkFlow(m,k,n+1,0)); m++;
+	   }
+	   copy.source = n; copy.target = n+1;
+	   return copy;
+	   
+	   
    }
    
    

@@ -1,16 +1,17 @@
-package umontreal.ssj.networks.flow;
+package umontreal.ssj.networks.verifPMC;
 
 import java.util.Arrays;
 import java.util.HashMap;
 
+import umontreal.ssj.networks.NodeBasic;
 import umontreal.ssj.probdist.ExponentialDist;
 import umontreal.ssj.rng.RandomStream;
 
 
-
-public class PMCNonOriented extends PMC {
-
-	public PMCNonOriented(GraphFlow graph) {
+public class PMCFilterOutside extends PMCNonOriented {
+	boolean filterOutside;
+	
+	public PMCFilterOutside(GraphFlow graph) {
 		super(graph);
 	}
 	
@@ -305,6 +306,8 @@ public class PMCNonOriented extends PMC {
 		   //double alpha = 0.4;
 		   trimCapacities(demand);
 		   int m= father.getNumLinks();
+		   
+		   for (int i=0;i<m;i++) {father.getLink(i).outsideFlow=0;}
 		   		   
 		   drawY(stream); // initialise les lambda et tire les Yi, pour toutes les arêtes i
 		   initJumpAndIndexes();//initialise le tableau S, les lambdatilde
@@ -327,7 +330,7 @@ public class PMCNonOriented extends PMC {
 		   // valeurs Y dans le talbeau Y_values, mais dont le Si,k est nul. Elles ne sont donc
 		   // pas rajoutées comme lien et j ne doit pas etre incrémenté
 		   while (maxFlow < demand && j <Lam.length-1 && p<K) {
-			   
+			   //System.out.println(K);
 			   double y = valuesY[p]; // Y(pi(j))
 			   int [] indices = permutation.get(y);
 			   int i = indices[0];
@@ -352,15 +355,44 @@ public class PMCNonOriented extends PMC {
 					   maxFlow = Ek.EdmondsKarp();
 				   }
 				   
- 				      
-				   if (filter) {
-				  //if (filter && maxFlow > level*demand) {
-	////////////////////FILTERING/////////////
-					   //double sumLamb = FilterSingle(i,demand);
-					   double sumLamb = FilterBetter(i,k,demand);
+				   //System.out.println("Capa avant Filter " +EdgeI.getCapacity());
+				   
+				   if (filter) {   
+				   //if (filter && maxFlow > level*demand) {
+	
+					   double sumLamb = FilterSingle(i,demand);
 					   if (sumLamb >=0) {
 						   Lam[j+1] = Lam[j+1] - sumLamb; // A VERIFIER
 					   }
+				   }
+				   
+				   if (filterOutside) { 
+					   if (p%3 ==0 && p>(0.8*K)) { //mise a jour updateFlow. //Proposer aussi p depasse un seuil ? ?
+						   
+						   
+						   
+						   //MaxFlowEdmondsKarp EkOut = new MaxFlowEdmondsKarp(father);
+						   MaxFlowEdmondsKarp EkOut = new MaxFlowEdmondsKarp(father.clone());
+						   EkOut.source = EdgeI.getSource();
+						   EkOut.sink = EdgeI.getTarget();
+						   //EkOut.network.setCapacity(i, 0);
+						   EkOut.DecreaseLinkCapacity(i,EdgeI.getCapacity());
+						   
+						   //Inutile ?
+						   EkOut.EdmondsKarp();
+						   /////////////////////////////////////////
+						   //EkOut.DecreaseLinkCapacity(i,EdgeI.getCapacity()); // on la met à 0
+						   EdgeI.outsideFlow = EkOut.maxFlowValue;
+						   //System.out.println("Filter outside");
+						   //System.out.println("Capa de l'arete " +EdgeI.getCapacity());
+					   
+					   
+					   }
+					   double sumLamb = FilterOutside(i,k,demand);
+					   if (sumLamb >=0) {
+						   Lam[j+1] = Lam[j+1] - sumLamb; // A VERIFIER
+					   }
+					   
 				   }
 				   j++;
 			   }
@@ -376,8 +408,6 @@ public class PMCNonOriented extends PMC {
 	   
 	   
    
-	   // Attention, faire le filtrage seulement à partir du Si,k 
-	   //(les capacités qui sont supérieures à celle actuelle)
 	   
 	   @Override
 	   public double FilterSingle(int i, int demand) {
@@ -407,36 +437,6 @@ public class PMCNonOriented extends PMC {
 		   }
 	   
 	   
-	   
-	   
-	   public double FilterBetter(int i, int k, int demand) {
-		   int m = father.getNumLinks();
-		   //System.out.println("Filtrage arête " + i);
-		   LinkFlow EdgeI = father.getLink(i);
-		   int source = EdgeI.getSource();
-		   int target = EdgeI.getTarget();
-		   MaxFlowEdmondsKarp EkFilter= new MaxFlowEdmondsKarp(father);
-		   EkFilter.source = source;
-		   EkFilter.sink = target;
-		   int f = EkFilter.EdmondsKarp();
-		   if (f>=demand) {
-			   int b = EdgeI.getB();
-			   double sumLamb = 0.;
-			   for (int j=k+1;j<b;j++) {
-				   int s= EdgeI.getJump(j);
-				   if(s==1) {
-					   sumLamb += EdgeI.getLambdaTilde(j);
-					   EdgeI.setJump(j, 0);
-					   father.getLink(i+ m/2 ).setJump(j, 0);
-				   }
-			   }
-			return sumLamb;   
-		   }
-		   else {return (-1.0);}
-		   }
-	   
-	   
-	   
 	   // Ne pas prendre en compte les arêtes symétriques( i >) m/2)
 	   @Override
 	   public void initLamb(int k) {
@@ -451,8 +451,48 @@ public class PMCNonOriented extends PMC {
 		   Lam = Lambda;
 	   }
 	   
+	   public double FilterOutside(int i, int k, int demand) {
+		   int m = father.getNumLinks();
+		   LinkFlow EdgeI = father.getLink(i);
+		   int outsideFlow = EdgeI.outsideFlow;
+		   int newCapa = EdgeI.getCapacity();
+		   if (outsideFlow + newCapa >= demand) {
+			   int b = EdgeI.getB();
+			   double sumLamb = 0.;
+			   for (int j=k+1;j<b;j++) {
+				   int s= EdgeI.getJump(j);
+				   if(s==1) {
+					   sumLamb += EdgeI.getLambdaTilde(j);
+					   EdgeI.setJump(j, 0);
+					   father.getLink(i+ m/2 ).setJump(j, 0);
+				   }
+			   
+		   }
+			   return sumLamb;
+		   }
+		   else {return (-1.0);}
+	   }
+	 
+	   // on prend le graphe de base. On rajoute 2 sommets supplémentaires. On cree un EK 
+	   // dont c'est source et sink. On les relie à toutes les sommets(2 sens ?) avec
+	   // capa nulle initialement.
+	   //on retient l'ancien lien où on a modifié les capacités, et on les update à 0.
+	   // puis on increase les capa des nouvelles aretes
+	   public void prepareMultiFlow() {
+		   GraphFlow copy = father.clone();
+		   int n = copy.getNumNodes();
+		   copy.addNode(new NodeBasic(n));  //noeud source
+		   copy.addNode(new NodeBasic(n+1));  // noeud target
+		   int m = copy.getNumLinks();
+		   for (int k=0;k<n;k++) {
+			   copy.addLink(new LinkFlow(m,n,k,0)); m++;
+		   }
+		   for (int k=0;k<n;k++) {
+			   copy.addLink(new LinkFlow(m,k,n+1,0)); m++;
+		   }
+		   
+		   
+	   }
 	   
-	   
-	   
-	   
+
 }

@@ -8,7 +8,7 @@ import umontreal.ssj.probdist.ExponentialDist;
 import umontreal.ssj.rng.RandomStream;
 
 
-public class PMCFilterOutsideNew extends PMCNonOriented {
+public class PMCFilterOutsideNew extends PMCFlowNonOriented {
 	boolean filterOutside;
 	
 	public PMCFilterOutsideNew(GraphFlow graph) {

@@ -16,7 +16,7 @@ public class testAlexopo2 {
 	    g.setSource(0);
 	    g.setTarget(6);
 	    
-	    PMC p = new PMC(g);
+	    PMCFlow p = new PMCFlow(g);
 	    RandomStream stream = new LFSR113();
 	    p.trimCapacities(demande);
 	    p.run(50000,stream,demande, true);

@@ -33,7 +33,7 @@ public class compareConfIntervalFilter {
 		 g.setCapacityValues(i, tab);
 		 g.setProbabilityValues(i, prob);
 	 }
-	 PMCNonOriented p = new PMCNonOriented(g);
+	 PMCFlowNonOriented p = new PMCFlowNonOriented(g);
 	 
 	 // cree PMC Filter Outside richard
 	 
