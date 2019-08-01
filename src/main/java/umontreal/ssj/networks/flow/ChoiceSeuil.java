@@ -5,10 +5,17 @@ import umontreal.ssj.rng.RandomStream;
 import umontreal.ssj.stat.Tally;
 import umontreal.ssj.util.Chrono;
 
+/**===============================   TEST    ============================
+ *  Test pour trouver le seuil optimal à partir duquel on effectue filter.
+ *  Pour essayer de rendre Filter plus efficace, on a une option pour laquelle on n'exécute
+ *  Filter que si le maxFlot actuel est tel que maxFlow > level*demand
+ *  
+ *  Empiriquement pour le dodecahedron avec n=50 000, level = 0.8 semble plutôt bon
+ *  temps équivalent à no filter, et erreur relative légèrement meilleure. A confirmer.
+ */
+
 public class ChoiceSeuil {
 	
-	//Dodecahdron : empiriquement, alpha = 0.8 bien(temps équivalent à no filter, et meilleure
-	//erreur relative(a peine). nrun = 50000
 
 	public static void main(String[] args) {
 		GraphFlow Do = ExamplesGraphs.buildDodecaNoOr(); //Attention, aucune capacité set
@@ -37,8 +44,8 @@ public class ChoiceSeuil {
 		Tally values = new Tally();
 		
 		p.filter = true;
-		//double[] alpha = {0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9};
-		double[] alpha = {0.8,0.81,0.82,0.83,0.84,0.85,0.86,0.87,0.88,0.89};
+		double[] alpha = {0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9};
+		//double[] alpha = {0.8,0.81,0.82,0.83,0.84,0.85,0.86,0.87,0.88,0.89};
 		for (int i =0;i<alpha.length;i++) {
 			p.level = alpha[i];
 			Chrono timer = new Chrono();

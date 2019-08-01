@@ -2,6 +2,21 @@ package umontreal.ssj.networks.flow;
 
 import umontreal.ssj.rng.RandomStream;
 
+
+/** Crude Monte Carlo Algorithm for flow reliability estimation. Graphs are supposed to be undirected.
+ * 
+ * 	Undirected graphs are defined as in ExamplesGraph. 
+ * Let m be the number of links of an undirected graph.
+ * Let i integer such as 0<= i < (m/2). then Link i and Link (i+ m/2) are symetric, respectively
+ * from a to b and from b to a.
+ * They must have the same capacity values and probability values.
+ * 
+ * DrawCapacity assumes that the capacity of a link follows a discrete distribution.
+ * 
+ * To estimate unreliability instead of reliability, just switch 1.0 and 0.0 in doOneRun.
+ *  
+ */
+
 public class MonteCarloFlowNonOriented extends MonteCarloFlow {
 	
 	

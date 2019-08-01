@@ -9,6 +9,13 @@ import umontreal.ssj.stat.TallyHistogram;
 import umontreal.ssj.stat.TallyStore;
 import umontreal.ssj.util.Chrono;
 
+/** Crude Monte Carlo Algorithm for flow reliability estimation. Graphs are supposed to be directed.
+ * DrawCapacity assumes that the capacity of a link follows a discrete distribution.
+ * 
+ * To estimate unreliability instead of reliability, just switch 1.0 and 0.0 in doOneRun.
+ *  
+ */
+
 public class MonteCarloFlow {
 	
 	
@@ -41,9 +48,9 @@ public class MonteCarloFlow {
 	   int maxFlow = Ek.EdmondsKarp();
 	   //System.out.println(maxFlow);
 	   if (maxFlow >= demande){
-		   return 0.0;
+		   return 1.0;
 		   }
-	   else {return 1.0;}
+	   else {return 0.0;}
 	   
    }
 	

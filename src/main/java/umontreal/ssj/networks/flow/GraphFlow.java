@@ -61,9 +61,6 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 		this.target=-1;
 	}
 	
-
-	
-
 	   /**
 	    * Get the source of the graph
 	    * 
@@ -81,7 +78,11 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	   public int getTarget() {
 		  return this.target;
 	   }
-	
+	   
+	   /**
+	    * Basic Clone, it doesn't copy capacity Values and probabilityValues of LinkFlow
+	    * 
+	    */
 	   @Override
 	   public GraphFlow clone() {
 	      GraphFlow image = new GraphFlow();
@@ -131,7 +132,7 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	   }
 
 	   /**
-	    * Sets the Capacity r for link i of the graph.
+	    * Sets the Capacity capacity for link i of the graph.
 	    * 
 	    * @param i link
 	    *           
@@ -145,10 +146,11 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	   }
 
 	   /**
-	    * Sets the Capacities for all links of the graph. Capacity must have the same
+	    * Sets the Capacities for all links of the graph, with an array. 
+	    * Capacities must have the same
 	    * number of elements as the number of links.
 	    * 
-	    *           
+	    *   @param Capacities Array  
 	    */
 	   public void setCapacity(int[] Capacities) {
 		   for (int i = 0; i < numLinks; i++)
@@ -330,7 +332,10 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	         return file.substring(1 + t, s);
 	   }
 
-
+	   /**
+	    * For PMC Algorithm. Inits lambda{i,k} for the link i
+	    *  @param i indice of link
+	    */
 	   
 	   public void initLinkLambda(int i) {
 		   //if (i<3) {
@@ -341,9 +346,14 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 		   //System.out.println("Init lambda ar�te " +i);
 		   //else {
 			   links.get(i).initLambda();
-			   //}
-		   
+			   //}  
 	   }
+	   
+	   /**
+	    * For PMC Algorithm. Inits Array of the S{i,k} for the link i
+	    *  @param i indice of link
+	    */
+	   
 	   public void initJumpAndIndexes(int i) {
 		   //System.out.println("Init jump ar�te " +i);
 		   links.get(i).initJumpAndIndexes();
@@ -365,12 +375,23 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 		   return links.get(i).getValuesY();
 	   }
 	   
+	   /**
+	    * For PMC Algorithm. Sets the jump number k of link i to value.
+	    *  @param i indice of link
+	    *  @param value must be 0 or 1
+	    *  @param k jump
+	    */
+	   
 	   public void setJump(int i, int k, int value) {
 		   links.get(i).setJump(k, value);
 	   }
 	   
 
-	   // New
+	   /**
+	    * Sets the capacity values for the link i
+	    *  @param i indice of link
+	    *  @param tab Array of the possible capacities
+	    */
 	   
 	   public void setCapacityValues(int i, int[] tab) {
 		   int [] copy = new int[tab.length];
@@ -378,22 +399,34 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 		   links.get(i).setCapacityValues(copy);
 	   }
 	   
-	   // Memes capacites, NEW
+	   /**
+	    * Sets the same capacity values for each link
+	    *  @param tab Array of the possible capacities
+	    */
 	   
 	   public void setCapacityValues(int[] tab) {
 		   for (int i = 0; i < numLinks; i++) {
-			   links.get(i).setCapacityValues(tab);
+			   int [] copy = new int[tab.length];
+			   System.arraycopy(tab, 0, copy, 0, tab.length);
+			   links.get(i).setCapacityValues(copy);
 			   }
 	   }
 	   
-	   // NEW
+	   /**
+	    * Sets the integer b for the link i
+	    *  @param i indice of link
+	    *  @param k integer b
+	    */
 	   
 	   public void setB(int i, int k) {
 		   links.get(i).setB(k);
 	   }
 	   
 	   
-	   // Meme B, NEW
+	   /**
+	    * Sets the same b for each link
+	    *  @param k Integer b
+	    */
 	   
 	   public void setB(int k) {
 		   for (int i = 0; i < numLinks; i++) {
@@ -402,7 +435,11 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	   }
 	   
 	   
-	   // New
+	   /**
+	    * Sets the capacity values for the link i
+	    *  @param i indice of link
+	    *  @param tab Array of the possible capacities
+	    */
 	   
 	   public void setProbabilityValues(int i, double[] tab) {
 		   double [] copy = new double[tab.length];
@@ -411,17 +448,19 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 		   
 		   //double [] lamb = new double[probabilityValues.length -1];
 		   //System.arraycopy(probabilityValues, 0, lamb, 0, lamb.length);
-		   
-		   
-		   
 		   //links.get(i).setProbabilityValues(tab);
 	   }
 	   
-	   // Memes capacites, NEW
+	   /**
+	    * Sets the same probability values for each link
+	    *  @param tab Array of the possible probabilities
+	    */
 	   
 	   public void setProbabilityValues(double[] tab) {
 		   for (int i = 0; i < numLinks; i++) {
-			   links.get(i).setProbabilityValues(tab);
+			   double [] copy = new double[tab.length];
+			   System.arraycopy(tab, 0, copy, 0, tab.length);
+			   links.get(i).setProbabilityValues(copy);
 			   }
 	   }
 	   
@@ -452,6 +491,7 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	   }
 	   
 	   
+<<<<<<< HEAD
 	   @Override
 	   public String toString() {
 	      StringBuffer sb = new StringBuffer(
@@ -485,6 +525,11 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	      
 	      return sb.toString();
 	   }
+=======
+
+	   
+	   
+>>>>>>> e92ee42c62102b98ba93e5ad39479cdbc3f5c4f0
 }
 
 

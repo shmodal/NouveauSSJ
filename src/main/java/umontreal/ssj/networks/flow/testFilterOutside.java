@@ -18,7 +18,7 @@ public class testFilterOutside {
 				1.0e-12, 1.0e-13};
 		
 		//PMCNonOriented p = new PMCNonOriented(Do);
-		PMCFilterOutside p = new PMCFilterOutside(Do);
+		PMCFilterOutsideNew p = new PMCFilterOutsideNew(Do);
 
 		int m0 = p.father.getNumLinks();
 		int[] tab = new int[m0];
@@ -26,7 +26,7 @@ public class testFilterOutside {
 			tab[i] = b;
 		}
 		
-		p.initCapaProbaB(tab, rho, epsilon[2]);
+		p.initCapaProbaB(tab, rho, epsilon[9]);
 		p.trimCapacities(demande);
 		
 		p.filterOutside = true;
