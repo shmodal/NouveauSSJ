@@ -474,7 +474,7 @@ public class PMCFilterOutside extends PMCNonOriented {
 	   }
 	 
 	   // on prend le graphe de base. On rajoute 2 sommets supplémentaires. On cree un EK 
-	   // dont c'est sorce et sink. On les relie à toutes les sommets(2 sens ?) avec
+	   // dont c'est source et sink. On les relie à toutes les sommets(2 sens ?) avec
 	   // capa nulle initialement.
 	   //on retient l'ancien lien où on a modifié les capacités, et on les update à 0.
 	   // puis on increase les capa des nouvelles aretes
