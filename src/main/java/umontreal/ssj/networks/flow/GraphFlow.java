@@ -173,76 +173,7 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 		   this.target=t;
 	   }
 	
-	   
-	   
-	   /**
-	    * Define graph given a .txt file
-	    * 
-	    * @param file
-	    *           file name
-	    * @throws java.io.IOException
-	    
-	    public GraphFlow(String file) throws IOException {
-		      // read in file
-		      BufferedReader br = new BufferedReader(new FileReader(file));
-		      String filename=splitFileName(file);
-		      String f, l;
-		      String[] ss;
-		      f = "";
-		      l = br.readLine();
-		      int index = l.indexOf('#'); 
-		      // if first line contains a comment #..., remove it
-		      if (index >= 0)
-		         l = l.substring(0, index);
-
-		      do {
-		         f += l + "\t";
-		         l = br.readLine();
-		      } while (l != null);
-
-		      ss = f.split("[\t ]+");
-
-		      numNodes = Integer.parseInt(ss[0]);
-		      numLinks = Integer.parseInt(ss[1]);
-		      source = Integer.parseInt(ss[2]);
-		      target = Integer.parseInt(ss[3]);
-
-		      links = new ArrayList<LinkFlow>();
-		      nodes = new ArrayList<NodeBasic>();
-		      for (int i = 0; i < numNodes; i++)
-		         this.addNode(new NodeBasic(i));
-
-		      int pos = 0;
-
-		      for (int i = 0; i < numLinks; i++) {
-		         int a, b;
-		         int capacity;
-
-		         pos = 3 * i + 4;
-
-		         a = Integer.parseInt(ss[pos]);
-		         b = Integer.parseInt(ss[pos + 1]);
-		         nodes.get(a).incCounter();
-		         capacity = Integer.parseInt(ss[pos + 2]);
-		         this.addLink(new LinkFlow(i, a, b,capacity));
-		      }
-
-		      for (int i = 0; i < numNodes; i++) {
-		         nodes.get(i).setNodeLinks(new ArrayList<Integer>());
-		         // for the next step
-		         nodes.get(i).setCounter(0);
-		      }
-
-		      for (int i = 0; i < numLinks; i++) {
-		         int a = links.get(i).getSource();
-		         int b = links.get(i).getTarget();
-		         nodes.get(a).addNodeLink(links.get(i).getIndice());
-		         nodes.get(a).incCounter();
-		      }
-	    }
-	    */
-	    
-	    
+	     
 	   /**
 	    * Define graph given a .txt file
 	    * 
@@ -532,8 +463,8 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	         sb.append("link  " + link.getIndice() + "  connects nodes  "
 	               + link.getSource() + ", " + link.getTarget() + ", capacity  "
 	               + link.getCapacity() + PrintfFormat.NEWLINE);
-	         sb.append("Capacités: "+Arrays.toString(link.getCapacityValues())+ PrintfFormat.NEWLINE);
-	         sb.append("Probabilités: "+Arrays.toString(link.getProbabilityValues())+ PrintfFormat.NEWLINE);
+	         sb.append("Capacities: "+Arrays.toString(link.getCapacityValues())+ PrintfFormat.NEWLINE);
+	         sb.append("Probabilities: "+Arrays.toString(link.getProbabilityValues())+ PrintfFormat.NEWLINE);
 	      }
 	      sb.append(PrintfFormat.NEWLINE + "----------------------------------"
 	                + PrintfFormat.NEWLINE);
