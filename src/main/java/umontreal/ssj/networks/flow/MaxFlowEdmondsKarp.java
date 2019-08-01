@@ -60,15 +60,11 @@ public class MaxFlowEdmondsKarp {
 	    	//reequilibre flow matrix
 	    	if(tmpSource!=this.source) {
 	    		int uToSource=DecreaseCapFlow(tmpSource, this.source, delta-uvMaxFlow);
-	    		if(uToSource!=0) {
-	    			System.out.println("Erreur devrait être nul");
-	    		}
+	    		
 	    	}
 	    	if(tmpTarget!=this.sink) {
 	    		int vToSink=DecreaseCapFlow(tmpTarget, this.sink, delta-uvMaxFlow);
-	    		if(vToSink!=0) {
-	    			System.out.println("Erreur devrait être nul");
-	    		}
+	    		
 	    	}	    	
 	    	
     	}else {
@@ -80,11 +76,9 @@ public class MaxFlowEdmondsKarp {
     
     public int EdmondsKarp() {
         int flow;
-        //System.out.println(residual.toString());
         while((flow = flowBFS(source , sink)) != 0) {
         	this.maxFlowValue += flow;
         }
-        //System.out.println(residual.toString());
         return this.maxFlowValue;
     }
 

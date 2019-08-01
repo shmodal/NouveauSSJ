@@ -2,6 +2,7 @@ package umontreal.ssj.networks.flow;
 
 import java.io.BufferedReader;
 
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -94,7 +95,8 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	      image.links = new ArrayList<LinkFlow>();
 	      for (int i = 0; i < numLinks; i++) {
 	         image.links.add(new LinkFlow(links.get(i).getIndice(), links.get(i).getSource(),
-	        		 links.get(i).getTarget(),links.get(i).getCapacity()));
+	        		 links.get(i).getTarget(),links.get(i).getCapacity(),links.get(i).getCapacityValues(),
+	   	               links.get(i).getProbabilityValues()));
 	      }
 
 	      // nodes
@@ -179,7 +181,7 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	    * @param file
 	    *           file name
 	    * @throws java.io.IOException
-	    */
+	    
 	    public GraphFlow(String file) throws IOException {
 		      // read in file
 		      BufferedReader br = new BufferedReader(new FileReader(file));
@@ -238,6 +240,98 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 		         nodes.get(a).incCounter();
 		      }
 	    }
+	    */
+	    
+	    
+	   /**
+	    * Define graph given a .txt file
+	    * 
+	    * @param file
+	    *           file name
+	    * @throws java.io.IOException
+	    */
+	    public GraphFlow(String file) throws IOException {
+		      // read in file
+	    	  BufferedReader br = new BufferedReader(new FileReader(file));
+		      String l;
+		      l = br.readLine();
+		      int index = l.indexOf('#'); 
+		      // if first line contains a comment #..., remove it
+		      if (index >= 0)
+		    	  l = l.substring(0, index);
+		    
+		      String[] graphParam=l.split("[\\t ]");
+		      int numNodes = Integer.parseInt(graphParam[0]);
+		      int numLinks = Integer.parseInt(graphParam[1]);
+		      int source = Integer.parseInt(graphParam[2]);
+		      int target = Integer.parseInt(graphParam[3]);
+		    
+
+		      links = new ArrayList<LinkFlow>();
+		      nodes = new ArrayList<NodeBasic>();
+		      
+		      for (int i = 0; i < numNodes; i++) {
+			         this.addNode(new NodeBasic(i));
+		      }
+		      
+			  l = br.readLine();
+			  int cntLink=0;
+			  while(l!=null){ 
+				 int a, b;
+				 int capacity;
+				 String[] linkParam=l.split("[\t ]+");
+				 a = Integer.parseInt(linkParam[0]);
+				 b = Integer.parseInt(linkParam[1]);
+				 nodes.get(a).incCounter();
+				 capacity = Integer.parseInt(linkParam[2]);
+		        
+				 String[] capL=br.readLine().split("[\t ]+");
+				 String[] probL=br.readLine().split("[\t ]+");
+				 if (capL.length!=probL.length) {
+					 System.out.println("The graph cannot be built as capacities values has not the same length "
+		        			+ "as the probabilities values.");
+				 }
+				 else {
+					 int[] capacityVal=new int[capL.length];
+					 int cntCap=0;
+					 for(String str:capL){
+						 capacityVal[cntCap]=Integer.parseInt(str.trim());
+						 cntCap++;
+					 }
+					 double[] probabilityVal=new double[probL.length];
+					 int cntProb=0;
+					 double sumProb=0; 
+					 for(String str:probL){
+						 probabilityVal[cntProb]=Double.parseDouble(str.trim());
+						 sumProb+=probabilityVal[cntProb];
+						 cntProb++;
+					 }
+					 if (Math.abs(1-sumProb)>1e-6) {
+						 System.out.println("The graph cannot be built as the probability values are not summing to one.");
+					 }
+					 else {
+						 this.addLink(new LinkFlow(cntLink, a, b,capacity,capacityVal,probabilityVal));
+					 }
+				 }
+		        
+				 l=br.readLine();
+				 cntLink++;
+			  }
+		    
+			  for (int i = 0; i < numNodes; i++) {
+				  nodes.get(i).setNodeLinks(new ArrayList<Integer>());
+				  // for the next step
+				  nodes.get(i).setCounter(0);
+		      }
+
+		     for (int i = 0; i < numLinks; i++) {
+		         int a = links.get(i).getSource();
+		         int b = links.get(i).getTarget();
+		         nodes.get(a).addNodeLink(links.get(i).getIndice());
+		         nodes.get(a).incCounter();
+		     }
+	   }
+    
 	    
 	   /**
 	    * Generate the residual graph of the current grapWithCapacity.
@@ -262,7 +356,8 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
    	      image.links = new ArrayList<LinkFlow>();
    	      for (int i = 0; i < numLinks; i++) {
    	         image.addLink(new LinkFlow(links.get(i).getIndice(), links.get(i).getSource(),
-   	               links.get(i).getTarget(),links.get(i).getCapacity()));
+   	               links.get(i).getTarget(),links.get(i).getCapacity(),links.get(i).getCapacityValues(),
+   	               links.get(i).getProbabilityValues()));
    	      }
    	      
    	      /*counter to create the new links*/
@@ -271,7 +366,7 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
    		     /*we pop the first element of the queue*/
    		     int duplicate=Queue.poll();
    		     image.addLink(new LinkFlow(counterIndiceLink, links.get(duplicate).getTarget(),
-   		        		 links.get(duplicate).getSource(), 0));
+   		        		 links.get(duplicate).getSource(), 0, new int[0],new double[0]));
    		     counterIndiceLink++;
 
    	      }
@@ -425,6 +520,40 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 		   }
 	   }
 	   
+	   
+	   @Override
+	   public String toString() {
+	      StringBuffer sb = new StringBuffer(
+	            "================================================= Graph"
+	                  + PrintfFormat.NEWLINE);
+	      
+	      for (int i = 0; i < numLinks; i++) {
+	         LinkFlow link = links.get(i);
+	         sb.append("link  " + link.getIndice() + "  connects nodes  "
+	               + link.getSource() + ", " + link.getTarget() + ", capacity  "
+	               + link.getCapacity() + PrintfFormat.NEWLINE);
+	         sb.append("Capacités: "+Arrays.toString(link.getCapacityValues())+ PrintfFormat.NEWLINE);
+	         sb.append("Probabilités: "+Arrays.toString(link.getProbabilityValues())+ PrintfFormat.NEWLINE);
+	      }
+	      sb.append(PrintfFormat.NEWLINE + "----------------------------------"
+	                + PrintfFormat.NEWLINE);
+	      
+	      for (int i = 0; i < numNodes; i++) {
+	         NodeBasic node = nodes.get(i);
+	         int r = node.getNodeLinks().size();
+	         sb.append("node  " + node.getNumber());
+	         sb.append("  has " + r + " links: ");
+	         if(r>0) {
+		         for (int j = 0; j < r - 1; j++) {
+		            sb.append(node.getNodeLink(j) + ", ");
+		         }
+		         sb.append(node.getNodeLink(r - 1));
+	         }
+	         sb.append(PrintfFormat.NEWLINE);
+	      }
+	      
+	      return sb.toString();
+	   }
 }
 
 

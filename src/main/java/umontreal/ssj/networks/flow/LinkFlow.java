@@ -12,12 +12,12 @@ public class LinkFlow extends LinkWithCapacity {
 	// retenir juste loi de proba au lieu des 4 premiers tableaux
 	
 	
-    private int b ; //le bi associé au lien i 
-	private int[] capacityValues;  // les ci,k   taille bi+1, de 0 à bi
-	private double [] probabilityValues ; // les ri,k  taille bi+1,  de 0 à bi
+    private int b ; //le bi associï¿½ au lien i 
+	private int[] capacityValues;  // les ci,k   taille bi+1, de 0 ï¿½ bi
+	private double [] probabilityValues ; // les ri,k  taille bi+1,  de 0 ï¿½ bi
 	
-	private double [] lambdaValues;  // les lambda i,k, taille bi, de 0 à bi-1
-	public double sommeLambda; // somme des lambda i,k à i fixé(poour ne pas recalculer plus tard)
+	private double [] lambdaValues;  // les lambda i,k, taille bi, de 0 ï¿½ bi-1
+	public double sommeLambda; // somme des lambda i,k ï¿½ i fixï¿½(poour ne pas recalculer plus tard)
 	public double [] tabY ; //les Yi,k
 	public int [] S_jump ;  //tableau S
 	public int numberJumps; // nombre de jumps (Si,k) =1
@@ -54,7 +54,7 @@ public class LinkFlow extends LinkWithCapacity {
 	/**
 	 * Full Constructor
 	 */
-	public LinkFlow(int indice, int source, int target, int capacity)
+	public LinkFlow(int indice, int source, int target, int capacity, int[] capacityVal , double[] probVal)
 	{
 		super(indice,source,target);
 		//this.indice = indice;
@@ -62,6 +62,8 @@ public class LinkFlow extends LinkWithCapacity {
 	    //this.target = target;
 	    //this.r=r;
 		this.capacity=capacity;
+		this.capacityValues=capacityVal;
+		this.probabilityValues=probVal;
 	}
 
 
@@ -105,6 +107,8 @@ public class LinkFlow extends LinkWithCapacity {
 		image.setSource(this.getSource());
 		image.setTarget(this.getTarget());
 		image.capacity = this.capacity;
+		image.capacityValues=this.capacityValues;
+		image.probabilityValues=this.probabilityValues;
 		return image;
    }
 	
