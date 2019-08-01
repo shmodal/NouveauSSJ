@@ -376,6 +376,8 @@ public class PMCNonOriented extends PMC {
 	   
 	   
    
+	   // Attention, faire le filtrage seulement à partir du Si,k 
+	   //(les capacités qui sont supérieures à celle actuelle)
 	   
 	   @Override
 	   public double FilterSingle(int i, int demand) {

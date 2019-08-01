@@ -6,14 +6,18 @@ import umontreal.ssj.probdist.ExponentialDist;
 import umontreal.ssj.probdist.NormalDist;
 import umontreal.ssj.rng.RandomStream;
 
+/**
+ * Link for the network flow reliability problem.
+ */
+
 public class LinkFlow extends LinkWithCapacity {
 
 	// relfehcir a somme cumulee pour les probas(cdf, fonction repartiotn)
 	// retenir juste loi de proba au lieu des 4 premiers tableaux
 	
 	
-    private int b ; //le bi associï¿½ au lien i 
-	private int[] capacityValues;  // les ci,k   taille bi+1, de 0 ï¿½ bi
+    private int b ; //le bi associe au lien i 
+	private int[] capacityValues;  // les ci,k   taille bi+1, de 0 à bi
 	private double [] probabilityValues ; // les ri,k  taille bi+1,  de 0 ï¿½ bi
 	
 	private double [] lambdaValues;  // les lambda i,k, taille bi, de 0 ï¿½ bi-1
@@ -43,24 +47,45 @@ public class LinkFlow extends LinkWithCapacity {
 	public LinkFlow(int indice, int source, int target)
 	{
 		super(indice,source,target);
-		//this.indice = indice;
-	    //this.source = source;
-	    //this.target = target;
-	    //this.r=r;
 		//temporary initialisation 
-		//this.capacity=1;
+		this.capacity=0;
+	}
+	
+	/**
+	 * (Previous)Partially Full constructor
+	 * 
+	 * @param indice
+	 *           define the indice of the LinkWithCapacity
+	 * @param source
+	 *           define the number of the source's node
+	 * @param target
+	 *           define the number of the target's node
+	 * @param r
+	 *           define the capacity of the LinkFlow
+	 */
+	public LinkFlow(int indice, int source, int target, int capacity)
+	{
+		super(indice,source,target);
+		this.capacity=capacity;
 	}
    
 	/**
-	 * Full Constructor
+	 * Full constructor
+	 * 
+	 * @param indice
+	 *           define the indice of the LinkWithCapacity
+	 * @param source
+	 *           define the number of the source's node
+	 * @param target
+	 *           define the number of the target's node
+	 * @param capacityVal
+	 *           define the discrete capacities which can be held by the link
+	 * @param probabilityVal
+	 *           define the probabilities for each discrete capacity which can be held by the link
 	 */
 	public LinkFlow(int indice, int source, int target, int capacity, int[] capacityVal , double[] probVal)
 	{
 		super(indice,source,target);
-		//this.indice = indice;
-	    //this.source = source;
-	    //this.target = target;
-	    //this.r=r;
 		this.capacity=capacity;
 		this.capacityValues=capacityVal;
 		this.probabilityValues=probVal;
@@ -70,7 +95,7 @@ public class LinkFlow extends LinkWithCapacity {
 	/**
 	* Set the capacity of this LinkWithCapacity
 	* 
-	* @param r
+	* @param capacity
 	*/
 	public void setCapacity(int capacity)
 	{
@@ -88,9 +113,9 @@ public class LinkFlow extends LinkWithCapacity {
 	}
 
    /**
-    * Clone a LinkWithCapacity
+    * Clone a LinkFlow
     * 
-    * @return To obtain a copy of the LinkWithCapacity
+    * @return To obtain a copy of the LinkFlow
     */
 	@Override
 	public LinkFlow clone()

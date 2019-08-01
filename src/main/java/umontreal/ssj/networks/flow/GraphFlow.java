@@ -451,6 +451,10 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	   }
 	   
 	   
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7b71d51c7680f53f435a07ed9fe5a207f5308f9c
 	   @Override
 	   public String toString() {
 	      StringBuffer sb = new StringBuffer(
@@ -484,6 +488,10 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	      
 	      return sb.toString();
 	   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7b71d51c7680f53f435a07ed9fe5a207f5308f9c
 }
 
 
