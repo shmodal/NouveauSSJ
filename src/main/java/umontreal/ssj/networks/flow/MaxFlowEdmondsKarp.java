@@ -12,11 +12,8 @@ public class MaxFlowEdmondsKarp {
 	protected GraphFlow network;
 	/*network's residual graph*/
 	protected GraphFlow residual;
-	/* Source used during the last invocation of this algorithm */
 	protected int source = -1;
-	/* Sink used during the last invocation of this algorithm */
 	protected int sink = -1;
-	/* Max flow established after last invocation of the algorithm. */
 	protected int maxFlowValue = -1;
 	
 	
@@ -30,9 +27,20 @@ public class MaxFlowEdmondsKarp {
 
     }
 
-    //if graph non oriented considered (which has been transformed in an oriented graph) you
-    // have to call it on both links (the symmetric ones)
-
+    //
+    
+	/**
+	 * Increase the capacity for one link in particular by the increaseCap
+	 * 
+	 * WARNING: if graph non oriented considered (which has been transformed in an oriented graph) you
+	 *  have to call it on both links (the symmetric ones)
+	 * 
+	 *     @param link
+	 *     	
+	 *     @param increaseCap
+	 *     
+	 *     @return whether or not it may have increased the maximum flow		
+	 */
     public boolean IncreaseLinkCapacity(int link, int increaseCap) {
     	boolean reloadFlow=false;
     	if(residual.getLink(link).getCapacity()==0) {
@@ -43,6 +51,17 @@ public class MaxFlowEdmondsKarp {
     	return reloadFlow;
     }
     
+    
+
+	/**
+	 * Decrease the capacity for one link in particular by the decreaseCap. Contrary to increaseCap
+	 * calling this method will change the maximum flow and the residual capacities.
+	 * 
+	 *     @param link
+	 *     	
+	 *     @param increaseCap
+	 *     		
+	 */
     public void DecreaseLinkCapacity(int link, int decreaseCap) {
     	int delta= decreaseCap-residual.getLink(link).getCapacity();
     	if(delta>0) {
@@ -53,7 +72,7 @@ public class MaxFlowEdmondsKarp {
 			oppositeLink.setCapacity(oppositeLink.getCapacity()-residual.getLink(link).getCapacity());
 	    	this.residual.getLink(link).setCapacity(0);
 	    	
-	    	//call ax flow for source u et target v
+	    	//call max flow for source u et target v
 	    	int uvMaxFlow=DecreaseCapFlow(tmpSource, tmpTarget, delta);
 	    	this.maxFlowValue+=uvMaxFlow-delta;
 	    	
@@ -73,7 +92,12 @@ public class MaxFlowEdmondsKarp {
     }
     
     
-    
+	/**
+	 * Use to compute augmenting path between source and sink nodes for maximum flow problem
+	 * 
+	 *     
+	 *     @return current maximum flow		
+	 */
     public int EdmondsKarp() {
         int flow;
         while((flow = flowBFS(source , sink)) != 0) {
@@ -82,6 +106,18 @@ public class MaxFlowEdmondsKarp {
         return this.maxFlowValue;
     }
 
+	/**
+	 * Use to compute maximum flow (with upper bound delta), between two nodes in current residual graph.
+	 * 
+	 * 
+	 *     @param tmpSource
+	 *     	
+	 *     @param tmpTarget
+	 *     
+	 *     @param delta
+	 *     
+	 *     @return maximum flow between two points		
+	 */
     public int DecreaseCapFlow(int tmpSource,int tmpTarget,int delta) {
         int flow=flowBFS(tmpSource , tmpTarget);
         int uvMaxFlow=0;
@@ -96,6 +132,17 @@ public class MaxFlowEdmondsKarp {
         return uvMaxFlow;
     }
 
+
+	/**
+	 * Use to find augmenting path between two nodes in current residual graph.
+	 * 
+	 * 
+	 *     @param s
+	 *     	
+	 *     @param target
+	 *     
+	 *     @return augmenting flow		
+	 */
     public int flowBFS(int s,int target) {
     	// find a s-t path in g of positive capacity
     	// initialize path capacities
