@@ -87,6 +87,7 @@ public class LinkFlow extends LinkWithCapacity {
 	{
 		super(indice,source,target);
 		this.capacity=capacity;
+		this.b=capacityVal.length-1;
 		this.capacityValues=capacityVal;
 		this.probabilityValues=probVal;
 	}
@@ -274,8 +275,6 @@ public class LinkFlow extends LinkWithCapacity {
 		   System.arraycopy(lambdaValues, 0, tabLambT, 0, lambdaValues.length);
 		   //int nJumps = 0;
 		   int nJumps = 1;
-		   //System.out.println("b" + b);
-		   //System.out.println(lambdaValues.length);
 		   int min = b-1;
 		   tabLambT[b-1] = lambdaValues[b-1];
 		   
