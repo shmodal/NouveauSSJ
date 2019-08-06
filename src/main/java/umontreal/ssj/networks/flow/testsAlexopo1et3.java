@@ -16,14 +16,14 @@ import umontreal.ssj.rng.RandomStream;
  */
 
 
-public class testsAlexopo1and3 {
+public class testsAlexopo1et3 {
 
 	public static void main(String[] args) {
 		
-		//Graph 3 is loaded in proc.
+		//Graph 1 is loaded in proc.
 		
-		int demand = 20; // 5 or 20
-	    proc(demand,0,6);
+		int demand = 60; // 5 or 20 for graph 3, 30 and 60 for graph 1
+	    proc(demand,0,9);  //0 and 6 for graph 3, 0 and 9 for graph 1
 		
 		//Build graph 3 Daly and Alexopoulos
 		
@@ -108,7 +108,7 @@ public class testsAlexopo1and3 {
 
 	
 	private static void proc(int demand,int source, int target) {
-		int numG = 3; // 1 for network 1 of Daly/Alexopo,  3 for network 3
+		int numG = 1; // 1 for network 1 of Daly/Alexopo,  3 for network 3
 		boolean mc = false; // true for launching MC Test
 		mc = true;
 		boolean pmc = false; //true for launching PMC
@@ -116,33 +116,49 @@ public class testsAlexopo1and3 {
 		boolean nofilter = false; //true for plain PMC(without filter)
 		nofilter = true;
 		boolean filter = false; // true for filtering simple
-		//filter= true;
+		filter= true;
 		boolean fOutside = false; // true for Filter Outside
-		//fOutside = true;
+		fOutside = true;
 		
 		int nrun = 1000000 ;
 		
 		GraphFlow g = null;
 		String nameG = null;
 		
-		if (numG ==1) {
-			g =  ExamplesGraphs.buildAlexo1NoOr();
-		    nameG = "Network number 1 of Daly and Alexopoulos";}
-		if (numG ==3) {
-			g =  ExamplesGraphs.buildAlexo1NoOr(); 	
-			nameG = "Network number 3 of Daly and Alexopoulos";
-		}
+		try {	
+			//GraphFlow g=new GraphFlow(name);
+			String file= ExamplesGraphs.getGraphfile("alexo" + numG);
+			g = new GraphFlow(file);
+			g.resetCapacities();
+			g= ExamplesGraphs.Undirect(g);
+			//System.out.println(g.toString());
+			nameG = "Network number " + numG + " of Daly and Alexopoulos";
+
+		
+		
+//		if (numG ==1) {
+//			g =  ExamplesGraphs.buildAlexo1NoOr();
+//		    nameG = "Network number 1 of Daly and Alexopoulos";}
+//		if (numG ==3) {
+//			g =  ExamplesGraphs.buildAlexo1NoOr(); 	
+//			nameG = "Network number 3 of Daly and Alexopoulos";
+//		}
 		int numNodes = g.getNumNodes();
 		assert(0 <= source && source < numNodes );
 		assert(0 <= target && target < numNodes );
 		
 		g.setSource(source);
 		g.setTarget(target);
-		
 		RandomStream stream = new LFSR113();
+		
+		System.out.println("Graph : " +nameG);
+		
+		System.out.println("Reliability of transporting flow " + demand + " from " + g.getSource()+" to " + g.getTarget());
+		System.out.println();
+		System.out.println("rng = " + stream.getClass().getSimpleName() + "\n");
+		
 		if (mc) {
 			System.out.println("============================================ Monte Carlo");
-			System.out.println("Graph : " +nameG);
 			System.out.println("Warning : estimation of reliability instead of unreliability");
 			MonteCarloFlowNonOriented mc1 = new MonteCarloFlowNonOriented(g);
 			mc1.run(nrun,stream,demand);
@@ -152,6 +168,14 @@ public class testsAlexopo1and3 {
 		PMCFlowNonOriented p = null;
 		if(pmc) { 
 			System.out.println("============================================ Permutation Monte Carlo");
+			if (nofilter) { System.out.println("============================================ No Filter");
+			//PMCNonOriented p = new PMCNonOriented(g);
+			p = new PMCFlowNonOriented(g);
+			p.filter=false; p.filterOutside=false;
+			stream.resetStartSubstream();
+			p.trimCapacities(demand);
+			p.run(nrun,stream,demand);}
+			
 			if (filter) {
 				System.out.println("============================================ Filter single");
 				p = new PMCFlowNonOriented(g); 
@@ -172,22 +196,13 @@ public class testsAlexopo1and3 {
 				p.trimCapacities(demand);
 				p.run(nrun,stream,demand);
 			}
-			else { System.out.println("============================================ No Filter");
-				//PMCNonOriented p = new PMCNonOriented(g);
-				p = new PMCFlowNonOriented(g);
-				p.filter=false; p.filterOutside=false;
-				stream.resetStartSubstream();
-				p.trimCapacities(demand);
-				p.run(nrun,stream,demand);
-				}
-		
-		
-			
-		
 		}
 	
 		
-		
+		}
+		catch (IOException ioe) {
+	        System.out.println("Trouble reading from the file: " + ioe.getMessage());
+	    } 
 		
 	}
 	

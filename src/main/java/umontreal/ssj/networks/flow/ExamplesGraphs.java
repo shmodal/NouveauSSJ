@@ -3,6 +3,7 @@ package umontreal.ssj.networks.flow;
 import java.util.LinkedList;
 
 import umontreal.ssj.networks.NodeBasic;
+import umontreal.ssj.networks.createGraph;
 
 /**
  *  This class provides several pre builts graphs which can be used for flow reliability
@@ -15,6 +16,23 @@ import umontreal.ssj.networks.NodeBasic;
 public class ExamplesGraphs {
 	
 	
+	//String RAREHOME = "/u/nervogui/Documents/Librairie rarev";
+	static String RAREHOME = "C:\\Users\\Sofiane\\Documents\\Stage 3A\\Librairie compress\\Librairie rarev";
+	static String DIRDAT = "/data/";
+	
+	
+	
+	    public static String getGraphfile(String GraphName) {
+		      String legraphe;
+		      // choose a network
+		      // legraphe = "alexo1";
+		      legraphe = GraphName ;
+		      String file = RAREHOME + DIRDAT + legraphe + ".txt";
+		      return file;
+		   }
+	    
+	    
+
 	   
 		/**
 		 * Transforms directed graph into an undirectGraph.
