@@ -1,5 +1,9 @@
-package umontreal.ssj.networks.flow;
+package umontreal.ssj.networks.verifPMC;
 
+import umontreal.ssj.networks.flow.ExamplesGraphs;
+import umontreal.ssj.networks.flow.GraphFlow;
+import umontreal.ssj.networks.flow.LinkFlow;
+import umontreal.ssj.networks.flow.PMCFlowNonOriented;
 import umontreal.ssj.rng.LFSR113;
 import umontreal.ssj.rng.RandomStream;
 

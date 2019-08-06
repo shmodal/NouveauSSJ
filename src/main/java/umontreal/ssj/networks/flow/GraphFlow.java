@@ -491,7 +491,7 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	    public void resetCapacities() {
 	    	int m = this.getNumLinks();
 	    	for (int i=0;i<m;i++) {
-	    		this.getLink(i).setCapacity(0);
+	    		this.getLink(i).setCapacity(this.getLink(i).getCapacityValue(0));
 	    	}
 	    }
 }
