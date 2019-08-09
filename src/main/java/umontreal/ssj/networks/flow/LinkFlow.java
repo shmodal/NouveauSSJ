@@ -17,7 +17,7 @@ public class LinkFlow extends LinkWithCapacity {
 	
 	
     private int b ; //le bi associe au lien i 
-	private int[] capacityValues;  // les ci,k   taille bi+1, de 0 à bi
+	private int[] capacityValues;  // les ci,k   taille bi+1, de 0 ï¿½ bi
 	private double [] probabilityValues ; // les ri,k  taille bi+1,  de 0 ï¿½ bi
 	
 	private double [] lambdaValues;  // les lambda i,k, taille bi, de 0 ï¿½ bi-1
@@ -175,6 +175,11 @@ public class LinkFlow extends LinkWithCapacity {
 	   public void setProbabilityValues(double[] tab)
 	   {
 	     this.probabilityValues = tab;
+	   }
+	   
+	   public void setProbabilityValue(int k, double p)
+	   {
+	     this.probabilityValues[k] = p;
 	   }
 
 	   public double[] getProbabilityValues()
