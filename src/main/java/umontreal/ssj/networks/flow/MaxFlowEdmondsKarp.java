@@ -84,7 +84,9 @@ public class MaxFlowEdmondsKarp {
 	    	if(tmpTarget!=this.sink) {
 	    		int vToSink=DecreaseCapFlow(tmpTarget, this.sink, delta-uvMaxFlow);
 	    		
-	    	}	    	
+	    	}
+	    	//try to see if we can redirect part of the flow lost
+	    	this.EdmondsKarp();
 	    	
     	}else {
     		this.residual.getLink(link).setCapacity(-delta);
