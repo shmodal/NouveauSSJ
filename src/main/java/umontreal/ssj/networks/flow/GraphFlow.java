@@ -125,7 +125,7 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 						 System.out.println("The graph cannot be built as the probability values are not summing to one."+ sumProb);
 					 }
 					 else {
-						 this.addLink(new LinkFlow(cntLink, a, b,0,capacityVal,probabilityVal));
+						 this.addLink(new LinkFlow(cntLink, a, b,capacity,capacityVal,probabilityVal));
 					 }
 				 }
 		        
@@ -467,6 +467,38 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
        }
 
 	   
+	   public void Undirect() {
+			int numLinks = this.getNumLinks();
+			//System.out.print("Nombre links" + numLinks);
+
+			/*Storing the edges that are not present in both ways : source-->target and target-->source */
+			LinkedList<Integer> Queue = new LinkedList<Integer>();
+   	      	for (int i = 0; i < numLinks; i++) {
+   	      		if(getLinkWithSourceAndSinkNodes(links.get(i).getTarget(),links.get(i).getSource())==-1) {
+   	      			Queue.add(i);
+   	      		}
+   	      	}
+	   	      
+	  	    int counterIndiceLink=this.getNumLinks();
+	 	    while(!Queue.isEmpty()) {
+	 		     /*we pop the first element of the queue*/
+	 		     int duplicate=Queue.poll();
+	 		     LinkFlow original = this.getLink(duplicate);
+	 		     this.addLink(new LinkFlow(counterIndiceLink, original.getTarget(),
+	 		        		 original.getSource(), original.getCapacity()));
+	 		     this.getLink(counterIndiceLink).setCapacityValues(original.getCapacityValues());
+	 		     this.getLink(counterIndiceLink).setProbabilityValues(original.getProbabilityValues());
+	 		     this.getLink(counterIndiceLink).setB(original.getB());
+	 		     counterIndiceLink++;
+	 	      }
+	   }
+       
+       
+       
+       
+       
+       
+       
 	   public void initLinkLambda(int i) {
 		   //if (i<3) {
 		//	   System.out.println("Init lambda ar�te " +i);

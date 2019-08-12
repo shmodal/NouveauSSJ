@@ -22,9 +22,9 @@ public class testConstructorFile {
 		
 		//double eps=0.05;
 		
-		String number="2";
-		String file="Alexo"+number+".txt";
-		//String file="lattice6and6";
+		//String number="2";
+		//String file="Alexo"+number+".txt";
+		String file="lattice6and6";
 		
 		procMC(demand,file, nrun);
 		procPMC(demand,file, nrun);
@@ -43,8 +43,8 @@ public class testConstructorFile {
 		try {
 			
 			g = new GraphFlow("/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/"+file);
-			
-		    g = ExamplesGraphs.Undirect(g);
+		    g.Undirect();
+		    g.resetCapacities();
 		    
 		}catch(IOException e){
 	    	System.out.println("Probleme de fichier "+ file);
@@ -52,8 +52,8 @@ public class testConstructorFile {
 	    }
 		RandomStream stream = new LFSR113();
 		System.out.println("============================================ Monte Carlo");
-		System.out.println("Graph : " +nameG);
-		MonteCarloFlow mc1 = new MonteCarloFlow(g);
+		System.out.println("Graph : " +file);
+		MonteCarloFlow mc1 = new MonteCarloFlowNonOriented(g);
 		mc1.run(nrun,stream,demand);
 	}
 	
@@ -63,7 +63,7 @@ public class testConstructorFile {
 		try {
 			g = new GraphFlow("/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/"+file);
 			
-		    g = ExamplesGraphs.Undirect(g);
+			g.Undirect();
 		}catch(IOException e){
 	    	System.out.println("Probleme de fichier "+ file);
 	    	return;
@@ -89,7 +89,7 @@ public class testConstructorFile {
 		GraphFlow g = null;
 		try {
 			g = new GraphFlow("/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/"+file);
-			g = ExamplesGraphs.Undirect(g);
+			g.Undirect();
 		}catch(IOException e){
 	    	System.out.println("Probleme de fichier "+ file);
 	    	return;
@@ -112,7 +112,8 @@ public class testConstructorFile {
 		GraphFlow g = null;
 		try {
 			g = new GraphFlow("/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/"+file);
-			g = ExamplesGraphs.Undirect(g);
+			g.Undirect();
+			g.resetCapacities();
 		}catch(IOException e){
 	    	System.out.println("Probleme de fichier "+ file);
 	    	return;
@@ -120,7 +121,7 @@ public class testConstructorFile {
 		
 		RandomStream stream = new LFSR113();
 		PMCFlow p = null;
-		p = new PMCFlow(g);
+		p = new PMCFlowNonOriented(g);
 		System.out.println("============================================ No Filter");
 		//PMCNonOriented p = new PMCNonOriented(g);
 		p.filter=false; p.filterOutside=false;
