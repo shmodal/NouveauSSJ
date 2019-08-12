@@ -18,24 +18,16 @@ public class testConstructorFile {
 		
 		int nrun=1000000;
 		
-		int demand = 20; // 5 or 20
+		int demand = 80; // 5 or 20
 		
 		//double eps=0.05;
 		
-		String number="3";
+		String number="2";
 		String file="Alexo"+number+".txt";
+		//String file="lattice6and6";
 		
-		file="lattice4and4";
-		try {
-			GraphFlow g = new GraphFlow("/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/"+file,
-					4,4,8);
-		}catch(IOException e){
-	    	System.out.println("Probleme de fichier "+ file);
-	    	return;
-	    }
-		
-		//procMC(demand,file, nrun);
-		//procPMC(demand,file, nrun);
+		procMC(demand,file, nrun);
+		procPMC(demand,file, nrun);
 		//procPMCfilter(demand,file, nrun);
 		//procPMCfilterOut(demand,file, nrun);
 	}
@@ -51,12 +43,6 @@ public class testConstructorFile {
 		try {
 			
 			g = new GraphFlow("/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/"+file);
-			int nLink=g.getNumLinks();
-			double[] Eps=new double[nLink];
-			for (int i=0;i<nLink;i++) {
-				Eps[i]=0.1;
-			}
-			g.MultiplyEdgeProbability(Eps);
 			
 		    g = ExamplesGraphs.Undirect(g);
 		    
@@ -67,8 +53,7 @@ public class testConstructorFile {
 		RandomStream stream = new LFSR113();
 		System.out.println("============================================ Monte Carlo");
 		System.out.println("Graph : " +nameG);
-		System.out.println("Warning : estimation of reliability instead of unreliability");
-		MonteCarloFlowNonOriented mc1 = new MonteCarloFlowNonOriented(g);
+		MonteCarloFlow mc1 = new MonteCarloFlow(g);
 		mc1.run(nrun,stream,demand);
 	}
 	
@@ -77,12 +62,7 @@ public class testConstructorFile {
 		GraphFlow g = null;
 		try {
 			g = new GraphFlow("/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/"+file);
-			int nLink=g.getNumLinks();
-			double[] Eps=new double[nLink];
-			for (int i=0;i<nLink;i++) {
-				Eps[i]=0.1;
-			}
-			g.MultiplyEdgeProbability(Eps);
+			
 		    g = ExamplesGraphs.Undirect(g);
 		}catch(IOException e){
 	    	System.out.println("Probleme de fichier "+ file);
@@ -109,12 +89,6 @@ public class testConstructorFile {
 		GraphFlow g = null;
 		try {
 			g = new GraphFlow("/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/"+file);
-			int nLink=g.getNumLinks();
-			double[] Eps=new double[nLink];
-			for (int i=0;i<nLink;i++) {
-				Eps[i]=0.1;
-			}
-			g.MultiplyEdgeProbability(Eps);
 			g = ExamplesGraphs.Undirect(g);
 		}catch(IOException e){
 	    	System.out.println("Probleme de fichier "+ file);
@@ -138,12 +112,6 @@ public class testConstructorFile {
 		GraphFlow g = null;
 		try {
 			g = new GraphFlow("/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/"+file);
-			int nLink=g.getNumLinks();
-			double[] Eps=new double[nLink];
-			for (int i=0;i<nLink;i++) {
-				Eps[i]=0.1;
-			}
-			g.MultiplyEdgeProbability(Eps);
 			g = ExamplesGraphs.Undirect(g);
 		}catch(IOException e){
 	    	System.out.println("Probleme de fichier "+ file);
@@ -151,8 +119,8 @@ public class testConstructorFile {
 	    }
 		
 		RandomStream stream = new LFSR113();
-		PMCFlowNonOriented p = null;
-		p = new PMCFlowNonOriented(g);
+		PMCFlow p = null;
+		p = new PMCFlow(g);
 		System.out.println("============================================ No Filter");
 		//PMCNonOriented p = new PMCNonOriented(g);
 		p.filter=false; p.filterOutside=false;
