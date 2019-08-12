@@ -56,7 +56,7 @@ public class MonteCarloFlow {
 	
    protected int drawCapacity(RandomStream stream, int i) {
 	   //System.out.println("Arete " + (i+1));
-	   //System.out.println("Réel tiré");
+	   //System.out.println("Rï¿½el tirï¿½");
 	   double u= stream.nextDouble();
 	   //System.out.println(u);
 	   double [] prob = father.getLink(i).getProbabilityValues();
@@ -81,7 +81,7 @@ public class MonteCarloFlow {
       Tally values = new Tally(); // unreliability estimates
       for (int j = 0; j < n; j++) {
          double x = doOneRun(stream,demande);
-         values.add(x);
+         values.add(1-x);
       }
 
       m_ell = values.average();

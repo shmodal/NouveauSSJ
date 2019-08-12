@@ -1,10 +1,5 @@
 package umontreal.ssj.networks.flow;
 
-import java.io.BufferedReader;
-
-
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import java.io.*;
@@ -127,10 +122,10 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 						 cntProb++;
 					 }
 					 if (Math.abs(1-sumProb)>1e-6) {
-						 System.out.println("The graph cannot be built as the probability values are not summing to one.");
+						 System.out.println("The graph cannot be built as the probability values are not summing to one."+ sumProb);
 					 }
 					 else {
-						 this.addLink(new LinkFlow(cntLink, a, b,capacity,capacityVal,probabilityVal));
+						 this.addLink(new LinkFlow(cntLink, a, b,0,capacityVal,probabilityVal));
 					 }
 				 }
 		        
@@ -152,6 +147,101 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 		     }
 	   }
  
+	    
+	   /**
+	    * Creates a graph define by a rectangular lattice
+	    * graph. The x-sides of the graph have n nodes, and the y-sides have m
+	    * nodes. The graph has edges between each adjacent nodes of capacity capacite. The graph contains
+	    * n*m nodes and n(m-1) + m(n-1) edges. Here is an example with n = 3 and m =
+	    * 4:<br />
+	    *
+	    * <pre>
+	    *    o---o---o
+	    *    |   |   |
+	    *    o---o---o
+	    *    |   |   |
+	    *    o---o---o
+	    *    |   |   |
+	    *    o---o---o
+	    * </pre>
+	    *
+	    * @param filename
+	    *           output file name
+	    * @param n
+	    *           number of nodes on x-sides
+	    * @param m
+	    *           number of nodes on y-sides
+	    * @param capacite
+	    * 			max capacity for every edge
+	    */
+	    GraphFlow(String filename,int n, int m, int capacite) throws IOException{
+		      int numNodes = n * m;
+		      int numLinks = n * (m - 1) + m * (n - 1);
+		      Writer output = null;
+		      int target = numNodes - 1; // target of graph
+		      double unifProb= 1.0/(capacite+1);
+		      File file = new File(filename);
+		      output = new BufferedWriter(new FileWriter(file));
+		      output.write(numNodes + "\t" + numLinks + "\t" + 0 + "\t" +target + "\n");
+		      
+		      for (int i = 0; i < m - 1; i++) {
+		         for (int j = 0; j < n - 1; j++) {
+		            int k = i * n + j;
+		            int targetleft = k + 1;
+		            int targetdown = k + n;
+		           
+		            output.write(k + "\t" + targetleft + "\t" + capacite + "\n");
+		            for (int cap=0;cap<capacite;cap++) {
+		            	output.write(cap + "\t");
+		            }
+		            output.write(capacite + "\n");
+		            for (int cap=0;cap<capacite;cap++) {
+		            	output.write(unifProb + "\t");
+		            }
+		            output.write(unifProb + "\n");
+		            
+		            output.write(k + "\t" + targetdown + "\t" + capacite + "\n");
+		            for (int cap=0;cap<capacite;cap++) {
+		            	output.write(cap + "\t");
+		            }
+		            output.write(capacite + "\n");
+		            for (int cap=0;cap<capacite;cap++) {
+		            	output.write(unifProb + "\t");
+		            }
+		            output.write(unifProb + "\n");
+		         }
+		      }
+
+		      for (int i = 0; i < m - 1; i++) {
+		         // node1 and node2 of edge
+		         int s = (i + 1) * n - 1;
+		         int t = s + n;
+		         output.write(s + "\t" + t + "\t" + capacite + "\n");
+		         for (int cap=0;cap<capacite;cap++) {
+		         	output.write(cap + "\t");
+		         }
+		         output.write(capacite + "\n");
+		         for (int cap=0;cap<capacite;cap++) {
+		         	output.write(unifProb + "\t");
+		         }
+		         output.write(unifProb + "\n");
+		      }
+
+		      for (int j = 0; j < n - 1; j++) {
+		         int s = (m - 1) * n + j;
+		         int t = s + 1;
+		         output.write(s + "\t" + t + "\t" + capacite + "\n");
+		         for (int cap=0;cap<capacite;cap++) {
+		         	output.write(cap + "\t");
+		         }
+		         output.write(capacite + "\n");
+		         for (int cap=0;cap<capacite;cap++) {
+		         	output.write(unifProb + "\t");
+		         }
+		         output.write(unifProb + "\n");
+		      }
+		      output.close();
+	   }
 	
 
 	   /**
@@ -320,16 +410,61 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
    	      return image;
    	   }
    
-	   
-	   private String splitFileName(String file) {
-	      int t = file.lastIndexOf('/');
-	      int s = file.lastIndexOf('.');
-	      if (s < 0)
-	         return file.substring(1 + t);
-	      else
-	         return file.substring(1 + t, s);
-	   }
+      
+	 /**
+	  * Multiply capacities probability values by eps, except the probability values of 
+	  * last capacity (the maximum one) which is set to make the sum equal to 1.
+	  * 
+	  * @param eps
+	  */
+      public void MultiplyEdgeProbability(double eps) {
+    	  
+    	  double newProb;
+    	  double sum;
+    	  int numberSeuil;
+    	  
+    	  for (int i = 0; i < numLinks; i++) {
+    		LinkFlow l=links.get(i);
+    		numberSeuil=l.getProbabilityValues().length;
+    		sum=0.0;
+    		for(int seuil=0;seuil<numberSeuil-1;seuil++) {
+    			newProb=l.getProbabilityValue(seuil)*eps;
+    			l.setProbabilityValue(seuil, newProb);
+    			sum+=newProb;
+    		}
+			newProb=1-sum;
+			l.setProbabilityValue(numberSeuil-1, newProb);
+    	  }
+      }
 
+      
+ 	 /**
+ 	  * Multiply capacities probability values by eps, except the probability values of 
+ 	  * last capacity (the maximum one) which is set to make the sum equal to 1.
+ 	  * 
+ 	  * @param eps
+ 	  */
+       public void MultiplyEdgeProbability(double[] Eps) {
+     	  
+     	  double newProb;
+     	  double sum;
+     	  double eps;
+     	  int numberSeuil;
+     	  
+     	  for (int i = 0; i < numLinks; i++) {
+     		LinkFlow l=links.get(i);
+     		numberSeuil=l.getProbabilityValues().length;
+     		sum=0.0;
+     		eps=Eps[i];
+     		for(int seuil=0;seuil<numberSeuil-1;seuil++) {
+     			newProb=l.getProbabilityValue(seuil)*eps;
+     			l.setProbabilityValue(seuil, newProb);
+     			sum+=newProb;
+     		}
+ 			newProb=1-sum;
+ 			l.setProbabilityValue(numberSeuil-1, newProb);
+     	  }
+       }
 
 	   
 	   public void initLinkLambda(int i) {
