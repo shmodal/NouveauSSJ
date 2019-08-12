@@ -51,7 +51,9 @@ public class ExamplesGraphs {
 			LinkedList<Integer> Queue = new LinkedList<Integer>();
 			
 	  	      for (int i = 0; i < numLinks; i++) {
+	  	    	if(g.getLinkWithSourceAndSinkNodes(g.getLink(i).getTarget(),g.getLink(i).getSource())==-1) {
 	   			      Queue.add(i);
+	  	    	}
 	   	      }
 	  	    int counterIndiceLink=g.getNumLinks();
 	 	    while(!Queue.isEmpty()) {

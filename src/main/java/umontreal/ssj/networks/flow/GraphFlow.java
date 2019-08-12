@@ -37,6 +37,11 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
     String filename = "";
 	
 
+	/**
+	 * Creates an empty graph, without nodes or links.
+	 * 
+	 */
+    
 	
 	public GraphFlow() {
 		this.numLinks=0;
@@ -46,6 +51,11 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 		this.source=-1;
 		this.target=-1;
 	}
+	
+	/**
+	 * Creates a graph knowing its nodes and links.
+	 * 
+	 */
 	
 	public GraphFlow(ArrayList<NodeBasic> nodes, ArrayList<LinkFlow> links) {
 		this.numLinks=nodes.size();
@@ -149,7 +159,7 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
  
 	    
 	   /**
-	    * Creates a graph define by a rectangular lattice
+	    * Creates a graph defined by a rectangular lattice
 	    * graph. The x-sides of the graph have n nodes, and the y-sides have m
 	    * nodes. The graph has edges between each adjacent nodes of capacity capacite. The graph contains
 	    * n*m nodes and n(m-1) + m(n-1) edges. Here is an example with n = 3 and m =
@@ -311,7 +321,7 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	   }
 
 	   /**
-	    * Sets the Capacity r for link i of the graph.
+	    * Sets the Capacity capacity for link i of the graph.
 	    * 
 	    * @param i link
 	    *           
@@ -325,8 +335,9 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	   }
 
 	   /**
-	    * Sets the Capacities for all links of the graph. Capacity must have the same
-	    * number of elements as the number of links.
+	    * Sets the different capacities for all the links of the graph. 
+	    * The array Capacities must have the same number of elements as 
+	    * the number of links.
 	    * 
 	    *           
 	    */
@@ -465,7 +476,14 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
  			l.setProbabilityValue(numberSeuil-1, newProb);
      	  }
        }
-
+       
+		/**
+		 * Transforms a directed graph into an undirected graph.
+		 * If the link L = (i,a,b) exists and not the link L' = (k,b,a), we add the link L'.
+		 * This new link has the same b, the same capacity values 
+		 * and probability values
+		 * 
+		 */
 	   
 	   public void Undirect() {
 			int numLinks = this.getNumLinks();
@@ -493,12 +511,11 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	 	      }
 	   }
        
-       
-       
-       
-       
-       
-       
+		/**
+		 * For PMC algorithm. Computes the <tt>lambda_i,k</tt> of the link i.
+		 * 
+		 */
+	   
 	   public void initLinkLambda(int i) {
 		   //if (i<3) {
 		//	   System.out.println("Init lambda ar�te " +i);
@@ -511,6 +528,12 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 			   //}
 		   
 	   }
+		/**
+		 * For PMC algorithm. Inside the link i, initializes the array of the <tt>S_i,k</tt>
+		 * 
+		 */
+	   
+	   
 	   public void initJumpAndIndexes(int i) {
 		   //System.out.println("Init jump ar�te " +i);
 		   links.get(i).initJumpAndIndexes();
@@ -539,17 +562,28 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 
 	   // New
 	   
+	   
+		/**
+		 * Sets the array of possible capacity Values of the link i to tab.
+		 * 
+		 */
+	   
 	   public void setCapacityValues(int i, int[] tab) {
 		   int [] copy = new int[tab.length];
 		   System.arraycopy(tab, 0, copy, 0, tab.length);
 		   links.get(i).setCapacityValues(copy);
 	   }
 	   
-	   // Memes capacites, NEW
+		/**
+		 * Sets the array of possible capacity Values of all links i to tab.
+		 * 
+		 */
 	   
 	   public void setCapacityValues(int[] tab) {
 		   for (int i = 0; i < numLinks; i++) {
-			   links.get(i).setCapacityValues(tab);
+			   int [] copy = new int[tab.length];
+			   System.arraycopy(tab, 0, copy, 0, tab.length);
+			   links.get(i).setCapacityValues(copy);
 			   }
 	   }
 	   
@@ -588,7 +622,9 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	   
 	   public void setProbabilityValues(double[] tab) {
 		   for (int i = 0; i < numLinks; i++) {
-			   links.get(i).setProbabilityValues(tab);
+			   double [] copy = new double[tab.length];
+			   System.arraycopy(tab, 0, copy, 0, tab.length);
+			   links.get(i).setProbabilityValues(copy);
 			   }
 	   }
 	   

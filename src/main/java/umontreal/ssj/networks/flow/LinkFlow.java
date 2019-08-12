@@ -33,7 +33,7 @@ public class LinkFlow extends LinkWithCapacity {
 	private int capacity;
 	
 	/**
-	 * (Previous)Partially Full constructor
+	 * Partially Full constructor. Capacity is set at 0 by default.
 	 * 
 	 * @param indice
 	 *           define the indice of the LinkWithCapacity
@@ -41,8 +41,6 @@ public class LinkFlow extends LinkWithCapacity {
 	 *           define the number of the source's node
 	 * @param target
 	 *           define the number of the target's node
-	 * @param r
-	 *           define the reliability of the LinkWithCapacity
 	 */
 	public LinkFlow(int indice, int source, int target)
 	{
@@ -52,7 +50,7 @@ public class LinkFlow extends LinkWithCapacity {
 	}
 	
 	/**
-	 * (Previous)Partially Full constructor
+	 * Partially Full constructor
 	 * 
 	 * @param indice
 	 *           define the indice of the LinkWithCapacity
@@ -60,7 +58,7 @@ public class LinkFlow extends LinkWithCapacity {
 	 *           define the number of the source's node
 	 * @param target
 	 *           define the number of the target's node
-	 * @param r
+	 * @param capacity
 	 *           define the capacity of the LinkFlow
 	 */
 	public LinkFlow(int indice, int source, int target, int capacity)

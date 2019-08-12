@@ -11,7 +11,8 @@ public class testalex {
 	public static void main(String[] args) throws IOException {
 		String file= ExamplesGraphs.getGraphfile("alexo2");
 		GraphFlow g = new GraphFlow(file);
-		g = ExamplesGraphs.Undirect(g);
+		//g = ExamplesGraphs.Undirect(g);
+		g.Undirect();
 		g.resetCapacities();
 		System.out.println(g.toString());
 		
@@ -21,7 +22,7 @@ public class testalex {
 		PMCFlowNonOriented p = null;
 		p = new PMCFlowNonOriented(g);
 		p.filter=false; p.filterOutside=false;
-		p.run(10000,stream,60);
+		p.run(10000,stream,80);
 }
 
 }

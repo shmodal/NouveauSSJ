@@ -29,9 +29,9 @@ public class testPMCDodeca {
 		boolean nofilter = false; //true for plain PMC(without filter)
 		nofilter = true;
 		boolean filter = false; // true for filtering simple
-		filter= true;
+		//filter= true;
 		boolean fOutside = false; // true for Filter Outside
-		fOutside = true;
+		//fOutside = true;
 		
 		int nrun = 1000000 ;
 		

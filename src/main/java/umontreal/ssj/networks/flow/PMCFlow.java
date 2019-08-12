@@ -40,6 +40,8 @@ public class PMCFlow {
    boolean filterOutside;
    int frequency;
    double seuil;
+   
+   GraphFlow residual; //NNNN
 
    
 
@@ -56,6 +58,7 @@ public class PMCFlow {
       level = -1.0; //de base, on relance le maxFlot tout le temps dans filter
       frequency = 1; //base, relance le calcul de outsideFlow a chaque fois
       seuil = -1.0; //de base, toujours au dessus du seuil pour outsideFlow
+      //residual =graph.residual(); //NNNN
    }
    
    
@@ -105,6 +108,7 @@ public class PMCFlow {
 	   int[] X = buildX();
 	   father.setCapacity(X);
 	   MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(father);
+	   //MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(father,residual);
 	   int maxFlow = Ek.EdmondsKarp();
 	   
 	   int p=0; // parcours du tableau des valeurs de Y
