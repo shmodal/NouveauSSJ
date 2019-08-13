@@ -13,7 +13,7 @@ import umontreal.ssj.rng.RandomStream;
  * 
  * DrawCapacity assumes that the capacity of a link follows a discrete distribution.
  * 
- * To estimate unreliability instead of reliability, just switch 1.0 and 0.0 in doOneRun.
+ * To estimate reliability instead of unreliability, just switch 1.0 and 0.0 in doOneRun.
  *  
  */
 

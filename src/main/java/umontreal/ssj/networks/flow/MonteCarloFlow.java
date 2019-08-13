@@ -12,7 +12,7 @@ import umontreal.ssj.util.Chrono;
 /** Crude Monte Carlo Algorithm for flow reliability estimation. Graphs are supposed to be directed.
  * DrawCapacity assumes that the capacity of a link follows a discrete distribution.
  * 
- * To estimate unreliability instead of reliability, just switch 1.0 and 0.0 in doOneRun.
+ * To estimate reliability instead of unreliability, just switch 1.0 and 0.0 in doOneRun.
  *  
  */
 

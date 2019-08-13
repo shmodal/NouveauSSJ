@@ -16,7 +16,11 @@ public class testSet {
 		g.addLink(new LinkFlow(1,2,1,0));
 		int [] tab = new int[2]; tab[0]=3;tab[1]=2;
 		g.setCapacityValues(tab);
-		g.getLink(0).setCapacityValue(0, 7);
+		//g.getLink(0).setCapacityValue(0, 7);
+		//g.setCapacityValues(0, tab);
+		//g.setCapacityValues(1, tab);
+		g.getLink(0).setCapacityValues(tab);
+		tab[0]=7;
 		System.out.println(g.toString());
 	}
 

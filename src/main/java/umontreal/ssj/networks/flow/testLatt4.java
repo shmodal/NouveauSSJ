@@ -36,7 +36,7 @@ public class testLatt4 {
 		for (int i=0;i<epsilon.length;i++) {
 			stream.resetStartSubstream();
 			p.initCapaProbaB(tab, rho, epsilon[i]);
-			modifyParam(p.father,epsilon[i]);
+			//modifyParam(p.father,epsilon[i]);
 			p.father.resetCapacities();
 			//System.out.println(p.father.toString());
 			p.run(500000,stream,demand);

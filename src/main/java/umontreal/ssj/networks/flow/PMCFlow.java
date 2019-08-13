@@ -309,6 +309,35 @@ public class PMCFlow {
 	      return relerr;
 	   }
    
+   
+   
+   public double returnRelErr(int n, RandomStream stream,int demand) {
+	      Chrono timer = new Chrono();
+	      timer.init();
+	      Tally values = new Tally(); // unreliability estimates
+	      for (int j = 0; j < n; j++) {
+	    	  //stream.resetNextSubstream();
+	    	  double x;
+	    	  if (filterOutside) {x = doOneRunFilterOutside(stream,demand);}
+	    	  else {x = doOneRun(stream,demand);}
+	         if (storeFlag)
+	            store.add(x);
+	         if (histFlag)
+	            hist.add(Math.log10(x));
+	         values.add(x);
+	      }
+
+	      m_ell = values.average();
+	      m_variance = values.variance();
+	      double sig = Math.sqrt(m_variance);
+	      double relvar = m_variance / (m_ell * m_ell); // relative variance
+	      double relerr = sig / (m_ell * Math.sqrt(n)); // relative error
+
+	      System.out.printf("rel err(barW_n) = %g%n", relerr);
+
+	      return relerr;
+	   }
+   
 
    
    

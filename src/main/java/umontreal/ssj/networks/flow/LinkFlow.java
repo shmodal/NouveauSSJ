@@ -27,6 +27,11 @@ public class LinkFlow extends LinkWithCapacity {
 	public int numberJumps; // nombre de jumps (Si,k) =1
 	public double [] lambdaTildeValues ; // les lambdaTilde
 	
+	   /**
+	    * Used in FilterOutside subroutine of PMC. Stores the flow which can be sent 
+	    * from one vertex of the link to another one, but without passing by the link 
+	    * itself
+	    */
 	public int outsideFlow;
 	
 	// capacity: only used in flowProblem 
@@ -150,7 +155,10 @@ public class LinkFlow extends LinkWithCapacity {
 	   
 	   public void setCapacityValues(int[] tab)
 	   {
-	     this.capacityValues = tab;
+		   int [] copy = new int[tab.length];
+		   System.arraycopy(tab, 0, copy, 0, tab.length);
+		   this.capacityValues = copy;
+	       //this.capacityValues = tab;
 	   }
 	   
 	   public int getCapacityValue(int k)
@@ -172,7 +180,9 @@ public class LinkFlow extends LinkWithCapacity {
 	   
 	   public void setProbabilityValues(double[] tab)
 	   {
-	     this.probabilityValues = tab;
+		   double [] copy = new double[tab.length];
+		   System.arraycopy(tab, 0, copy, 0, tab.length);
+	     this.probabilityValues = copy;
 	   }
 	   
 	   public void setProbabilityValue(int k, double p)

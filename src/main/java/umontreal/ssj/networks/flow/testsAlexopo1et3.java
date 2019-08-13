@@ -159,7 +159,7 @@ public class testsAlexopo1et3 {
 		
 		if (mc) {
 			System.out.println("============================================ Monte Carlo");
-			System.out.println("Warning : estimation of reliability instead of unreliability");
+			//System.out.println("Warning : estimation of reliability instead of unreliability");
 			MonteCarloFlowNonOriented mc1 = new MonteCarloFlowNonOriented(g);
 			mc1.run(nrun,stream,demand);
 		}
