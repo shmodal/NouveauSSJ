@@ -65,7 +65,8 @@ public class MaxFlowEdmondsKarp {
     public void DecreaseLinkCapacity(int link, int decreaseCap) {
     	int delta= decreaseCap-residual.getLink(link).getCapacity();
     	if(delta>0) {
-	    	int tmpSource=this.residual.getLink(link).getSource();
+	    	
+    		int tmpSource=this.residual.getLink(link).getSource();
 	    	int tmpTarget=this.residual.getLink(link).getTarget();
 	    	int oppositeIndice = residual.getLinkWithSourceAndSinkNodes(tmpTarget,tmpSource);
 			LinkWithCapacity oppositeLink = residual.getLink(oppositeIndice);
@@ -80,6 +81,12 @@ public class MaxFlowEdmondsKarp {
 	    	//reroute the excess flow from u to target
 	    	int uvMaxFlow=DecreaseCapFlow(tmpSource, this.sink, delta);
 	    	
+	    	
+	    	if(uvMaxFlow<delta) {
+	    		this.residual=this.network.residual();
+	    		this.EdmondsKarp();
+	    	}
+	    	/*
 	    	if(uvMaxFlow<delta) {
 	    		if(tmpSource!=this.source) {
 		    		int uToSource=DecreaseCapFlow(tmpSource, this.source, delta-uvMaxFlow);
@@ -89,7 +96,9 @@ public class MaxFlowEdmondsKarp {
 	    		
 	    	}
 	    	
-	    	/*
+	    	*********************
+	    	
+	    	
 	    	//call max flow for source u et target v
 	    	int uvMaxFlow=DecreaseCapFlow(tmpSource, tmpTarget, delta);
 	    	this.maxFlowValue+=uvMaxFlow-delta;
