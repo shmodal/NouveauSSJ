@@ -39,7 +39,8 @@ public class testLatt4 {
 			//modifyParam(p.father,epsilon[i]);
 			p.father.resetCapacities();
 			//System.out.println(p.father.toString());
-			p.run(500000,stream,demand);
+			System.out.println("epsilon = " + epsilon[i]);
+			p.run(1000*1000,stream,demand);
 		}
 }
 	

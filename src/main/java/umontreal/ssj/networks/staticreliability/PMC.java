@@ -148,8 +148,35 @@ public class PMC {
       System.out.printf("CPU time:   %.1f  sec%n%n%n", cro);
       return relerr;
    }
+   
+   
+   public double returnRelErr(int n, RandomStream stream) {
+	      Chrono timer = new Chrono();
+	      timer.init();
+	      Tally values = new Tally(); // unreliability estimates
+	      for (int j = 0; j < n; j++) {
+	    	  //stream.resetNextSubstream();
+	    	  double x;
+	    	  x = doOneRun(stream);
+	         if (storeFlag)
+	            store.add(x);
+	         if (histFlag)
+	            hist.add(Math.log10(x));
+	         values.add(x);
+	      }
 
-   public double doOneRun(RandomStream stream) {
+	      m_ell = values.average();
+	      m_variance = values.variance();
+	      double sig = Math.sqrt(m_variance);
+	      double relvar = m_variance / (m_ell * m_ell); // relative variance
+	      double relerr = sig / (m_ell * Math.sqrt(n)); // relative error
+
+	      System.out.printf("rel err(barW_n) = %g%n", relerr);
+
+	      return relerr;
+	   }
+
+   protected double doOneRun(RandomStream stream) {
       // Draw independent repair times
       drawRepairTimes(stream);
       int m = father.getNumLinks();

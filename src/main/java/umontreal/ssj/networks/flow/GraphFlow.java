@@ -757,6 +757,31 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 			this.getLink(i).setCapacity(this.getLink(i).getCapacityValue(0));
 		}
 	}
+
+
+	   /** Computes the values of <tt>Lambda_i,k</tt> and sets them in each link i.
+	    * Then, it draws the values of <tt>Y_i,k</tt> and also sets them.
+	    * @param stream
+	    */
+	   
+	   public void drawY(RandomStream stream) {
+		   int m = getNumLinks();
+		   for (int i=0;i<m;i++) {
+			   initLinkLambda(i);
+			   double [] lamb = getLambdaValues(i);
+			   double [] ValuesY = new double[lamb.length];
+			   for (int j=0;j< ValuesY.length;j++) {
+				   double lambda = lamb[j];
+				   ValuesY[j] = ExponentialDist.inverseF(lambda, stream.nextDouble());
+			   }
+			   setValuesY(ValuesY, i);
+		   }
+	   }
+	
+	
+
+
+
 }
 
 

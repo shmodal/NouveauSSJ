@@ -5,17 +5,21 @@ import java.io.IOException;
 import umontreal.ssj.rng.LFSR113;
 import umontreal.ssj.rng.RandomStream;
 
-public class testBRE {
+public class testResultsLattice {
 
 	public static void main(String[] args) throws IOException {
-		String file= ExamplesGraphs.getGraphfile("lattice4and4");
+		// TODO Auto-generated method stub
+		int nrun = 1000*1000;
+		int number;
+		number = 4;
+		String name = "lattice"+number+"and"+number;
+		
+		String file= ExamplesGraphs.getGraphfile(name);
 		GraphFlow g = new GraphFlow(file);
 		g = ExamplesGraphs.Undirect(g);
 		g.resetCapacities();
 		//System.out.println(g.toString());
 		
-		System.out.println(g.source);
-		System.out.println(g.target);
 		RandomStream stream = new LFSR113();
 		PMCFlowNonOriented p = null;
 		p = new PMCFlowNonOriented(g);
@@ -31,23 +35,30 @@ public class testBRE {
 		
 		double[] epsilon = {1.0e-4, 1.0e-5, 1.0e-6, 1.0e-7, 1.0e-8, 1.0e-9, 1.0e-10, 1.0e-11,
 				1.0e-12, 1.0e-13};
-		int repetition = 20; //on calcule 10 fois l'err relative pour un epsilon
-		double [] epsi= {1.0e-80};
-		for (int i=0;i<epsi.length;i++) {
+		
+		for (int i=0;i<epsilon.length;i++) {
 			stream.resetStartSubstream();
-			p.initCapaProbaB(tab, rho, epsi[i]);
+			p.initCapaProbaB(tab, rho, epsilon[i]);
+			//modifyParam(p.father,epsilon[i]);
 			p.father.resetCapacities();
 			//System.out.println(p.father.toString());
-			//p.run(500000,stream,demand);
-			double rep = 0.;
-			for (int j=0;j<repetition;j++) {
-				p.father.resetCapacities();
-				rep += p.returnRelErr(500000, stream, demand);
-			}
-			rep = rep/repetition;
-			System.out.println("erreur pour epsilon = " + epsi[i] + " : " + rep);
+			System.out.println("epsilon = " + epsilon[i]);
+			p.run(1000*1000,stream,demand);
 		}
-
+		
+		
+		
+		
+		//on cree les graphes
+		
+		System.out.println("Graphe : " + name);
+		System.out.println("Nrun =" +nrun);
+		
+		System.out.println("            WN        RE        WNRV        T");
+		
+		
+		
+		
 	}
 
 }

@@ -338,6 +338,51 @@ public class PMCFlow {
 	      return relerr;
 	   }
    
+   
+   
+   public double returnResults(int n, RandomStream stream,int demand) {
+	      Chrono timer = new Chrono();
+	      timer.init();
+	      Tally values = new Tally(); // unreliability estimates
+	      for (int j = 0; j < n; j++) {
+	    	  //stream.resetNextSubstream();
+	    	  double x;
+	    	  if (filterOutside) {x = doOneRunFilterOutside(stream,demand);}
+	    	  else {x = doOneRun(stream,demand);}
+	         if (storeFlag)
+	            store.add(x);
+	         if (histFlag)
+	            hist.add(Math.log10(x));
+	         values.add(x);
+	      }
+
+	      m_ell = values.average();
+	      m_variance = values.variance();
+	      double sig = Math.sqrt(m_variance);
+	      double relvar = m_variance / (m_ell * m_ell); // relative variance
+	      double relerr = sig / (m_ell * Math.sqrt(n)); // relative error
+	      System.out.printf("barW_n      = %g%n", m_ell);
+	      System.out.printf("S_n         = %g%n", sig);
+	      System.out.printf("var = S_n^2 = %g%n", m_variance);
+	      System.out.printf("var/n       = %g%n", m_variance / n);
+	      System.out.printf("rel var(W)  = %g%n%n", relvar);
+	      System.out.println(values.formatCINormal(0.95, 4));
+	      System.out.printf("rel err(barW_n) = %g%n", relerr);
+
+	      double cro = timer.getSeconds();
+	      double tem = cro * m_variance / n;
+	      System.out.printf("time*var/n      = %g%n", tem);
+	      System.out.printf("time*var/(n*barW_n^2) = %g%n%n", tem
+	            / (m_ell * m_ell));
+
+	      System.out.printf("CPU time:   %.1f  sec%n%n%n", cro);
+	      double [] t = new double[4];
+	      t[0] = m_ell; t[1] = relerr;t[2] = tem / (m_ell * m_ell);
+	      t[3] = cro;
+	      return relerr;
+	   }
+   
+   
 
    
    
