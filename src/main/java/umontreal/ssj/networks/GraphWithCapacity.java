@@ -2,9 +2,12 @@ package umontreal.ssj.networks;
 
 import java.io.BufferedReader;
 
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import java.io.*;
 
@@ -244,12 +247,18 @@ public class GraphWithCapacity extends GraphOriented<NodeBasic,LinkWithCapacity>
    	      }
    	      
    	      /*counter to create the new links*/
+   	      Map<Integer, ArrayList<Integer>> map = new HashMap<Integer, ArrayList<Integer>>();
    	      int counterIndiceLink=this.numLinks;
    	      while(!Queue.isEmpty()) {
    		     /*we pop the first element of the queue*/
    		     int duplicate=Queue.poll();
+   		     int key=links.get(duplicate).getTarget();
+   		     if (map.get(key) == null) {
+   		    	map.put(key, new ArrayList<Integer>());
+   		     }
+   		     map.get(key).add(counterIndiceLink);
    		     image.addLink(new LinkWithCapacity(counterIndiceLink, links.get(duplicate).getTarget(),
-   		        		 links.get(duplicate).getSource(), 0));
+   		        		links.get(duplicate).getSource(), 0));
    		     counterIndiceLink++;
 
    	      }
@@ -262,6 +271,12 @@ public class GraphWithCapacity extends GraphOriented<NodeBasic,LinkWithCapacity>
    	            ArrayList<Integer> clonemylink = new ArrayList<Integer>();
    	            for (int j = 0; j < nodes.get(i).getNodeLinks().size(); j++) {
    	               clonemylink.add(nodes.get(i).getNodeLink(j));
+   	            }
+   	            if (map.get(i) != null) {
+   	            	ArrayList<Integer> neigh=map.get(i);
+   	            	for (int counter = 0; counter < neigh.size(); counter++) { 		      
+   	            		clonemylink.add(neigh.get(counter)); 		
+   	            	} 
    	            }
    	            image.addNode(new NodeBasic(0, nodes.get(i).getNumber(), clonemylink));
    	         } else {
