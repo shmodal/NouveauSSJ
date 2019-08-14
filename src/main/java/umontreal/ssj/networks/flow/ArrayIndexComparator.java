@@ -4,9 +4,9 @@ import java.util.Comparator;
 
 public class ArrayIndexComparator implements Comparator<Integer>{
 
-    private final Double[] array;
+    private final double[] array;
 
-    public ArrayIndexComparator(Double[] array)
+    public ArrayIndexComparator(double[] array)
     {
         this.array = array;
     }
@@ -24,7 +24,10 @@ public class ArrayIndexComparator implements Comparator<Integer>{
     @Override
     public int compare(Integer index1, Integer index2)
     {
-        return array[index1].compareTo(array[index2]);
+        Double a = (Double) array[index1];
+        Double b = (Double) array[index2];
+        return a.compareTo(b);
+    	//return array[index1].compareTo(array[index2]);
     }
 
 }

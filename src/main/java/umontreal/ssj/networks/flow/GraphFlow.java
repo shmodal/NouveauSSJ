@@ -2,8 +2,11 @@ package umontreal.ssj.networks.flow;
 
 import java.util.ArrayList;
 
+
 import java.io.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.LinkedList;
 import java.util.Arrays;
 
@@ -391,11 +394,18 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 					links.get(i).getTarget(),links.get(i).getCapacity(), new int[0],new double[0]));
 		}
 
+		
+ 	    Map<Integer, ArrayList<Integer>> map = new HashMap<Integer, ArrayList<Integer>>();
 		/*counter to create the new links*/
 		int counterIndiceLink=this.numLinks;
 		while(!Queue.isEmpty()) {
 			/*we pop the first element of the queue*/
 			int duplicate=Queue.poll();
+		    int key=links.get(duplicate).getTarget();
+		    if (map.get(key) == null) {
+		    	map.put(key, new ArrayList<Integer>());
+		    }
+		    map.get(key).add(counterIndiceLink);
 			image.addLink(new LinkFlow(counterIndiceLink, links.get(duplicate).getTarget(),
 					links.get(duplicate).getSource(), 0, new int[0],new double[0]));
 			counterIndiceLink++;
@@ -411,6 +421,12 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 				for (int j = 0; j < nodes.get(i).getNodeLinks().size(); j++) {
 					clonemylink.add(nodes.get(i).getNodeLink(j));
 				}
+				if (map.get(i) != null) {
+ 	            	ArrayList<Integer> neigh=map.get(i);
+ 	            	for (int counter = 0; counter < neigh.size(); counter++) { 		      
+ 	            		clonemylink.add(neigh.get(counter)); 		
+ 	            	} 
+ 	            }
 				image.addNode(new NodeBasic(0, nodes.get(i).getNumber(), clonemylink));
 			} else {
 				image.addNode(new NodeBasic());
@@ -757,56 +773,6 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 			this.getLink(i).setCapacity(this.getLink(i).getCapacityValue(0));
 		}
 	}
-
-
-	   /** 
-	    * Draws the values of <tt>Y_i,k</tt> associated to the lambda i,k
-	    * It then returns the double[] array of all the values Y;
-	    * @param stream
-	    */
-	   
-	   public double[] drawY(RandomStream stream) {
-		   int m = getNumLinks();
-		   int taille = 0;
-		   for (int i=0;i<m;i++) {
-			   taille += getLink(i).getB();
-		   }
-		   double[] valuesY = new double[taille];
-		   int compteur = 0;
-		   for (int i=0;i<m;i++) {
-			   double [] lambI = getLambdaValues(i);
-			   for (int j=0;j< lambI.length;j++) {
-				   double lambda = lambI[j];
-				   valuesY[compteur] = ExponentialDist.inverseF(lambda, stream.nextDouble());
-				   compteur++;
-			   }
-		   }
-		   return valuesY;
-	   }
-	
-	
-	   public double[] initLambda (int i) {
-		   double sum = 0.0;
-		   LinkFlow EdgeI = getLink(i);
-		   double [] lamb = new double[EdgeI.getProbabilityValues().length -1];
-		   System.arraycopy(EdgeI.getProbabilityValues(), 0, lamb, 0, lamb.length); // on ne copie pas ri,bi
-		   // Somme cumulee des r puis ln sur le terme d'avant;
-		   for (int k=0; k <(lamb.length-1) ; k++) {
-			   lamb[k+1] += lamb[k];
-			   lamb[k] = -Math.log(lamb[k]); // les lambda sont avec des -ln(sum)
-		   }
-		   lamb[lamb.length -1] = -Math.log(lamb[lamb.length -1]);
-		   sum = lamb[lamb.length -1];
-		   for (int k=(lamb.length-2) ; k>=0 ; k--) {
-			   lamb[k] = lamb[k] -sum;   //- lamb[k+1];
-			   //System.out.println("Lambda k " + lamb[k] );
-			   sum += lamb[k];
-		   }
-		   return lamb;
-	   }
-	   
-
-
 
 }
 
