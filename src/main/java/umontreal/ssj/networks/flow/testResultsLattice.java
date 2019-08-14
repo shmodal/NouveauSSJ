@@ -54,7 +54,7 @@ public class testResultsLattice {
 		System.out.println("Graphe : " + name);
 		System.out.println("Nrun =" +nrun);
 		
-		System.out.println("            WN        RE        WNRV        T");
+		System.out.println("              		WN        RE        WNRV        T");
 		
 		
 		

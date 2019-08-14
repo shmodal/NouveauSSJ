@@ -511,7 +511,7 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	}
 
 	/**
-	 * For PMC algorithm. Computes the <tt>lambda_i,k</tt> of the link i.
+	 * For PMC and GS algorithms. Computes the <tt>lambda_i,k</tt> of the link i.
 	 * 
 	 */
 
@@ -759,26 +759,52 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	}
 
 
-	   /** Computes the values of <tt>Lambda_i,k</tt> and sets them in each link i.
-	    * Then, it draws the values of <tt>Y_i,k</tt> and also sets them.
+	   /** 
+	    * Draws the values of <tt>Y_i,k</tt> associated to the lambda i,k
+	    * It then returns the double[] array of all the values Y;
 	    * @param stream
 	    */
 	   
-	   public void drawY(RandomStream stream) {
+	   public double[] drawY(RandomStream stream) {
 		   int m = getNumLinks();
+		   int taille = 0;
 		   for (int i=0;i<m;i++) {
-			   initLinkLambda(i);
-			   double [] lamb = getLambdaValues(i);
-			   double [] ValuesY = new double[lamb.length];
-			   for (int j=0;j< ValuesY.length;j++) {
-				   double lambda = lamb[j];
-				   ValuesY[j] = ExponentialDist.inverseF(lambda, stream.nextDouble());
-			   }
-			   setValuesY(ValuesY, i);
+			   taille += getLink(i).getB();
 		   }
+		   double[] valuesY = new double[taille];
+		   int compteur = 0;
+		   for (int i=0;i<m;i++) {
+			   double [] lambI = getLambdaValues(i);
+			   for (int j=0;j< lambI.length;j++) {
+				   double lambda = lambI[j];
+				   valuesY[compteur] = ExponentialDist.inverseF(lambda, stream.nextDouble());
+				   compteur++;
+			   }
+		   }
+		   return valuesY;
 	   }
 	
 	
+	   public double[] initLambda (int i) {
+		   double sum = 0.0;
+		   LinkFlow EdgeI = getLink(i);
+		   double [] lamb = new double[EdgeI.getProbabilityValues().length -1];
+		   System.arraycopy(EdgeI.getProbabilityValues(), 0, lamb, 0, lamb.length); // on ne copie pas ri,bi
+		   // Somme cumulee des r puis ln sur le terme d'avant;
+		   for (int k=0; k <(lamb.length-1) ; k++) {
+			   lamb[k+1] += lamb[k];
+			   lamb[k] = -Math.log(lamb[k]); // les lambda sont avec des -ln(sum)
+		   }
+		   lamb[lamb.length -1] = -Math.log(lamb[lamb.length -1]);
+		   sum = lamb[lamb.length -1];
+		   for (int k=(lamb.length-2) ; k>=0 ; k--) {
+			   lamb[k] = lamb[k] -sum;   //- lamb[k+1];
+			   //System.out.println("Lambda k " + lamb[k] );
+			   sum += lamb[k];
+		   }
+		   return lamb;
+	   }
+	   
 
 
 

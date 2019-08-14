@@ -206,7 +206,9 @@ public class LinkFlow extends LinkWithCapacity {
 	   }
 	   public void setLambdaValues(double[] tab)
 	   {
-	      lambdaValues = tab;
+		   double [] copy = new double[tab.length];
+		   System.arraycopy(tab, 0, copy, 0, tab.length);
+		   lambdaValues = copy;
 	   }
 	   
 	   public void setValuesY(double[] tab)

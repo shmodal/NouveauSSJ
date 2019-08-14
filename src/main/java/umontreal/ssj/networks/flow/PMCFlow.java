@@ -379,6 +379,9 @@ public class PMCFlow {
 	      double [] t = new double[4];
 	      t[0] = m_ell; t[1] = relerr;t[2] = tem / (m_ell * m_ell);
 	      t[3] = cro;
+	      
+	      // A FINIR
+	      
 	      return relerr;
 	   }
    

@@ -33,8 +33,8 @@ public class compareDodecRichard {
 		
 		//cree PMC Flot
 		//String file= ExamplesGraphs.getGraphfile("dodecaFlow");
-		//String file= ExamplesGraphs.getGraphfile("lattice4and4");
-		String file= ExamplesGraphs.getGraphfile("lattice10and10Basic");
+		String file= ExamplesGraphs.getGraphfile("lattice4and4");
+		//String file= ExamplesGraphs.getGraphfile("lattice10and10Basic");
 		GraphFlow g = new GraphFlow(file);
 		g.Undirect();
 		g.resetCapacities();
@@ -81,6 +81,7 @@ public class compareDodecRichard {
      
      //p.run(nrun, stream, demande);  //PMC Flow
      System.out.print("PMC Flow : ");
+     p.filter=true;
      p.returnRelErr(nrun, stream, demande);
      
      stream.resetStartStream();

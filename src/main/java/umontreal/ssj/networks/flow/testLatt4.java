@@ -38,6 +38,7 @@ public class testLatt4 {
 			p.initCapaProbaB(tab, rho, epsilon[i]);
 			//modifyParam(p.father,epsilon[i]);
 			p.father.resetCapacities();
+			p.filter=true;
 			//System.out.println(p.father.toString());
 			System.out.println("epsilon = " + epsilon[i]);
 			p.run(1000*1000,stream,demand);

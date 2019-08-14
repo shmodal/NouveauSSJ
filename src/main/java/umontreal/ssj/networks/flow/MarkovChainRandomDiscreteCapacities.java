@@ -17,6 +17,8 @@ public class MarkovChainRandomDiscreteCapacities extends MarkovChainWithImportan
 	public HashMap <Double,int[]> permutation;
 	protected RandomStream streamPermut; // for random permutations of links
 	int demand;
+	protected MaxFlowEdmondsKarp Ek1;
+	int time;
 	
 	
 	   public MarkovChainRandomDiscreteCapacities(GraphFlow father, RandomStream streamPermut,
@@ -25,35 +27,37 @@ public class MarkovChainRandomDiscreteCapacities extends MarkovChainWithImportan
 		   	super();
 		   	this.father = father;
 		   	this.demand = demand;
+		   	this.Ek1 = new MaxFlowEdmondsKarp(father);
+		   	this.streamPermut = streamPermut;
 		   }
 	
 	
 	   public void initialState(RandomStream stream, double gamma) {
-		   father.drawY(stream);
-		   for (int j=0;j<)
+		   for (int i=0;i<father.getNumLinks();i++) {
+			   father.initLinkLambda(i);
+		   }
+		   valuesY = father.drawY(stream);
+		   int TC = computeTC(this.Ek1);
+		   this.time = TC;
 	   }
 	   
-	   // Suppose que le tableau est trié
-	   public int computeTC() {
-		   GraphFlow copy = father.clone();
+	   // Suppose que le tableau des Y est trié. Ce n'est pas une mise à jour
+	   public int computeTC(MaxFlowEdmondsKarp EK) {
+		   //GraphFlow copy = father.clone();
 		   int p =0;
 		   int maxFlow = 0;
-		   MaxFlowEdmondsKarp Ek= new MaxFlowEdmondsKarp(copy);
 		   while (maxFlow < demand && p<valuesY.length ) {
 			   double y = valuesY[p];
 			   int [] indices = permutation.get(y);
-
 			   int i = indices[0];
 			   int k = indices[1];
 			   LinkFlow EdgeI = father.getLink(i);
 			   int prevCapacity = father.getLink(i).getCapacity();
-			   boolean reload =Ek.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) - prevCapacity  );
+			   boolean reload =EK.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) - prevCapacity  );
 			   if (reload) {
-				   maxFlow = Ek.EdmondsKarp();
+				   maxFlow = EK.EdmondsKarp();
 			   }
-			   
-			   p++;
-			   
+			   p++;	   
 		   }
 		   return p;
 	   }
@@ -64,13 +68,16 @@ public class MarkovChainRandomDiscreteCapacities extends MarkovChainWithImportan
 		
 	}
 	
-	   //update the Markov chain according to the gamma, puisqu'on ne retient plus gamma
-	   // dans la MC
+	   //update the Markov chain according to the gamma,
+	// on doit rajouter des aretes successivement, et voir si on a déjà atteint le max flot
+	// ou pas. On le modifie dans EK1.
 	   @Override
 	   public void updateChainGamma (double gamma) {
-		   forest.update(gamma);
+		   //on recupere Y_values
+		   
+		   
+		   
 	   }
-	
 	
 	
 	
