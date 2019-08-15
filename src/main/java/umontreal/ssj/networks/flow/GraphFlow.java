@@ -788,14 +788,22 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 			   taille += getLink(i).getB();
 		   }
 		   double[] valuesY = new double[taille];
+		   
 		   int compteur = 0;
+		   int compt2 = 0;
 		   for (int i=0;i<m;i++) {
 			   double [] lambI = getLambdaValues(i);
+			   double[] valeursI = new double[getLink(i).getB()];
 			   for (int j=0;j< lambI.length;j++) {
 				   double lambda = lambI[j];
-				   valuesY[compteur] = ExponentialDist.inverseF(lambda, stream.nextDouble());
+				   double y = ExponentialDist.inverseF(lambda, stream.nextDouble());
+				   valuesY[compteur] = y;
 				   compteur++;
+				   valeursI[compt2] = y;
+				   compt2++;
 			   }
+			   compt2=0;
+			   setValuesY(valeursI,i);
 		   }
 		   return valuesY;
 	   }

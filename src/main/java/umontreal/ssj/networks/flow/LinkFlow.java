@@ -204,6 +204,13 @@ public class LinkFlow extends LinkWithCapacity {
 	   {
 	      return lambdaValues;
 	   }
+	   
+	   
+	   public double getLambdaValue(int k)
+	   {
+	      return lambdaValues[k];
+	   }
+	   
 	   public void setLambdaValues(double[] tab)
 	   {
 		   double [] copy = new double[tab.length];
