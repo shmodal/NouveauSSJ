@@ -73,23 +73,26 @@ public class MaxFlowEdmondsKarp {
 			oppositeLink.setCapacity(oppositeLink.getCapacity()-delta);
 	    	this.residual.getLink(link).setCapacity(0);
 	    	
-
+	    	
+	    	if(tmpTarget!=this.sink) {
+	    		int vToSink=DecreaseCapFlow( this.sink,tmpTarget, delta);
+	    		
+	    	}
 	    	//call max flow for source u et target v
-	    	int uvMaxFlow=DecreaseCapFlow(tmpSource, tmpTarget, delta);
+	    	int uvMaxFlow=DecreaseCapFlow(tmpSource, this.sink, delta);
 	    	this.maxFlowValue+=uvMaxFlow-delta;
 	    	
-	    	//reequilibre flow matrix
-	    	if(tmpSource!=this.source) {
-	    		int uToSource=DecreaseCapFlow(tmpSource, this.source, delta-uvMaxFlow);
-	    		
+	    	if((delta-uvMaxFlow)>0) {
+		    	
+		    	//reequilibre flow matrix
+		    	if(tmpSource!=this.source) {
+		    		int uToSource=DecreaseCapFlow(tmpSource, this.source, delta-uvMaxFlow);
+		    		
+		    	}
+		    	
+		    	//try to see if we can redirect part of the lost flow
+		    	this.EdmondsKarp();
 	    	}
-	    	if(tmpTarget!=this.sink) {
-	    		int vToSink=DecreaseCapFlow( this.sink,tmpTarget, delta-uvMaxFlow);
-	    		
-	    	}
-	    	//try to see if we can redirect part of the lost flow
-	    	this.EdmondsKarp();
-	    	
 	    	
 
     	}else {
