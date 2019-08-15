@@ -161,8 +161,10 @@ public class PMCFlowContinuous {
 	   //we add the firts couple (MaxFlow,W) to our estimator
 	   demandLevels.add(new Double(maxFlow));
 	   unreliabilities.add(ell);
+	   double sumEll=ell;
 	   
 	   while (maxFlow < demandHigh && j <Lam.length-1 && p<K) {
+		   
 		   double y = valuesY[p]; // Y(pi(j))
 		   int [] indices = permutation.get(y);
 		   int i = indices[0];
@@ -182,23 +184,26 @@ public class PMCFlowContinuous {
 			   if (reload) {
 				   curMaxFlow=Ek.maxFlowValue;
 				   maxFlow = Ek.EdmondsKarp();
-				   if(maxFlow>curMaxFlow) {
-					   //interested in the probability of the atom
-					   ell = computeBarF(Lam,j)-ell;
-					   //we add the couple (MaxFlow,W) to our estimator
-					   demandLevels.add(new Double(maxFlow));
-					   unreliabilities.add(ell);
-					   
-					   curMaxFlow=maxFlow;
-				   }
+				   
 			   }
 
-			   j++; 
+			   j++;
+			   if(maxFlow>curMaxFlow) {
+				   //interested in the probability of the atom
+				   ell = computeBarF(Lam,j)-sumEll;
+				   sumEll+=ell;
+				   //we add the couple (MaxFlow,W) to our estimator
+				   demandLevels.add(new Double(maxFlow));
+				   unreliabilities.add(ell);
+				   
+				   curMaxFlow=maxFlow;
+			   }
 		   }
 		   
 		   p++;	   
 	   }
-	  
+	      
+		  
 	   ArrayList<ArrayList<Double>> l=new ArrayList<ArrayList<Double>>();
 	   l.add(demandLevels);
 	   l.add(unreliabilities);
@@ -206,10 +211,9 @@ public class PMCFlowContinuous {
    }
    
    
-   public void run(int n, RandomStream stream,int demandLow, int demandHigh) {
+   public ArrayList<ArrayList<Double>> run(int n, RandomStream stream,int demandLow, int demandHigh) {
 	      Chrono timer = new Chrono();
 	      timer.init();
-	      Tally values = new Tally(); // unreliability estimates
 	      ArrayList<ArrayList<Double>> x;
 	      ArrayList<Double> demandLevels=new ArrayList<Double>();
 	      ArrayList<Double> unreliabilities=new ArrayList<Double>();
@@ -234,14 +238,43 @@ public class PMCFlowContinuous {
 	      Integer[] indexes = comparator.createIndexArray();
 	      Arrays.sort(indexes, comparator);
 	      
+	      
 	      //the return vector without doublon
-	      Double[] finalDemands=new Double[demandLevels.size()];
-	      Double[] finalUnrelia=new Double[unreliabilities.size()];
-	      for(int nbr=0;nbr<indexes.length;nbr++) {
-	    	  	finalDemands[nbr]=tabDemands[indexes[nbr]];
-	    	  	finalUnrelia[nbr]=tabUnrelia[indexes[nbr]];
+	      ArrayList<Double> finalFlows=new ArrayList<Double>();
+	      ArrayList<Double> finalUnrelia=new ArrayList<Double>();
+	      int nbr=0;
+	      double curFlow;
+	      
+	      double memoFlow=tabDemands[indexes[nbr]];
+	      while(nbr<indexes.length-1) {
+	    	  curFlow=tabDemands[indexes[nbr]];
+	    	  double sum=0.0;
+	    	  while(curFlow==memoFlow && nbr<indexes.length-1) {
+	    	  		sum+=tabUnrelia[indexes[nbr]];
+	    	  		nbr+=1;
+	    	  		curFlow=tabDemands[indexes[nbr]];
+	      
+	    	  }
+	    	  finalFlows.add(memoFlow);
+	    	  finalUnrelia.add(sum);
+	    	  memoFlow=curFlow;
+	    	  
+	    	  
 	      }
 	      
+	      double sum=0.0;
+    	  for(int i=0;i<finalFlows.size();i++) {
+    		  System.out.print(finalFlows.get(i)+" ");
+    		  System.out.print(sum+finalUnrelia.get(i)+" ");
+    		  sum+=finalUnrelia.get(i);
+    		  System.out.println();
+    	  }
+    	  
+    	  ArrayList<ArrayList<Double>> tab=new ArrayList<ArrayList<Double>>();
+    	  tab.add(finalFlows);
+    	  tab.add(finalUnrelia);
+    	  
+    	  return tab;
 	      
    }
    

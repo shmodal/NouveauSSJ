@@ -7,21 +7,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import umontreal.ssj.networks.NodeBasic;
 import umontreal.ssj.rng.LFSR113;
 import umontreal.ssj.rng.RandomStream;
+import java.io.FileWriter;
 
 public class testConstructorFile {
 	public static void main(String[] args) {
 		
-		int nrun=4;
+		int nrun=1000000;
 		
 		int demandLow = 0; // 5 or 20
 		int demandHigh = 10; // 5 or 20
 		
-		String file="/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/";
+		String file="C:/Users/guill/eclipse-workspace/NouveauSSJ/dataFlow/";
 		//double eps=0.05;
 		
 		//String number="2";
@@ -34,6 +36,7 @@ public class testConstructorFile {
 		//procPMCfilter(demand,file, nrun);
 		//procPMCfilterOut(demand,file, nrun);
 	}
+
 
 	
 	private static void procMC(int demand,String file, int nrun) {
@@ -141,7 +144,24 @@ public class testConstructorFile {
 		stream.resetStartSubstream();
 		p.initCapaProbaB(tab, rho, epsilon[0]);
 		p.trimCapacities(demandHigh);
-		p.run(nrun,stream,demandLow,demandHigh);
+		ArrayList<ArrayList<Double>> result=p.run(nrun,stream,demandLow,demandHigh);
+		
+		try {
+			FileWriter writer = new FileWriter("C:/Users/guill/eclipse-workspace/NouveauSSJ/dataFlow/output.txt"); 
+		  	ArrayList<Double> flows=result.get(0);
+		  	ArrayList<Double> probs=result.get(1);
+		  	for(Double str: flows) {
+		    	writer.write(str + "\t");
+		  	}
+		  	writer.write(System.lineSeparator());
+		  	for(Double str: probs) {
+		    	writer.write(str +"\t");
+		  	}
+		  	writer.close();
+		}catch(IOException e) {
+			return;
+		}
+	  	
 
 	}
 	
