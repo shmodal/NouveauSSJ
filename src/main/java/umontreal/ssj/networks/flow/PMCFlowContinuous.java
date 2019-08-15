@@ -4,6 +4,7 @@ package umontreal.ssj.networks.flow;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.List;
 
 import umontreal.ssj.networks.NodeBasic;
 import umontreal.ssj.probdist.ExponentialDist;
@@ -97,9 +98,9 @@ public class PMCFlowContinuous {
 	 * @param demandHigh
 	 *           demand flow upper bound
 	 */
-   protected ArrayList<Double[]> doOneRun(RandomStream stream,int demandLow,int demandHigh) {
-	   ArrayList<Double[]> estimators=new ArrayList<Double[]>();
-	   Double[] coupleEstim=new Double[2];
+   protected ArrayList<ArrayList<Double>> doOneRun(RandomStream stream,int demandLow,int demandHigh) {
+	   ArrayList<Double> demandLevels=new ArrayList<Double>();
+	   ArrayList<Double> unreliabilities=new ArrayList<Double>();
 	   
 	   trimCapacities(demandHigh);
 	   
@@ -158,11 +159,8 @@ public class PMCFlowContinuous {
 	   
 	   double ell = computeBarF(Lam,j);
 	   //we add the firts couple (MaxFlow,W) to our estimator
-	   coupleEstim[0]=new Double(maxFlow);
-	   coupleEstim[1]=ell;
-	   estimators.add(coupleEstim);
-	   //create a new coupleEstim to be ready to receuve other estimation of the function
-	   coupleEstim=new Double[2];
+	   demandLevels.add(new Double(maxFlow));
+	   unreliabilities.add(ell);
 	   
 	   while (maxFlow < demandHigh && j <Lam.length-1 && p<K) {
 		   double y = valuesY[p]; // Y(pi(j))
@@ -185,13 +183,12 @@ public class PMCFlowContinuous {
 				   curMaxFlow=Ek.maxFlowValue;
 				   maxFlow = Ek.EdmondsKarp();
 				   if(maxFlow>curMaxFlow) {
-					   ell = computeBarF(Lam,j);
+					   //interested in the probability of the atom
+					   ell = computeBarF(Lam,j)-ell;
 					   //we add the couple (MaxFlow,W) to our estimator
-					   coupleEstim[0]=new Double(maxFlow);
-					   coupleEstim[1]=ell;
-					   estimators.add(coupleEstim);
-					   //create a new coupleEstim to be ready to receuve other estimation of the function
-					   coupleEstim=new Double[2];
+					   demandLevels.add(new Double(maxFlow));
+					   unreliabilities.add(ell);
+					   
 					   curMaxFlow=maxFlow;
 				   }
 			   }
@@ -202,31 +199,42 @@ public class PMCFlowContinuous {
 		   p++;	   
 	   }
 	  
-	   
-	   return estimators;
+	   ArrayList<ArrayList<Double>> l=new ArrayList<ArrayList<Double>>();
+	   l.add(demandLevels);
+	   l.add(unreliabilities);
+	   return l;
    }
    
-
    
    public void run(int n, RandomStream stream,int demandLow, int demandHigh) {
 	      Chrono timer = new Chrono();
 	      timer.init();
 	      Tally values = new Tally(); // unreliability estimates
-	      ArrayList<Double[]> x;
+	      ArrayList<ArrayList<Double>> x;
+	      ArrayList<Double> demandLevels=new ArrayList<Double>();
+	      ArrayList<Double> unreliabilities=new ArrayList<Double>();
 	      for (int j = 0; j < n; j++) {
 	    	  //stream.resetNextSubstream();
 	    	 
 	    	 x = doOneRun(stream,demandLow,demandHigh);
-	    	 System.out.println(x.size());
-	    	 for(int len=0;len<x.size();len++) {
-	    		 for(int d=0;d<2;d++) {
-	    			 System.out.print(x.get(len)[d]);
-	    			 
-	    		 }
-	    		 System.out.println();
+	    	 for(int i=0;i<x.get(0).size();i++) {
+	    		 demandLevels.add(x.get(0).get(i));
+	    	 }
+	    	 for(int i=0;i<x.get(1).size();i++) {
+	    		 unreliabilities.add(x.get(1).get(i));
 	    	 }
 	    	 
 	      }
+	      Double[] tabDemands=demandLevels.toArray(new Double[demandLevels.size()]);
+	      Double[] tabUnrelia=unreliabilities.toArray(new Double[unreliabilities.size()]);
+	      ArrayIndexComparator comparator = new ArrayIndexComparator(tabDemands);
+	      Integer[] indexes = comparator.createIndexArray();
+	      Arrays.sort(indexes, comparator);
+	      for (int i = 0; i < indexes.length; i++)
+	      {
+	    	  System.out.println(indexes[i]);
+	      }
+	      
 	      
 	   }
    
@@ -247,59 +255,7 @@ public class PMCFlowContinuous {
    
    
    
-   
-   // Attention, faire le filtrage seulement � partir du Si,k 
-   //(les capacit�s qui sont sup�rieures � celle actuelle)
-   
-   
-   public double FilterSingle(int i, int k, int demand) {
-	   int m = father.getNumLinks();
-	   //System.out.println("Filtrage ar�te " + i);
-	   LinkFlow EdgeI = father.getLink(i);
-	   int source = EdgeI.getSource();
-	   int target = EdgeI.getTarget();
-	   MaxFlowEdmondsKarp EkFilter= new MaxFlowEdmondsKarp(father);
-	   EkFilter.source = source;
-	   EkFilter.sink = target;
-	   int f = EkFilter.EdmondsKarp();
-	   if (f>=demand) {
-		   int b = EdgeI.getB();
-		   double sumLamb = 0.;
-		   for (int j=k+1;j<b;j++) {
-			   int s= EdgeI.getJump(j);
-			   if(s==1) {
-				   sumLamb += EdgeI.getLambdaTilde(j);
-				   EdgeI.setJump(j, 0);
-				   father.getLink(i+ m/2 ).setJump(j, 0);
-			   }
-		   }
-		return sumLamb;   
-	   }
-	   else {return (-1.0);}
-	   }
-   
-	
-   public double FilterOutside(int i, int k, int demand) {
-	   LinkFlow EdgeI = father.getLink(i);
-	   int outsideFlow = EdgeI.outsideFlow;
-	   int newCapa = EdgeI.getCapacity();
-	   if (outsideFlow + newCapa >= demand) {
-		   int b = EdgeI.getB();
-		   double sumLamb = 0.;
-		   for (int j=k+1;j<b;j++) {
-			   int s= EdgeI.getJump(j);
-			   if(s==1) {
-				   sumLamb += EdgeI.getLambdaTilde(j);
-				   EdgeI.setJump(j, 0);
-			   }
-		   
-	   }
-		   return sumLamb;
-	   }
-	   else {return (-1.0);}
-   }
-   
-   
+
    
    public int[] buildX() {
 	   int m = father.getNumLinks();

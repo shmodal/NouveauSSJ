@@ -16,18 +16,21 @@ import umontreal.ssj.rng.RandomStream;
 public class testConstructorFile {
 	public static void main(String[] args) {
 		
-		int nrun=1000000;
+		int nrun=4;
 		
-		int demand = 80; // 5 or 20
+		int demandLow = 0; // 5 or 20
+		int demandHigh = 10; // 5 or 20
 		
+		String file="/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/";
 		//double eps=0.05;
 		
 		//String number="2";
 		//String file="Alexo"+number+".txt";
-		String file="lattice6and6";
+		file=file+"lattice3and3.txt";
 		
-		procMC(demand,file, nrun);
-		procPMC(demand,file, nrun);
+		
+		//procMC(demand,file, nrun);
+		procPMC(demandLow, demandHigh,file, nrun,8);
 		//procPMCfilter(demand,file, nrun);
 		//procPMCfilterOut(demand,file, nrun);
 	}
@@ -42,7 +45,7 @@ public class testConstructorFile {
 		
 		try {
 			
-			g = new GraphFlow("/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/"+file);
+			g = new GraphFlow(file);
 		    g.Undirect();
 		    g.resetCapacities();
 		    
@@ -88,7 +91,7 @@ public class testConstructorFile {
 		
 		GraphFlow g = null;
 		try {
-			g = new GraphFlow("/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/"+file);
+			g = new GraphFlow(file);
 			g.Undirect();
 		}catch(IOException e){
 	    	System.out.println("Probleme de fichier "+ file);
@@ -108,10 +111,10 @@ public class testConstructorFile {
 		p.run(nrun,stream,demand);
 	}
 	
-	private static void procPMC(int demand,String file, int nrun) {
+	private static void procPMC(int demandLow,int demandHigh,String file, int nrun,int b) {
 		GraphFlow g = null;
 		try {
-			g = new GraphFlow("/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/"+file);
+			g = new GraphFlow(file);
 			g.Undirect();
 			g.resetCapacities();
 		}catch(IOException e){
@@ -120,14 +123,25 @@ public class testConstructorFile {
 	    }
 		
 		RandomStream stream = new LFSR113();
-		PMCFlow p = null;
-		p = new PMCFlowNonOriented(g);
+		double rho = 0.6;
+		double[] epsilon = {1.0e-4, 1.0e-5, 1.0e-6, 1.0e-7, 1.0e-8, 1.0e-9, 1.0e-10, 1.0e-11,
+				1.0e-12, 1.0e-13};
+		
+		PMCFlowContinuous p = new PMCFlowContinuous(g);
+
+		int m0 = p.father.getNumLinks();
+		int[] tab = new int[m0];
+		for (int i = 0; i<m0;i++) {
+			tab[i] = b;
+		}
+		
 		System.out.println("============================================ No Filter");
 		//PMCNonOriented p = new PMCNonOriented(g);
 		p.filter=false; p.filterOutside=false;
 		stream.resetStartSubstream();
-		p.trimCapacities(demand);
-		p.run(nrun,stream,demand);
+		p.initCapaProbaB(tab, rho, epsilon[0]);
+		p.trimCapacities(demandHigh);
+		p.run(nrun,stream,demandLow,demandHigh);
 
 	}
 	
