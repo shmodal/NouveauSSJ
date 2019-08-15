@@ -217,26 +217,33 @@ public class PMCFlowContinuous {
 	    	  //stream.resetNextSubstream();
 	    	 
 	    	 x = doOneRun(stream,demandLow,demandHigh);
+	    	 
 	    	 for(int i=0;i<x.get(0).size();i++) {
 	    		 demandLevels.add(x.get(0).get(i));
 	    	 }
+	    	//we divide by the number of run  the increments in probability
 	    	 for(int i=0;i<x.get(1).size();i++) {
-	    		 unreliabilities.add(x.get(1).get(i));
+	    		 unreliabilities.add(x.get(1).get(i)/n);
 	    	 }
 	    	 
 	      }
 	      Double[] tabDemands=demandLevels.toArray(new Double[demandLevels.size()]);
 	      Double[] tabUnrelia=unreliabilities.toArray(new Double[unreliabilities.size()]);
+	      //we sort the index by the value of the corresponding demand
 	      ArrayIndexComparator comparator = new ArrayIndexComparator(tabDemands);
 	      Integer[] indexes = comparator.createIndexArray();
 	      Arrays.sort(indexes, comparator);
-	      for (int i = 0; i < indexes.length; i++)
-	      {
-	    	  System.out.println(indexes[i]);
+	      
+	      //the return vector without doublon
+	      Double[] finalDemands=new Double[demandLevels.size()];
+	      Double[] finalUnrelia=new Double[unreliabilities.size()];
+	      for(int nbr=0;nbr<indexes.length;nbr++) {
+	    	  	finalDemands[nbr]=tabDemands[indexes[nbr]];
+	    	  	finalUnrelia[nbr]=tabUnrelia[indexes[nbr]];
 	      }
 	      
 	      
-	   }
+   }
    
       
    
