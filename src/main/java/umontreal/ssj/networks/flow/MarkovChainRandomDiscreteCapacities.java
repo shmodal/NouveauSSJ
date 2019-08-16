@@ -1,5 +1,6 @@
 package umontreal.ssj.networks.flow;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
@@ -23,6 +24,8 @@ public class MarkovChainRandomDiscreteCapacities extends MarkovChainWithImportan
 	int demand;
 	protected MaxFlowEdmondsKarp Ek;
 	double time; //incomplete TC : can be TC or less
+
+	protected static final double LEN0 = 1.0e200; // initial weight(Yi,k) of links
 	
 	
 	   public MarkovChainRandomDiscreteCapacities(GraphFlow father, RandomStream streamPermut,
@@ -67,7 +70,7 @@ public class MarkovChainRandomDiscreteCapacities extends MarkovChainWithImportan
 	   
 	   
 	   
-	   public void initialState(RandomStream stream, double gamma) {
+	   public void initialStateOld(RandomStream stream, double gamma) {
 		   for (int i=0;i<father.getNumLinks();i++) {
 			   father.initLinkLambda(i);
 		   }
@@ -76,6 +79,37 @@ public class MarkovChainRandomDiscreteCapacities extends MarkovChainWithImportan
 		   valuesY = tab;
 		   
 	   }
+	   
+	   
+		public void initialState(RandomStream stream, double gamma) {
+			int taille = 0;   
+			for (int i=0;i<Ek.network.getNumLinks();i++) {
+				   Ek.network.initLinkLambda(i);
+				   double[] tabY = new double[Ek.network.getLink(i).getB()];
+				   Ek.network.getLink(i).setValuesY(tabY);
+				   taille += Ek.network.getLink(i).getB();
+			   }
+			   //fixer un tableau ValuesY avec des valeurs + inf pour appliquer ensuite nextStep
+			   valuesY = new double[taille];
+			   initYandHash();
+			   nextStep(stream,gamma); // se lance avec gamma=0;
+		}
+	   
+	   
+		public void initYandHash() {
+			for (int i=0;i <Ek.network.getNumLinks();i++) {
+				for (int k=0; k< Ek.network.getLink(i).getB();k++) {
+					Ek.network.getLink(i).tabY[k]=LEN0;   // à modifer plutard, mettre un setteur
+					int[] t = new int[2];
+					t[0] =i;t[1]=k;
+					coordinates.put(LEN0,t);
+				}
+			}
+			for (int i=0;i<valuesY.length;i++) {
+				valuesY[i] = LEN0;
+			}
+			
+		}
 	   
 	   // Suppose que le tableau des Y est trié et calcule le TC
 	   // Old Y : on a déjà effectué le saut avec ce Y

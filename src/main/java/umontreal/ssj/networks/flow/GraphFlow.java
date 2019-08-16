@@ -281,6 +281,9 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 
 		image.numLinks = numLinks;
 		image.numNodes = numNodes;
+		image.source = source;
+		image.target = target;
+		image.filename = filename;
 
 
 		// Link
@@ -574,7 +577,7 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 
 
 	/**
-	 * For PMC algorithm. Sets the <tt>Y_{i,k}</tt> of link i. They all
+	 * For PMC and GS algorithm. Sets the <tt>Y_{i,k}</tt> of link i. They all
 	 * follow an exponential distribution with respectively <tt>lambda_{i,k}</tt>
 	 * as parameter.
 	 */
@@ -585,7 +588,7 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	}
 
 	/**
-	 * For PMC algorithm. Returns the <tt>Y_{i,k}</tt> of link i. They all
+	 * For PMC and GS algorithm. Returns the <tt>Y_{i,k}</tt> of link i. They all
 	 * follow an exponential distribution with respectively <tt>lambda_{i,k}</tt>
 	 * as parameter.
 	 */
@@ -593,6 +596,9 @@ public class GraphFlow extends GraphOriented<NodeBasic,LinkFlow> {
 	public double[] getValuesY(int i) {
 		return links.get(i).getValuesY();
 	}
+	
+	
+	
 
 	/** For PMC Algorithm. Sets the jump number k of link i to value.
 	 *  @param i indice of link

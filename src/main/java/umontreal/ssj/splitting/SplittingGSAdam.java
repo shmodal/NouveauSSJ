@@ -36,7 +36,6 @@ public class SplittingGSAdam {
 	   LinkedList <MarkovChainWithImportance> list1 = new LinkedList <MarkovChainWithImportance> ();
 	   ArrayList <Double> gammaT = new ArrayList <Double> ();
 	   double[] tabS = new double[N];
-
 	   current_gamma = firstGammaLevel;
 	   gammaT.add (firstGammaLevel);
 	   int i;
@@ -51,28 +50,45 @@ public class SplittingGSAdam {
 
 	   i = 0;
 	   for (MarkovChainWithImportance chain: list0) {
+		   //System.out.println(i);
 		   tabS[i] = chain.getImportance();
 		   //System.out.println(i);
-		   //System.out.println(tabS[i]);
+		   //System.out.println("importance avant MaJ" +tabS[i]);
+		   //System.out.println(chain.getImportance());
 		   i++;
 		   
 	   }
+	   
+	   for (MarkovChainWithImportance chain: list0) {
+
+		   //System.out.println("importance 2");
+		   //System.out.println(chain.getImportance());
+		   i++;
+		   
+	   }
+	   
 
 	   //previous_gamma = current_gamma; 
 	   current_gamma = getNextGamma (q, tabS, lastGammaLevel);
+	   //System.out.println("Current gamma " +current_gamma);
 	   gammaT.add (current_gamma);
-
 	   // select survivors
 	   for (MarkovChainWithImportance chain: list0) {
 		   //chain.setGammaLevel (currentGamma);
-		   chain.updateChainGamma(current_gamma);
+		   //System.out.println(p);
+		   //System.out.println("Importance à ce moment " +chain.getImportance());
+		   
+		   chain.updateChainGamma(current_gamma);  //LE PROBELEME EST LA
+		   //System.out.println(chain.isImportanceGamma (current_gamma));
 		   if (chain.isImportanceGamma (current_gamma)) {
 			   list1.add (chain);
+			   //
 		   }
 	   }
 	   list0.clear ();     // don't need list0 anymore
 
 	   while (current_gamma < lastGammaLevel) {
+		   System.out.println(current_gamma);
 		   for (MarkovChainWithImportance chain1: list1) {
 			   // select each MarkovChain in the list of old survivors
 			   MarkovChainWithImportance newchain = chain1.clone ();
@@ -88,6 +104,7 @@ public class SplittingGSAdam {
 		   i = 0;
 		   //System.out.println(tabS.length);
 		   //System.out.println(list0.size());
+		   //System.out.println("ici");
 		   for (MarkovChainWithImportance chain: list0) {
 			   tabS[i] = chain.getImportance();
 			   i++;
@@ -102,11 +119,12 @@ public class SplittingGSAdam {
 			   //chain.setGammaLevel (currentGamma);
 			   chain.updateChainGamma(current_gamma);
 			   if (chain.isImportanceGamma (current_gamma)) {
+				   //System.out.println("Oui");
 				   list1.add (chain);
 			   }
 		   }
 		   list0.clear ();
-
+		   
 		   if (list1.size () <= 0) {
 			   System.out.println("\n******** ADAM:  0 chain survivor at this level\n");
 			   break;

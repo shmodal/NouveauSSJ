@@ -18,12 +18,19 @@ public class MaxFlowEdmondsKarp {
 	
 	
     public MaxFlowEdmondsKarp(GraphFlow network){
-    	this.network=network;
-    	this.residual=network.residual();
-    	this.source=network.getSource();
-    	this.sink=network.getTarget();
+//    	this.network=network;   //MODIF SOFIANE
+//    	this.residual=network.residual();
+//    	this.source=network.getSource();
+//    	this.sink=network.getTarget();
+//    	this.maxFlowValue=0;
+//        int numberOfLinks = network.getNumLinks();
+        GraphFlow copy = network.clone();
+    	this.network=copy;   //MODIF SOFIANE
+    	this.residual=copy.residual();
+    	this.source=copy.getSource();
+    	this.sink=copy.getTarget();
     	this.maxFlowValue=0;
-        int numberOfLinks = network.getNumLinks();
+        int numberOfLinks = copy.getNumLinks();
 
     }
 

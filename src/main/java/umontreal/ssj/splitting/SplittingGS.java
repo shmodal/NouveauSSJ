@@ -73,6 +73,7 @@ public class SplittingGS {
 		chain.initialState(stream,0);
 		gamma_level = gamma[1];
 		chain.updateChainGamma(gamma_level);
+		
 		if (!chain.isImportanceGamma(gamma_level)) {
 			return 0.0;
 		}

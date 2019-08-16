@@ -38,7 +38,16 @@ public class testLatt10 {
 
 			p.father.resetCapacities();
 			//System.out.println(p.father.toString());
+			p.filter=true;  System.out.println("Filter");
+			p.level = 0.8;
+			
 			p.run(50000,stream,demand);
+			
+			stream.resetStartSubstream();
+			p.filter=false;
+			p.father.resetCapacities();
+			 System.out.println("No Filter"); System.out.println("epsilon = " + epsilon[i]);
+			 p.run(50000,stream,demand);
 		}
 
 	}
