@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class TestSortIndex {
 
 	public static void main(String[] args) throws IOException {
-		double[] countries = { 0.13, 4.5, 0.0,2.3 };
+		Double[] countries = { 0.13, 4.5, 0.0,2.3 };
 		ArrayIndexComparator comparator = new ArrayIndexComparator(countries);
 		Integer[] indexes = comparator.createIndexArray();
 		Arrays.sort(indexes, comparator);
