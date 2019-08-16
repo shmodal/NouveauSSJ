@@ -18,28 +18,29 @@ import java.io.FileWriter;
 public class testConstructorFile {
 	public static void main(String[] args) {
 		
-		int nrun=1000000;
+		int nrun=100;
 		
 		int demandLow = 0; // 5 or 20
-		int demandHigh = 10; // 5 or 20
+		int demandHigh = 20; // 5 or 20
 		
-		String file="C:/Users/guill/eclipse-workspace/NouveauSSJ/dataFlow/";
+		int demand=10;
+		String mainDir="/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/";
 		//double eps=0.05;
 		
 		//String number="2";
-		//String file="Alexo"+number+".txt";
-		file=file+"lattice3and3.txt";
+		//String file="Alexo"+number;
+		String file="lattice4and4";
 		
 		
-		//procMC(demand,file, nrun);
-		procPMC(demandLow, demandHigh,file, nrun,8);
-		//procPMCfilter(demand,file, nrun);
-		//procPMCfilterOut(demand,file, nrun);
+		//procMC(demand,mainDir,file, nrun);
+		//procPMC(demand,mainDir,file, nrun,8);
+		procPMC(demandLow, demandHigh,mainDir,file, nrun,5);
+		//procPMCfilter(demand,mainDir,file, nrun);
+		//procPMCfilterOut(demand,mainDir,file, nrun);
 	}
 
-
 	
-	private static void procMC(int demand,String file, int nrun) {
+	private static void procMC(int demand,String mainDir,String file, int nrun) {
 		
 		GraphFlow g = null;
 		String nameG = null;
@@ -48,7 +49,7 @@ public class testConstructorFile {
 		
 		try {
 			
-			g = new GraphFlow(file);
+			g = new GraphFlow(mainDir+file+".txt");
 		    g.Undirect();
 		    g.resetCapacities();
 		    
@@ -63,11 +64,11 @@ public class testConstructorFile {
 		mc1.run(nrun,stream,demand);
 	}
 	
-	private static void procPMCfilter(int demand,String file, int nrun) {
+	private static void procPMCfilter(int demand,String mainDir,String file, int nrun) {
 		
 		GraphFlow g = null;
 		try {
-			g = new GraphFlow("/u/nervogui/eclipse-workspace/NouveauSSJ/dataFlow/"+file);
+			g = new GraphFlow(mainDir+file+".txt");
 			
 			g.Undirect();
 		}catch(IOException e){
@@ -90,11 +91,11 @@ public class testConstructorFile {
 		p.run(nrun,stream,demand);
 	}
 			
-	private static void procPMCfilterOut(int demand,String file, int nrun) {
+	private static void procPMCfilterOut(int demand,String mainDir,String file, int nrun) {
 		
 		GraphFlow g = null;
 		try {
-			g = new GraphFlow(file);
+			g = new GraphFlow(mainDir+file+".txt");
 			g.Undirect();
 		}catch(IOException e){
 	    	System.out.println("Probleme de fichier "+ file);
@@ -114,11 +115,10 @@ public class testConstructorFile {
 		p.run(nrun,stream,demand);
 	}
 	
-	private static void procPMC(int demandLow,int demandHigh,String file, int nrun,int b) {
+	private static void procPMC(int demandLow,int demandHigh,String mainDir,String file, int nrun,int b) {
 		GraphFlow g = null;
 		try {
-			g = new GraphFlow(file);
-			g.Undirect();
+			g = new GraphFlow(mainDir+file+".txt");
 			g.resetCapacities();
 		}catch(IOException e){
 	    	System.out.println("Probleme de fichier "+ file);
@@ -142,25 +142,57 @@ public class testConstructorFile {
 		//PMCNonOriented p = new PMCNonOriented(g);
 		p.filter=false; p.filterOutside=false;
 		stream.resetStartSubstream();
-		p.initCapaProbaB(tab, rho, epsilon[0]);
+		p.initCapaProbaBWithGap(tab, rho, epsilon[0]);
 		p.trimCapacities(demandHigh);
 		ArrayList<ArrayList<Double>> result=p.run(nrun,stream,demandLow,demandHigh);
 		
 		try {
-			FileWriter writer = new FileWriter("C:/Users/guill/eclipse-workspace/NouveauSSJ/dataFlow/output.txt"); 
+			FileWriter writer = new FileWriter(mainDir+file+"output.txt"); 
 		  	ArrayList<Double> flows=result.get(0);
 		  	ArrayList<Double> probs=result.get(1);
-		  	for(Double str: flows) {
-		    	writer.write(str + "\t");
+		  	for(int i=0;i<flows.size();i++){
+		    	writer.write(flows.get(i) + "\t"+ probs.get(i));
+		    	writer.write(System.lineSeparator());
 		  	}
-		  	writer.write(System.lineSeparator());
-		  	for(Double str: probs) {
-		    	writer.write(str +"\t");
-		  	}
+
 		  	writer.close();
 		}catch(IOException e) {
 			return;
 		}
+	  	
+
+	}
+	
+	private static void procPMC(int demand,String mainDir,String file, int nrun,int b) {
+		GraphFlow g = null;
+		try {
+			g = new GraphFlow(mainDir+file+".txt");
+			g.resetCapacities();
+		}catch(IOException e){
+	    	System.out.println("Probleme de fichier "+ file);
+	    	return;
+	    }
+		
+		RandomStream stream = new LFSR113();
+		double rho = 0.6;
+		double[] epsilon = {1.0e-4, 1.0e-5, 1.0e-6, 1.0e-7, 1.0e-8, 1.0e-9, 1.0e-10, 1.0e-11,
+				1.0e-12, 1.0e-13};
+		
+		PMCFlow p = new PMCFlow(g);
+
+		int m0 = p.father.getNumLinks();
+		int[] tab = new int[m0];
+		for (int i = 0; i<m0;i++) {
+			tab[i] = b;
+		}
+		
+		System.out.println("============================================ No Filter");
+		//PMCNonOriented p = new PMCNonOriented(g);
+		p.filter=false; p.filterOutside=false;
+		stream.resetStartSubstream();
+		p.initCapaProbaB(tab, rho, epsilon[0]);
+		p.trimCapacities(demand);
+		p.run(nrun,stream,demand);
 	  	
 
 	}

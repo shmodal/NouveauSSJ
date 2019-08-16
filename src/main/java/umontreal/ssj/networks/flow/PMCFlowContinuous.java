@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
 
 import umontreal.ssj.networks.NodeBasic;
 import umontreal.ssj.probdist.ExponentialDist;
@@ -16,6 +18,7 @@ import umontreal.ssj.stat.Tally;
 import umontreal.ssj.stat.TallyHistogram;
 import umontreal.ssj.stat.TallyStore;
 import umontreal.ssj.util.Chrono;
+
 
 public class PMCFlowContinuous {
 	private double m_variance; // variance
@@ -75,6 +78,12 @@ public class PMCFlowContinuous {
 	   initProbabilityValues(rho,epsilon);
    }
    
+   public void initCapaProbaBWithGap(int[] tableauB, double rho, double epsilon) {
+	   initB(tableauB);
+	   initCapacityValues();
+	   initProbabilityValuesWithGap(rho,epsilon);
+   }
+   
    //initialiser capacit�s allant de 0 � capaMax, et probabilit�s uniformes
    public void initBasicCapaProba(int capaMax) {
 	   int[] capa = new int[capaMax+1];
@@ -99,6 +108,7 @@ public class PMCFlowContinuous {
 	 *           demand flow upper bound
 	 */
    protected ArrayList<ArrayList<Double>> doOneRun(RandomStream stream,int demandLow,int demandHigh) {
+	   
 	   ArrayList<Double> demandLevels=new ArrayList<Double>();
 	   ArrayList<Double> unreliabilities=new ArrayList<Double>();
 	   
@@ -125,46 +135,15 @@ public class PMCFlowContinuous {
 	   // pas rajout�es comme lien et j ne doit pas etre incr�ment� 
 	   
 	   
-	   while (maxFlow < demandLow && j <Lam.length-1 && p<K) {
-
-		   double y = valuesY[p]; // Y(pi(j))
-		   int [] indices = permutation.get(y);
-		   int i = indices[0];
-		   int k = indices[1];
-		   LinkFlow EdgeI = father.getLink(i);
-		   int s = EdgeI.getJump(k);
-		   if (s==1) {
-			   double l = EdgeI.getLambdaTilde(k);
-			   
-			   Lam[j+1] = Lam[j] - l; 
-			   father.setJump(i, k, 0);
-			   int prevCapacity = father.getLink(i).getCapacity();
-			   boolean reload =Ek.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) - prevCapacity  );
-			   
-			   
-			  father.setCapacity(i, EdgeI.getCapacityValue(k+1)); 
-			   if (reload) {
-				   maxFlow = Ek.EdmondsKarp();
-			   }
-
-			   j++; 
-		   }
-		   
-		   p++;	   
-	   }
-	   
+	   double ell=0.0;
 	   int curMaxFlow=maxFlow;
-	   
-	   criticalLink.add(j);
-	   
-	   double ell = computeBarF(Lam,j);
+	   double sumEll=ell;
 	   //we add the firts couple (MaxFlow,W) to our estimator
 	   demandLevels.add(new Double(maxFlow));
 	   unreliabilities.add(ell);
-	   double sumEll=ell;
 	   
 	   while (maxFlow < demandHigh && j <Lam.length-1 && p<K) {
-		   
+		   curMaxFlow=maxFlow;
 		   double y = valuesY[p]; // Y(pi(j))
 		   int [] indices = permutation.get(y);
 		   int i = indices[0];
@@ -182,9 +161,7 @@ public class PMCFlowContinuous {
 			   
 			   father.setCapacity(i, EdgeI.getCapacityValue(k+1)); 
 			   if (reload) {
-				   curMaxFlow=Ek.maxFlowValue;
 				   maxFlow = Ek.EdmondsKarp();
-				   
 			   }
 
 			   j++;
@@ -196,7 +173,7 @@ public class PMCFlowContinuous {
 				   demandLevels.add(new Double(maxFlow));
 				   unreliabilities.add(ell);
 				   
-				   curMaxFlow=maxFlow;
+				   
 			   }
 		   }
 		   
@@ -243,11 +220,10 @@ public class PMCFlowContinuous {
 	      ArrayList<Double> finalFlows=new ArrayList<Double>();
 	      ArrayList<Double> finalUnrelia=new ArrayList<Double>();
 	      int nbr=0;
-	      double curFlow;
+	      double curFlow=tabDemands[indexes[nbr]];
 	      
 	      double memoFlow=tabDemands[indexes[nbr]];
 	      while(nbr<indexes.length-1) {
-	    	  curFlow=tabDemands[indexes[nbr]];
 	    	  double sum=0.0;
 	    	  while(curFlow==memoFlow && nbr<indexes.length-1) {
 	    	  		sum+=tabUnrelia[indexes[nbr]];
@@ -267,6 +243,7 @@ public class PMCFlowContinuous {
     		  System.out.print(finalFlows.get(i)+" ");
     		  System.out.print(sum+finalUnrelia.get(i)+" ");
     		  sum+=finalUnrelia.get(i);
+    		  finalUnrelia.set(i, sum);
     		  System.out.println();
     	  }
     	  
@@ -275,7 +252,6 @@ public class PMCFlowContinuous {
     	  tab.add(finalUnrelia);
     	  
     	  return tab;
-	      
    }
    
       
@@ -360,6 +336,44 @@ public class PMCFlowContinuous {
 		   tabProba[b] = 1.0-sum;
 		   father.setProbabilityValues(i, tabProba);
 	   }   
+   }
+   
+   
+   
+   // init les probas comme l'a fait rohan shah
+   
+   public void initProbabilityValuesWithGap(double rho, double epsilon) {
+	   int numberOfLinks = father.getNumLinks();
+	   for (int i = 1; i< numberOfLinks-1; i++) {
+		   int b = father.getB(i);
+		   double [] tabProba = new double[b+1];
+		   for (int c=1;c<b-1;c++) {
+			   tabProba[c] =1.0e-17;
+		   }
+		   tabProba[0] = epsilon/4;
+		   tabProba[b-1] = epsilon;
+		   tabProba[b] = 1.0-tabProba[0]-tabProba[1];
+		   father.setProbabilityValues(i, tabProba);
+	   }   
+	   int b = father.getB(0);
+	   double [] tabProba = new double[b+1];
+	   double sum = 0.0;
+	   for (int k=0;k<b;k++) {
+		   tabProba[k] = epsilon/(b-k);
+		   sum += tabProba[k];
+	   }
+	   tabProba[b] = 1.0-sum;
+	   father.setProbabilityValues(0, tabProba);
+	   
+	   b = father.getB(numberOfLinks-1);
+	   tabProba = new double[b+1];
+	   sum = 0.0;
+	   for (int k=0;k<b;k++) {
+		   tabProba[k] = epsilon/(b-k);
+		   sum += tabProba[k];
+	   }
+	   tabProba[b] = 1.0-sum;
+	   father.setProbabilityValues(numberOfLinks-1, tabProba);
    }
    
    
