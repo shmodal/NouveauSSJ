@@ -1,4 +1,4 @@
-package umontreal.ssj.networks.flow;
+package umontreal.ssj.splitting;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,9 +23,9 @@ import umontreal.ssj.splitting.MarkovChainWithImportance;
 //Version Orientée.
 //Ensuite, pour Version non orientée : il faut faire gaffe aux lambda et capacité
 
-public class MChainNew extends MarkovChainWithImportance {
+public class OLDMChainNewOLDWIthComments extends MarkovChainWithImportance {
 	protected GraphFlow father;
-	public MaxFlowEdmondsKarp Ek; //when chain is at level gamma, it keeps the info
+	protected MaxFlowEdmondsKarp Ek; //when chain is at level gamma, it keeps the info
 	//about links added  before gamma
 	public HashMap <Double,int[]> coordinates;
 	protected RandomStream streamPermut; // for random permutations of links
@@ -34,7 +34,7 @@ public class MChainNew extends MarkovChainWithImportance {
 	public double[] valuesY;  //toutes les valeurs de Y
 
 
-	public MChainNew(GraphFlow father, RandomStream streamPermut,
+	public OLDMChainNewOLDWIthComments(GraphFlow father, RandomStream streamPermut,
 			int demand)
 	{
 		super();
@@ -130,9 +130,9 @@ public class MChainNew extends MarkovChainWithImportance {
 	//que faire des new Y?
 	@Override
 	public void nextStep(RandomStream stream, double gamma) {
-		//System.out.println();
-		//System.out.println("Next Step");
-		//System.out.println();
+		System.out.println();
+		System.out.println("Next Step");
+		System.out.println();
 		int numY = valuesY.length;
 		int[] tab = new int[numY]; //tab contient des indices,
 		//double [] newvaluesY = new double [numY]; // utile ?
@@ -194,7 +194,7 @@ public class MChainNew extends MarkovChainWithImportance {
 				coordinates.put(newY, indices);
 				coordinates.remove(oldY);
 				int [] test = coordinates.get(newY);
-				//System.out.println("indice i " + i + " indice k " +k);
+				System.out.println("indice i " + i + " indice k " +k);
 				//int a =test[0];
 				
 			}
@@ -232,13 +232,13 @@ public class MChainNew extends MarkovChainWithImportance {
 					int prevCapacity = Ek.network.getLink(i).getCapacity();
 					int newCapacity = Ek.network.getLink(i).getCapacityValue(k+1);
 					boolean reload = Ek.IncreaseLinkCapacity(i,newCapacity-prevCapacity);
-					//System.out.println("prev capacity" + prevCapacity);
-					//System.out.println("new capacity à set" + newCapacity);
+					System.out.println("prev capacity" + prevCapacity);
+					System.out.println("new capacity à set" + newCapacity);
 					if (reload) {
 						Ek.EdmondsKarp();
 					}
 					Ek.network.setCapacity(i, newCapacity);
-					//System.out.println("new capacity :" + Ek.network.getLink(i).getCapacity());
+					System.out.println("new capacity :" + Ek.network.getLink(i).getCapacity());
 					Yinf.add(newY);
 					valuesY[j] =newY;
 					coordinates.remove(oldY);
@@ -247,32 +247,23 @@ public class MChainNew extends MarkovChainWithImportance {
 				if ((newY > gamma && oldY <= gamma)) {
 					System.out.println();
 					System.out.println("ancien y appliqué, nouveau y out");
-					System.out.println();
 					
-					System.out.println("indice k antérieur " + k);
-					System.out.println("correspond dans capValues à  " + Ek.network.getLink(i).getCapacityValue(k+1));
-					System.out.println("En effet, la capacité réelle est" + Ek.network.getLink(i).getCapacity());
 					boolean removeY =Yinf.remove(oldY);
 					
 					coordinates.put(newY, indices);
 					coordinates.remove(oldY);
-					//System.out.println();
-					//System.out.println("On a enlevé oldY, il devrait etre parti");
+					System.out.println();
+					System.out.println("On a enlevé oldY, il devrait etre parti");
 					
-					//System.out.println("oldY" + oldY);
+					System.out.println("oldY" + oldY);
 					
 					
 					//System.out.println(removeY);
 					//on parcourt les capacités de Yinf pour savoir à quelle capa diminuer
-					//int kmax=-1; // ou 0 ?
-					
-					int kmax = k;
-					
-					
-					
+					int kmax=-1; // ou 0 ?
 					System.out.println("begin Yinf");
 					for (int p=0;p<Yinf.size();p++) {
-						//System.out.println("Yinf en p" + Yinf.get(p));
+						System.out.println("Yinf en p" + Yinf.get(p));
 						int [] t = coordinates.get(Yinf.get(p));
 						int i0 = t[0];
 						int k0 = t[1];
@@ -280,23 +271,18 @@ public class MChainNew extends MarkovChainWithImportance {
 						//System.out.println("Y[p] " + Yinf.get(p));
 						//System.out.println("i = " +i0);
 						//System.out.println("k = " +k0);
-						if (i0==i &&k0 <kmax) { 
+						if (i0==i &&k0 >kmax) { 
 							System.out.println("On a trouvé un saut de capacité inférieur, pour l'arete");
-							System.out.println("indice i0 " + i0 + " indice k0 " +k0);
+							System.out.println("indice i0 " + i0 + " indice k " +k0);
 							System.out.println("indice i " + i);
 							kmax = k0;
 						}
-					}
-					
-					if (kmax==k) {//on n'a pas trouvé de saut inférieur. Il faut revenir à la capacité
-										//initiale.
-						kmax = -1;	
 					}
 					//System.out.println("end");
 					//System.out.println("Kmax");
 					//System.out.println(Ek.network.getLink(i).getCapacityValue(kmax));
 					//System.out.println(Ek.network.getLink(i).getCapacityValue(kmax+1));
-					//System.out.println("kmax" + kmax);
+					System.out.println("kmax" + kmax);
 					int newC = Ek.network.getLink(i).getCapacityValue(kmax+1);
 					System.out.println("newC " + newC);
 					int oldC = Ek.network.getLink(i).getCapacity();
@@ -340,25 +326,24 @@ public class MChainNew extends MarkovChainWithImportance {
 
 		}
 		Arrays.sort(valuesY);//Trier valuesY? utile pour chercher
-		//System.out.println();
-		//System.out.println("Next step fini");
-		//System.out.println("Valeurs de Y");
-		//printTab(valuesY);
-		//System.out.println();
-		//System.out.println("To string du graphe");
-		//System.out.println(Ek.network.toString());
+		System.out.println();
+		System.out.println("Next step fini");
+		System.out.println("Valeurs de Y");
+		printTab(valuesY);
+		System.out.println();
+		System.out.println("To string du graphe");
+		System.out.println(Ek.network.toString());
 		
 	}
 
 
 
 	public boolean testIncreaseCap(int i, int k,double y, double gam) {
-		//System.out.println();
+		System.out.println();
 		System.out.println("test Increase Cap ");
 		int prevCapacity = Ek.network.getLink(i).getCapacity();
 		int newCapacity = Ek.network.getLink(i).getCapacityValue(k+1);
 		System.out.println("prev capa" + prevCapacity);
-		System.out.println("nouv capa" + newCapacity);
 		if (newCapacity < prevCapacity) { //le saut est inutile, on est deja en dessous de gamma(t-1)
 			return false;
 		}
@@ -367,10 +352,8 @@ public class MChainNew extends MarkovChainWithImportance {
 		if (reload) {
 			Ek.EdmondsKarp();
 		}
-		//System.out.println("new capa" + newCapacity);
+		System.out.println("new capa" + newCapacity);
 		int flow = Ek.maxFlowValue;
-		System.out.println("max flow" + flow);
-		System.out.println(Ek.network.toString());
 		boolean test = (flow >= demand); //TC < gamma(t-1)
 		
 		if (test || y>gam) { //le saut i,k, qu'on a mis temporairement à 0, doit etre remis à sa vraie
@@ -394,33 +377,33 @@ public class MChainNew extends MarkovChainWithImportance {
 		//System.out.println(taille);
 		int p = taille;
 		//System.out.println(valuesY.length);
-		//System.out.println("update avec Gamma :" + gamma);
+		System.out.println("update avec Gamma :" + gamma);
 		
 		while (p<valuesY.length && valuesY[p]<=gamma) { 
 			//System.out.println("true");
 			double y = valuesY[p]; 
-			//System.out.println("Valeur à rajouter" +y);
-			//System.out.println();
+			System.out.println("Valeur à rajouter" +y);
+			System.out.println();
 			//System.out.println("Une valeur, check if sorted " +valuesY[p]);
 			Yinf.add(valuesY[p]);
-			//System.out.println("Valeur ajoutée" + Yinf.get(p));
-			//System.out.println();
+			System.out.println("Valeur ajoutée" + Yinf.get(p));
+			System.out.println();
 			int [] indices = coordinates.get(y);
 			int i = indices[0];
 			int k = indices[1];
-			//System.out.println("Arete : " +i +" Indice : " + k);
+			System.out.println("Arete : " +i +" Indice : " + k);
 			int prevCapacity = Ek.network.getLink(i).getCapacity();
 			int newCapacity = Ek.network.getLink(i).getCapacityValue(k+1);
 			Ek.network.setCapacity(i, newCapacity);
-			//System.out.println("Capacité maj dans network"+ Ek.network.getLink(i).getCapacity());
+			System.out.println("Capacité maj dans network"+ Ek.network.getLink(i).getCapacity());
 			boolean reload = Ek.IncreaseLinkCapacity(i,newCapacity-prevCapacity);
-			//System.out.println("Update le flow ?" + reload);
+			System.out.println("Update le flow ?" + reload);
 			if (reload) {
 				Ek.EdmondsKarp();
 			}
 			p++;
-			//System.out.println("Max Flot " +Ek.maxFlowValue);
-			//System.out.println();
+			System.out.println("Max Flot " +Ek.maxFlowValue);
+			System.out.println();
 			//System.out.println("Capacité maj dans reisidual"+ Ek.residual.getLink(i).getCapacity());
 
 		}
@@ -517,23 +500,23 @@ public class MChainNew extends MarkovChainWithImportance {
 		   MaxFlowEdmondsKarp EkCopy = new MaxFlowEdmondsKarp(father);
 		   while (maxFlow < demand && p<valuesY.length ) {
 			   double y = valuesY[p];
-			  // System.out.println("valeur de y " + y);
+			   System.out.println("valeur de y " + y);
 			   int [] indices = coordinates.get(y);
 			   int i = indices[0];
 			   int k = indices[1];
-			  // System.out.println("indices " + i + " " + k);
+			   System.out.println("indices " + i + " " + k);
 			   LinkFlow EdgeI = EkCopy.network.getLink(i);
 			   int prevCapacity = EkCopy.network.getLink(i).getCapacity();
-			  // System.out.println("ancien flow " + maxFlow);
-			  // System.out.println("ancienne cap " + prevCapacity);
+			   System.out.println("ancien flow " + maxFlow);
+			   System.out.println("ancienne cap " + prevCapacity);
 			   boolean reload =EkCopy.IncreaseLinkCapacity(i,EdgeI.getCapacityValue(k+1) - prevCapacity  );
 			   EkCopy.network.getLink(i).setCapacity(EdgeI.getCapacityValue(k+1));
-			  // System.out.println("nouvelle cap dans network " + EkCopy.network.getLink(i).getCapacity());
-			  // System.out.println("nouvelle cap dans residual " + EkCopy.residual.getLink(i).getCapacity());
+			   System.out.println("nouvelle cap dans network " + EkCopy.network.getLink(i).getCapacity());
+			   System.out.println("nouvelle cap dans residual " + EkCopy.residual.getLink(i).getCapacity());
 			   if (reload) {
 				   maxFlow = EkCopy.EdmondsKarp();
 			   }
-			   //System.out.println("nouv flow " + maxFlow);
+			   System.out.println("nouv flow " + maxFlow);
 			   p++;	   
 		   }
 		   return valuesY[p-1]; // a verifier

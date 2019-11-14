@@ -39,7 +39,6 @@ public class SplittingGSAdam {
 	   current_gamma = firstGammaLevel;
 	   gammaT.add (firstGammaLevel);
 	   int i;
-
 	   for (i = 0; i < N; i++) {
 		   MarkovChainWithImportance chain0 = mother.clone ();
 		   //System.out.println("initialState");
@@ -59,13 +58,6 @@ public class SplittingGSAdam {
 		   
 	   }
 	   
-	   for (MarkovChainWithImportance chain: list0) {
-
-		   //System.out.println("importance 2");
-		   //System.out.println(chain.getImportance());
-		   i++;
-		   
-	   }
 	   
 
 	   //previous_gamma = current_gamma; 
@@ -78,7 +70,7 @@ public class SplittingGSAdam {
 		   //System.out.println(p);
 		   //System.out.println("Importance à ce moment " +chain.getImportance());
 		   
-		   chain.updateChainGamma(current_gamma);  //LE PROBELEME EST LA
+		   chain.updateChainGamma(current_gamma);  //
 		   //System.out.println(chain.isImportanceGamma (current_gamma));
 		   if (chain.isImportanceGamma (current_gamma)) {
 			   list1.add (chain);
@@ -88,7 +80,9 @@ public class SplittingGSAdam {
 	   list0.clear ();     // don't need list0 anymore
 
 	   while (current_gamma < lastGammaLevel) {
-		   System.out.println(current_gamma);
+		   System.out.println();
+		  System.out.println("current_gamma" + current_gamma);
+		  System.out.println();
 		   for (MarkovChainWithImportance chain1: list1) {
 			   // select each MarkovChain in the list of old survivors
 			   MarkovChainWithImportance newchain = chain1.clone ();
@@ -105,6 +99,7 @@ public class SplittingGSAdam {
 		   //System.out.println(tabS.length);
 		   //System.out.println(list0.size());
 		   //System.out.println("ici");
+		   //System.out.println("Gamma quand ça bugge " +current_gamma);
 		   for (MarkovChainWithImportance chain: list0) {
 			   tabS[i] = chain.getImportance();
 			   i++;
@@ -174,6 +169,18 @@ public class SplittingGSAdam {
       return m_Gamma;
    }
 
+	private static void printTab(double[] t) {
+		int m = t.length;
+		for (int i =0;i<m;i++) {
+			System.out.print(" " +t[i] +", ");
+		}
+	}
+	private static void printTab(int[] t) {
+		int m = t.length;
+		for (int i =0;i<m;i++) {
+			System.out.print(" " +t[i] +", ");
+		}
+	}
 	
 
 }

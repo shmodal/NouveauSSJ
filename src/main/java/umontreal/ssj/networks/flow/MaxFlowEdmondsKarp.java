@@ -6,12 +6,12 @@ import umontreal.ssj.networks.LinkWithCapacity;
 //import umontreal.ssj.networks.flow.GraphWithCapacity;
 import umontreal.ssj.rng.*;
 
-
+// Attention. Modifier le EK pour qu'il fonctionne avec du GraphCapacity(heritage)
 public class MaxFlowEdmondsKarp {
 	
-	protected GraphFlow network;
+	public GraphFlow network;
 	/*network's residual graph*/
-	protected GraphFlow residual;
+	public GraphFlow residual;
 	protected int source = -1;
 	protected int sink = -1;
 	protected int maxFlowValue = -1;
@@ -205,6 +205,12 @@ public class MaxFlowEdmondsKarp {
 		 }
 		 return flow;
       
+    }
+    
+    public MaxFlowEdmondsKarp clone() {
+    	MaxFlowEdmondsKarp image = new MaxFlowEdmondsKarp(this.network);
+    	
+    	return image;
     }
 
 }
